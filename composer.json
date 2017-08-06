@@ -1,0 +1,13 @@
+{
+    "require": {
+        "bramus/router": "~1.0",
+        "twig/twig": "~1.0",
+        "defuse/php-encryption": "2.0.3"
+    },
+    "autoload": {
+        "psr-4": {
+        	"App\\": "src",
+        	"Controller\\": "app/controllers"
+        }
+    }
+}
