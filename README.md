@@ -26,4 +26,7 @@ composer install
 Open the file ```/web/installation.php``` on your browser and enter database and admin user informations.
 
 ### Step 3
-[...]
+Allow DaiymoCMS to write in ```uploads``` folder
+~~~
+$ chmod -R 777 public/uploads
+~~~
