@@ -1,6 +1,6 @@
 <?php
 
-$app->before('GET', '/.*', function() use ($app) {
+$app->before('GET|POST', '/.*', function() use ($app) {
 	/* Configuration and twig globals */
 
 	//$config = $app->getModule('JSON/Json')->getFile('config.json');
