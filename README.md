@@ -17,9 +17,9 @@ Open-source PHP CMS based on the micro framework [Daimyo](https://github.com/Sun
 # Installation (coming soon)
 
 ### Step 1
-~~~
-git clone https://github.com/SundownDEV/DaimyoCMS.git
-composer install
+~~~ bash
+$ git clone https://github.com/SundownDEV/DaimyoCMS.git
+$ composer install
 ~~~
 
 ### Step 2
@@ -27,6 +27,6 @@ Open the file ```/web/installation.php``` on your browser and enter database and
 
 ### Step 3
 Allow DaiymoCMS to write in ```uploads``` folder
-~~~
+~~~ bash
 $ chmod -R 777 public/uploads
 ~~~
