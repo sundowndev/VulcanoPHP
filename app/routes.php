@@ -2,22 +2,25 @@
 
 $app->before('GET|POST', '/.*', function() use ($app) {
 	/* Configuration and twig globals */
-
-	//$config = $app->getModule('JSON/Json')->getFile('config.json');
+	// $config = $app->getModule('JSON/Json')->getFile('config.json');
+	$path = dirname($_SERVER['REDIRECT_URL']);
 
     $app->getTwig()->addGlobal('site', array(
-    	'name' => "Daimyo",
-    	'description' => "abc",
-    	'tags' => "abc"
+    	'name' => "DaimyoCMS",
+    	'description' => "Welcome to DaimyoCMS !",
+    	'tags' => "daimyo,cms"
     ));
 
     $app->getTwig()->addGlobal('path', array(
-		'home' => '/',
-		'articles' => '/news',
-		'contact' => '/contact',
+		'home' => $path.'/',
+		'blog' => $path.'/blog',
+		'about' => $path.'/about',
+		'contact' => $path.'/contact',
 		/*...*/
-		'assets' => '/assets',
-		'images' => '/assets/images'
+		'user' => $path.'/user',
+		'category' => $path.'/category',
+		'assets' => $path.'/assets',
+		'images' => $path.'/assets/images'
 	));
 
     /* Adding admin twig views path */
@@ -25,16 +28,28 @@ $app->before('GET|POST', '/.*', function() use ($app) {
 });
 
 $app->get('/', function () use ($app) {
-	$app->render(['views' => 'home'], ['title' => 'Welcome']);
+	$app->render(['src' => 'home', 'views' => 'home'], ['title' => 'Welcome']);
 });
+
+/* PHPINFO */
+$app->get('/php', function () use ($app) {
+	$path = dirname($_SERVER['REDIRECT_URL']);
+	phpinfo();
+});
+/* PHPINFO */
 
 $app->get('/search', function () use ($app) {
 	$app->render(['src' => 'search', 'views' => 'search'], ['title' => 'Search']);
 });
 
-/* Articles list */
-$app->get('/news', function () use ($app) {
-	$app->render(['views' => 'news'], ['title' => 'News']);
+/* Blog page */
+$app->get('/blog', function () use ($app) {
+	$app->render(['src' => 'blog', 'views' => 'blog'], ['title' => 'Blog']);
+});
+
+/* About page */
+$app->get('/about', function () use ($app) {
+	$app->render(['views' => 'about'], ['title' => 'About']);
 });
 
 /* Single article */
