@@ -58,11 +58,7 @@ $app->get('/user/([a-z0-9_-]+)', function () use ($app) {
 });
 
 /* Contact page */
-$app->get('/contact', function () use ($app) {
-	$app->render(['src' => 'contact','views' => 'contact'], ['title' => 'Me contacter']);
-});
-
-$app->post('/contact', function () use ($app) {
+$app->match('GET|POST','/contact', function () use ($app) {
 	$app->render(['src' => 'contact','views' => 'contact'], ['title' => 'Me contacter']);
 });
 
@@ -71,6 +67,7 @@ $app->mount('/admin', function () use ($app) {
 	$app->router('admin'); // include admin routes
 });
 
+/* 404 error page */
 $app->set404(function () use ($app) {
 	$app->render(['views' => '404'], ['title' => 'Page not found']);
 });

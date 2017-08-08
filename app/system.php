@@ -54,7 +54,7 @@ Class Application
 	{
 		$this->debug = $debug;
 
-		$this->webroot = dirname(dirname($_SERVER['SCRIPT_FILENAME']));
+		$this->webroot = dirname($_SERVER['SCRIPT_FILENAME']);
 		$this->domain = $this->webroot.'/public';
 		$this->app = $this->webroot.'/app/';
 		$this->models = $this->app.'models/';
@@ -155,7 +155,7 @@ Class Application
      * @param $fn 			The route function
      */
 	public function match($method, $pattern, $fn){
-		$this->router->post($method, $pattern, $fn);
+		$this->router->match($method, $pattern, $fn);
 	}
 
 	/**
