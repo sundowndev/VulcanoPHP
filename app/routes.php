@@ -19,8 +19,10 @@ $app->before('GET|POST', '/.*', function() use ($app) {
 		/*...*/
 		'user' => $path.'/user',
 		'category' => $path.'/category',
-		'assets' => $path.'/assets',
-		'images' => $path.'/assets/images'
+		/*...*/
+		'content' => $path.'/content',
+		'themes' => $path.'/content/themes',
+		'uploads' => $path.'/content/uploads'
 	));
 
     /* Adding admin twig views path */
