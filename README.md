@@ -1,5 +1,5 @@
 # DaimyoCMS
-Open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.0.4 dev```
+Open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.0.5 dev```
 
 ## Features
 * Administration panel with multiple users

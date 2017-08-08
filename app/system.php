@@ -43,9 +43,12 @@ Class Application
 	public $domain;
 	public $webroot;
 	public $app;
+	public $config;
+	public $resources;
+	public $controllers;
 	public $models;
-	public $src;
 	public $views;
+	public $src;
 
 	/**
      * Constructor
@@ -55,11 +58,13 @@ Class Application
 		$this->debug = $debug;
 
 		$this->webroot = dirname($_SERVER['SCRIPT_FILENAME']);
-		$this->domain = $this->webroot.'/public';
+		$this->domain = $this->webroot;
 		$this->app = $this->webroot.'/app/';
-		$this->models = $this->app.'models/';
+		$this->config = $this->webroot.'/app/config';
+		$this->resources = $this->webroot.'/app/Resources/';
+		$this->models = $this->resources.'models/';
+		$this->views = $this->resources.'views/';
 		$this->src = $this->webroot.'/src/';
-		$this->views = $this->app.'views/';
 
 		$this->router = new Router();
 
@@ -253,11 +258,11 @@ Class Application
 
 	/**
      * Load router function
-     * Folder /app/routers/*.php
+     * Folder /app/Resources/routers/*.php
      */
 	public function router(string $file){
 		$app = $this;
-		require_once($this->app.'routers/'.$file.'.php');
+		require_once($this->resources.'routers/'.$file.'.php');
 	}
 
 	/**
