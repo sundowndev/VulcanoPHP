@@ -38,8 +38,16 @@
       </div>
     </div>
 
-    {% block body %}
+    <div class="container">
+      <div class="row">
+
+      	{% block body %}
 		{% endblock %}
+
+		{% include 'sidebar.html.twig' %}
+
+      </div><!-- /.row -->
+    </div><!-- /.container -->
 
     <footer class="blog-footer">
       <p>Powered by <a href="https://github.com/SundownDEV/DaimyoCMS">DaimyoCMS</a>.</p>

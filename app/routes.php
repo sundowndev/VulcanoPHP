@@ -12,14 +12,16 @@ $app->before('GET|POST', '/.*', function() use ($app) {
     ));
 
     $app->getTwig()->addGlobal('path', array(
+    	'root' => $path,
+    	/* Pages */
 		'home' => $path.'/',
 		'blog' => $path.'/blog',
 		'about' => $path.'/about',
 		'contact' => $path.'/contact',
-		/*...*/
+		/* Routes */
 		'user' => $path.'/user',
 		'category' => $path.'/category',
-		/*...*/
+		/* Folders */
 		'content' => $path.'/content',
 		'themes' => $path.'/content/themes',
 		'uploads' => $path.'/content/uploads'
