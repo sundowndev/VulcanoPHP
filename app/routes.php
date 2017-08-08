@@ -35,13 +35,6 @@ $app->get('/', function () use ($app) {
 	$app->render(['src' => 'home', 'views' => 'home/home'], ['title' => 'Welcome']);
 });
 
-/* PHPINFO */
-$app->get('/php', function () use ($app) {
-	$path = dirname($_SERVER['REDIRECT_URL']);
-	phpinfo();
-});
-/* PHPINFO */
-
 $app->get('/search', function () use ($app) {
 	$app->render(['src' => 'search', 'views' => 'search'], ['title' => 'Search']);
 });
