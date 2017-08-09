@@ -2,10 +2,10 @@
 Open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.0.5 dev|non-stable```
 
 ## Features
-* Administration panel with multiple users
-* Manage content such as users, articles, and categories
+* Administration panel
+* Manage content such as users, articles and categories
 * Manage image and file upload locally or with APIs like Imgur or AnonUpload
-* Contact form for your visitors
+* Form validator
 * Powered by MySQL
 * Very easy to custom
 
