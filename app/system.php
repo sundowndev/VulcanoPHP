@@ -270,7 +270,6 @@ Class Application
      * Folder /src/*.php
      */
 	public function load(string $file){
-		$app = $this;
 		require_once($this->models.$file.'.php');
 	}
 
