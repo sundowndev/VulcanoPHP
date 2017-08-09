@@ -1,2 +1,2 @@
 vendor/
-app/db.json
+app/config/db.json
