@@ -261,7 +261,6 @@ Class Application
      * Folder /app/Resources/routers/*.php
      */
 	public function router(string $file){
-		$app = $this;
 		require_once($this->resources.'routers/'.$file.'.php');
 	}
 
