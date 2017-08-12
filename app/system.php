@@ -261,6 +261,7 @@ Class Application
      * Folder /app/Resources/routers/*.php
      */
 	public function router(string $file){
+		$app = $this;
 		require_once($this->resources.'routers/'.$file.'.php');
 	}
 
@@ -269,6 +270,7 @@ Class Application
      * Folder /src/*.php
      */
 	public function load(string $file){
+		$app = $this;
 		require_once($this->models.$file.'.php');
 	}
 
