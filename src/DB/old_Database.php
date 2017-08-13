@@ -5,14 +5,15 @@ class Database
 {
     private static $connect = null;
     private $db;
+    private $dbDns;
 
-    private $dbDns = [
-      'host' => '127.0.0.1',
-      'dbname' => '',
-      'user' => 'root',
-      'password' => '',
-      'charset' => 'utf8'
-    ];
+    public static function getInstance() {
+        if(is_null(self::$connect)) {
+            self::$connect = new Database(); 
+        }
+        
+        return self::$connect;
+    }
 
     /**
      * Constructor
@@ -30,18 +31,34 @@ class Database
         }
     }
 
-    public static function getInstance() {
-        if(is_null(self::$connect)) {
-            self::$connect = new Database(); 
-        }
-        
-        return self::$connect;
+    private function __clone() {}
+
+    /**
+     * Close the connection
+     */
+    public function __destruct() {
+      $this->closeConnection();
     }
 
-    public function prepareRequete($sql, $tab, $one = true){
-        $req = $this->db->prepare($sql);
-        $req->execute($tab);
+    public function setDbDns(string $host, string $dbname, string $user, string $password = '', string $charset){
+      $dbDns = [
+        'host' => $host,
+        'dbname' => $dbname,
+        'user' => $user,
+        'password' => $password,
+        'charset' => $charset
+      ];
+    }
 
+    public function prepare($sql, $tab, $one = true){
+        $req = $this->db->prepare($sql);
+    }
+
+    public function execute($tab){
+        $req->execute($tab);
+    }
+
+    public function fetch($one = true){
         if ($one) {
             $datas = $req->fetch();
         }else{
@@ -51,13 +68,6 @@ class Database
         return $datas;
     }
 
-    public function executeRequete($sql, $tab){
-        $req = $this->db->prepare($sql);
-        $req->execute($tab);
-
-        return true;
-    }
-
     public function get_last_id($table){
         /* 
          *  This require high right level on the database
@@ -65,11 +75,12 @@ class Database
          *  return $req['Auto_increment'];
         */
 
+        // or use this but you'll need to insert before
         $last_id = $this->db->lastInsertId();
         return $last_id;
     } 
 
-    public function closeConnexion(){
+    public function closeConnection(){
       if (!is_null(self::$_instance)) {
         $this->db = null;
       }
