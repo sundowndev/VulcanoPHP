@@ -247,8 +247,8 @@ Class Application
 		# Add a template path
 		# $this->getTwigLoader()->addPath('/admin', 'admin');
 
-		if (!empty($template['src'])) {
-			$this->load($template['src']);
+		if (!empty($template['models'])) {
+			$this->load($template['models']);
 		}
 
 		if (!empty($template['views'])) {
