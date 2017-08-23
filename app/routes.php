@@ -32,16 +32,16 @@ $app->before('GET|POST', '/.*', function() use ($app) {
 });
 
 $app->get('/', function () use ($app) {
-	$app->render(['src' => 'home', 'views' => 'home/home'], ['title' => 'Welcome']);
+	$app->render(['models' => 'home', 'views' => 'home/home'], ['title' => 'Welcome']);
 });
 
 $app->get('/search', function () use ($app) {
-	$app->render(['src' => 'search', 'views' => 'search'], ['title' => 'Search']);
+	$app->render(['models' => 'search', 'views' => 'search'], ['title' => 'Search']);
 });
 
 /* Blog page */
 $app->get('/blog', function () use ($app) {
-	$app->render(['src' => 'blog', 'views' => 'blog/blog'], ['title' => 'Blog']);
+	$app->render(['models' => 'blog', 'views' => 'blog/blog'], ['title' => 'Blog']);
 });
 
 /* About page */
@@ -71,7 +71,7 @@ $app->get('/user/([a-z0-9_-]+)', function () use ($app) {
 
 /* Contact page */
 $app->match('GET|POST','/contact', function () use ($app) {
-	$app->render(['src' => 'contact','views' => 'contact/contact'], ['title' => 'Me contacter']);
+	$app->render(['models' => 'contact','views' => 'contact/contact'], ['title' => 'Me contacter']);
 });
 
 /* Including admin routes */
