@@ -1,7 +1,8 @@
-{
-  "host":"127.0.0.1",
-  "dbname":"",
-  "user":"root",
-  "password":"",
-  "charset":"utf8"
-}
+; database config file
+
+[dbDns]
+host = "127.0.0.1"
+dbname = ""
+user = "root"
+password = ""
+charset = "utf8"
