@@ -5,7 +5,7 @@
  * https://gist.github.com/danferth/9512172
  */
 
-class db{
+class Database{
   private $host = DB_HOST;
   private $dbName = DB_NAME;
   private $user = DB_USER;
