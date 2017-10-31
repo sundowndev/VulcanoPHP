@@ -43,12 +43,13 @@ Class Application
 	public $domain;
 	public $webroot;
 	public $app;
-	public $config;
+	public $config_path;
 	public $resources;
 	public $controllers;
 	public $models;
 	public $views;
 	public $src;
+	public $config
 
 	/**
      * Constructor
@@ -60,7 +61,7 @@ Class Application
 		$this->webroot = dirname($_SERVER['SCRIPT_FILENAME']);
 		$this->domain = $this->webroot;
 		$this->app = $this->webroot.'/app/';
-		$this->config = $this->webroot.'/app/config';
+		$this->config_path = $this->webroot.'/app/config';
 		$this->resources = $this->webroot.'/app/Resources/';
 		$this->models = $this->resources.'models/';
 		$this->views = $this->resources.'views/';
@@ -83,6 +84,8 @@ Class Application
 			ini_set('display_startup_errors', 0);
 			error_reporting(E_ALL);
 		}
+		
+		$this->config = parse_ini_file($this->config_path.'config.ini', true);
 	}
 
 	private function __clone() {}
