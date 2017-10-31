@@ -2,8 +2,8 @@
 
 $app->before('GET|POST', '/.*', function() use ($app) {
 	/* Configuration and twig globals */
-	// $config = $app->getModule('JSON/Json')->getFile('config.json');
-	$path = dirname($_SERVER['REDIRECT_URL']);
+	// $config = $app->getModule('ini/ini')->getFile('config.ini');
+	$path = ''; // $config['site.path'];
 
     $app->getTwig()->addGlobal('site', array(
     	'name' => "DaimyoCMS",
@@ -12,15 +12,19 @@ $app->before('GET|POST', '/.*', function() use ($app) {
     ));
 
     $app->getTwig()->addGlobal('path', array(
-    	'root' => $path,
+    	/* Const */
+    	'domain' => $path,
+
     	/* Pages */
 		'home' => $path.'/',
 		'blog' => $path.'/blog',
 		'about' => $path.'/about',
 		'contact' => $path.'/contact',
+
 		/* Routes */
 		'user' => $path.'/user',
 		'category' => $path.'/category',
+
 		/* Folders */
 		'content' => $path.'/content',
 		'themes' => $path.'/content/themes',
@@ -29,6 +33,11 @@ $app->before('GET|POST', '/.*', function() use ($app) {
 
     /* Adding admin twig views path */
     $app->getTwigLoader()->addPath($app->views.'admin/', 'admin');
+});
+
+$app->get('/php', function () use ($app) {
+	var_dump($_GET);
+	phpinfo();
 });
 
 $app->get('/', function () use ($app) {

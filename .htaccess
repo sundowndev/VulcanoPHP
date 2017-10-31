@@ -4,7 +4,7 @@
     Options -Indexes
 
     # set rewrite base here
-    ErrorDocument 403 /DaimyoCMS/404
+    ErrorDocument 403 /404
 
     <Files ~ "\.ini|\.json|\.lock|\.gitignore|\.txt|\.md|\.xml$">
 	  Order allow,deny
