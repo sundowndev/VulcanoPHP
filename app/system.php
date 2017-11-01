@@ -1,6 +1,6 @@
 <?php
 /**
- * @author      Raphaël Cerveaux <sundown@devbreak.fr>
+ * @author      Raphaël Cerveaux <raphael@crvx.fr>
  * @copyright   Copyright (c), 2016 Raphaël Cerveaux
  * @license     MIT public license
  */
@@ -9,6 +9,7 @@ namespace App;
 
 use \Bramus\Router\Router as Router;
 use \App\DB\Database as Database;
+use \App\Secure\Secure as Secure;
 
 /**
  * Class App
@@ -49,7 +50,9 @@ Class Application
 	public $models;
 	public $views;
 	public $src;
-	public $config
+	public $config;
+    
+    private $private_key;
 
 	/**
      * Constructor
@@ -66,10 +69,14 @@ Class Application
 		$this->models = $this->resources.'models/';
 		$this->views = $this->resources.'views/';
 		$this->src = $this->webroot.'/src/';
+        
+        $this->config = parse_ini_file($this->config_path.'/config.ini', true);
 
 		$this->router = new Router();
 
-		$this->db = new Database();
+		$this->db = new Database($this->config['dbDns']['host'], $this->config['dbDns']['dbname'], $this->config['dbDns']['user'], $this->config['dbDns']['pass']);
+        
+        $this->private_key = $this->config['framework']['private_key'];
 
 		\Twig_Autoloader::register();
 		$this->twigLoader = new \Twig_Loader_Filesystem($this->views);
@@ -84,8 +91,6 @@ Class Application
 			ini_set('display_startup_errors', 0);
 			error_reporting(E_ALL);
 		}
-		
-		$this->config = parse_ini_file($this->config_path.'config.ini', true);
 	}
 
 	private function __clone() {}

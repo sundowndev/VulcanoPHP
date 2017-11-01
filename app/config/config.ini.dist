@@ -3,21 +3,20 @@
 [general]
 site_name = "DaimyoCMS"
 description = "My new CMS!"
-tags = "test2"
+tags = ""
 thumbnail = ""
 
 [framework]
 path = ""
 URL = "http://www.example.com/"
-private_key = ""
 
 ; database config file
 
 [dbDns]
 host = "127.0.0.1"
-dbname = "c1daimyocms"
-user = "c1sundown"
-pass = "iyGPj!35"
+dbname = "daimyocms"
+user = "root"
+pass = ""
 charset = "utf8"
 
 [paths]

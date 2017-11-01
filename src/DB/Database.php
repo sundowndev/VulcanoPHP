@@ -5,28 +5,25 @@
  * https://gist.github.com/danferth/9512172
  */
 
-class Database{
-  private $host = DB_HOST;
-  private $dbName = DB_NAME;
-  private $user = DB_USER;
-  private $pass = DB_PASS;
-  
+namespace App\DB;
+
+class Database {
   private $dbh;
   private $error;
   private $qError;
   
   private $stmt;
   
-  public function __construct(){
+  public function __construct($host, $dbName, $user, $pass){
       //dsn for mysql
-    $dsn = "mysql:host=".$this->host.";dbname=".$this->dbName;
+    $dsn = "mysql:host=".$host.";dbname=".$dbName;
     $options = array(
-        PDO::ATTR_PERSISTENT    => true,
-        PDO::ATTR_ERRMODE       => PDO::ERRMODE_EXCEPTION
+        \PDO::ATTR_PERSISTENT    => true,
+        \PDO::ATTR_ERRMODE       => \PDO::ERRMODE_EXCEPTION
         );
     
     try{
-        $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
+        $this->dbh = new \PDO($dsn, $user, $pass, $options);
     }
     //catch any errors
     catch (PDOException $e){

@@ -4,29 +4,28 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d88cec8590d46e667aead179a94c7b3e",
-    "content-hash": "d9fea4e02ad1c9135f622be984e19b28",
+    "content-hash": "ed43d3acf3c5752905aea80913175701",
     "packages": [
         {
             "name": "bramus/router",
-            "version": "1.1",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bramus/router.git",
-                "reference": "7fcdede2846b59f4e812833032e579b1705ea375"
+                "reference": "9ab4862f7dc89874b1810611bedf3940eaeda5fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bramus/router/zipball/7fcdede2846b59f4e812833032e579b1705ea375",
-                "reference": "7fcdede2846b59f4e812833032e579b1705ea375",
+                "url": "https://api.github.com/repos/bramus/router/zipball/9ab4862f7dc89874b1810611bedf3940eaeda5fa",
+                "reference": "9ab4862f7dc89874b1810611bedf3940eaeda5fa",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "phpunit/php-code-coverage": "~1.2",
-                "phpunit/phpunit": "~3.7"
+                "phpunit/php-code-coverage": "^2.1.0",
+                "phpunit/phpunit": "4.8.*"
             },
             "type": "library",
             "autoload": {
@@ -51,7 +50,7 @@
                 "router",
                 "routing"
             ],
-            "time": "2016-05-26 19:40:20"
+            "time": "2017-10-06T21:47:11+00:00"
         },
         {
             "name": "defuse/php-encryption",
@@ -110,20 +109,20 @@
                 "security",
                 "symmetric key cryptography"
             ],
-            "time": "2016-10-10 15:20:26"
+            "time": "2016-10-10T15:20:26+00:00"
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.4",
+            "version": "v2.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e"
+                "reference": "5da4d3c796c275c55f057af5a643ae297d96b4d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e",
-                "reference": "a9b97968bcde1c4de2a5ec6cbd06a0f6c919b46e",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/5da4d3c796c275c55f057af5a643ae297d96b4d8",
+                "reference": "5da4d3c796c275c55f057af5a643ae297d96b4d8",
                 "shasum": ""
             },
             "require": {
@@ -158,38 +157,42 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-11-07 23:38:38"
+            "time": "2017-09-27T21:40:39+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v1.29.0",
+            "version": "v1.35.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "74f723e542368ca2080b252740be5f1113ebb898"
+                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/74f723e542368ca2080b252740be5f1113ebb898",
-                "reference": "74f723e542368ca2080b252740be5f1113ebb898",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/daa657073e55b0a78cce8fdd22682fddecc6385f",
+                "reference": "daa657073e55b0a78cce8fdd22682fddecc6385f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.7"
+                "php": ">=5.3.3"
             },
             "require-dev": {
+                "psr/container": "^1.0",
                 "symfony/debug": "~2.7",
-                "symfony/phpunit-bridge": "~3.2@dev"
+                "symfony/phpunit-bridge": "~3.3@dev"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.29-dev"
+                    "dev-master": "1.35-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
                     "Twig_": "lib/"
+                },
+                "psr-4": {
+                    "Twig\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -219,7 +222,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-12-13 17:28:18"
+            "time": "2017-09-27T18:06:46+00:00"
         }
     ],
     "packages-dev": [],
