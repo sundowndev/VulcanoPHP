@@ -41,5 +41,28 @@ charset = "utf8"
 ## Step 4
 Allow DaiymoCMS to write in ```uploads``` folder
 ~~~ bash
-$ chmod -R 777 public/uploads
+$ chmod -R 777 content/uploads
 ~~~
+
+## Step 5
+#### Go to ```/admin``` and sign in with the default login:
+
+~~~
+login: admin
+pass: sW5Yd1aPlmN
+~~~
+
+#### then go to ```settings``` and change the default password.
+
+# Your DaimyoCMS is now setup and ready!
+See the [admin documentation](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/AdminPanel.md) to get started with the dashboard.
+
+# protips
+#### If you're not using the default root path ```path = "/"``` then make sure to change it in the ```.htaccess``
+
+~~~
+# Set rewrite base here
+ErrorDocument 403 /daimyo/404
+~~~
+
+This will prevent people getting 403 error instead of 404 when trying to access to a forbiden file.

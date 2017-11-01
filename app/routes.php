@@ -1,8 +1,5 @@
 <?php
 
-use Defuse\Crypto\Key;
-use Defuse\Crypto\Crypto;
-
 $app->before('GET|POST', '/.*', function() use ($app) {
 	/* twig globals */
 	$path = $app->config['framework']['path'];
