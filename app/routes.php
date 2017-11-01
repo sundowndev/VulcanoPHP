@@ -32,51 +32,51 @@ $app->before('GET|POST', '/.*', function() use ($app) {
     //$app->getModule('Secure\Secure')->testEmptyString();
 });
 
-$app->get('/', function () use ($app) {
+$app->get( $app->config['paths']['home'] , function () use ($app) {
 	$app->render(['models' => 'home', 'views' => 'home/home'], ['title' => 'Welcome']);
 });
 
-$app->get('/search', function () use ($app) {
+$app->get( $app->config['paths']['search'] , function () use ($app) {
 	$app->render(['models' => 'search', 'views' => 'search'], ['title' => 'Search']);
 });
 
 /* Blog page */
-$app->get('/blog', function () use ($app) {
+$app->get( $app->config['paths']['blog'] , function () use ($app) {
 	$app->render(['models' => 'blog', 'views' => 'blog/blog'], ['title' => 'Blog']);
 });
 
 /* About page */
-$app->get('/about', function () use ($app) {
+$app->get( $app->config['paths']['about'] , function () use ($app) {
 	$app->render(['views' => 'about/about'], ['title' => 'About']);
 });
 
 /* Single article */
-$app->get('/article/([a-z0-9_-]+)', function () use ($app) {
+$app->get( $app->config['paths']['article'] , function () use ($app) {
 	$app->render(['views' => 'articles/single_article'], ['title' => '']);
 });
 
 /* Categories */
-$app->get('/categories', function () use ($app) {
+$app->get( $app->config['paths']['categories'] , function () use ($app) {
 	$app->render(['views' => 'categories/categories'], ['title' => 'Categories']);
 });
 
 /* Single category */
-$app->get('/category/([a-z0-9_-]+)', function () use ($app) {
+$app->get( $app->config['paths']['category'] , function () use ($app) {
 	$app->render(['views' => 'categories/single_category'], ['title' => '']);
 });
 
 /* Single user */
-$app->get('/user/([a-z0-9_-]+)', function () use ($app) {
+$app->get( $app->config['paths']['user'] , function () use ($app) {
 	$app->render(['views' => 'users/single_user'], ['title' => '']);
 });
 
 /* Contact page */
-$app->match('GET|POST','/contact', function () use ($app) {
+$app->match('GET|POST', $app->config['paths']['contact'] , function () use ($app) {
 	$app->render(['models' => 'contact','views' => 'contact/contact'], ['title' => 'Me contacter']);
 });
 
 /* Including admin routes */
-$app->mount('/admin', function () use ($app) {
+$app->mount( $app->config['paths']['admin'] , function () use ($app) {
 	$app->router('admin'); // include admin routes
 });
 
