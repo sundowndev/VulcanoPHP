@@ -14,4 +14,7 @@ Open-source PHP CMS based on the micro framework [Daimyo](https://github.com/Sun
 * MySQL 5+
 * Composer ~1.0
 
-# [Getting started](https://github.com/SundownDEV/Daimyo)
+# Documentation
+## [Getting started](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/GetStarted.md)
+## [Templating](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/PDOClass.md)
+## [Exploited PDO Class](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/PDOClass.md)
