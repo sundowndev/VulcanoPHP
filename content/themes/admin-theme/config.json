@@ -1,0 +1,10 @@
+{
+    "name": "Admin default template",
+    "slug": "/admin",
+    "author": "SundownDEV",
+    "version": "1.0.0",
+    "apiID": 1,
+    "slider": false,
+    "configurations": {},
+    "supported": {}
+}
