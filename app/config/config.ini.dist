@@ -7,9 +7,11 @@ tags = ""
 thumbnail = ""
 
 [framework]
-path = ""
+; your site domain, do not include subfolder!
 URL = "http://www.example.com/"
-private_key = ""
+; e.g: "/daimyocms" if your index.php is in the folder daimyocms
+path = ""
+private_key = "8f096599520b9c46f10387aa6752a8f9d51ec23d5d9d6e6358a573a0154b4989"
 
 ; database config file
 

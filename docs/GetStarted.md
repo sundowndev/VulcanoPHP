@@ -58,7 +58,7 @@ pass: sW5Yd1aPlmN
 See the [admin documentation](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/AdminPanel.md) to get started with the dashboard.
 
 # protips
-#### If you're not using the default root path ```path = "/"``` then make sure to change it in the ```.htaccess``
+#### If you're not using the default root path ```path = "/"``` then make sure to change it in the ```.htaccess```
 
 ~~~
 # Set rewrite base here

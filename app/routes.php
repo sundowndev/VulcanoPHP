@@ -1,33 +1,6 @@
 <?php
 
-$app->before('GET|POST', '/.*', function() use ($app) {
-	/* twig globals */
-	$path = $app->config['framework']['path'];
-
-    $app->getTwig()->addGlobal('site', array(
-    	'name' => $app->config['general']['site_name'],
-    	'description' => $app->config['general']['description'],
-    	'tags' => $app->config['general']['tags']
-    ));
-
-    $app->getTwig()->addGlobal('path', array(
-    	'root' => $path,
-		'home' => $path.$app->config['paths']['home'],
-		'blog' => $path.$app->config['paths']['blog'],
-		'about' => $path.$app->config['paths']['about'],
-		'contact' => $path.$app->config['paths']['contact'],
-		'user' => $path.$app->config['paths']['user'],
-		'category' => $path.$app->config['paths']['category'],
-		'content' => $path.$app->config['paths']['content'],
-		'themes' => $path.$app->config['paths']['themes'],
-		'uploads' => $path.$app->config['paths']['uploads']
-	));
-
-    /* Adding admin twig views path */
-    $app->getTwigLoader()->addPath($app->views.'admin/', 'admin');
-    
-    //$app->getModule('Secure\Secure')->testEmptyString();
-});
+include('config/init.php');
 
 $app->get( $app->config['paths']['home'] , function () use ($app) {
 	$app->render(['models' => 'home', 'views' => 'home/home'], ['title' => 'Welcome']);

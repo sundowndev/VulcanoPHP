@@ -1,13 +1,18 @@
 <?php
 
 /*
- * Database class by github.com/danferth
+ * Original database class by github.com/danferth
  * https://gist.github.com/danferth/9512172
  */
 
 namespace App\DB;
 
 class Database {
+  private $host;
+  private $dbName;
+  private $user;
+  private $pass;
+        
   private $dbh;
   private $error;
   private $qError;
@@ -15,21 +20,30 @@ class Database {
   private $stmt;
   
   public function __construct($host, $dbName, $user, $pass){
-      //dsn for mysql
-    $dsn = "mysql:host=".$host.";dbname=".$dbName;
+    $this->setDbDns($host, $dbName, $user, $pass);
+      
+    //dsn for mysql
+    $dsn = "mysql:host=".$this->host.";dbname=".$this->dbName;
     $options = array(
         \PDO::ATTR_PERSISTENT    => true,
         \PDO::ATTR_ERRMODE       => \PDO::ERRMODE_EXCEPTION
         );
     
     try{
-        $this->dbh = new \PDO($dsn, $user, $pass, $options);
+        $this->dbh = new \PDO($dsn, $this->user, $this->pass, $options);
     }
     //catch any errors
     catch (PDOException $e){
         $this->error = $e->getMessage();
     }
     
+  }
+    
+  public function setDbDns($host, $dbName, $user, $pass){
+      $this->host = $host;
+      $this->dbName = $dbName;
+      $this->user = $user;
+      $this->pass = $pass;
   }
   
   public function query($query){
@@ -40,16 +54,16 @@ class Database {
       if(is_null($type)){
           switch (true){
               case is_int($value):
-                $type = PDO::PARAM_INT;
+                $type = \PDO::PARAM_INT;
                 break;
               case is_bool($value):
-                  $type = PDO::PARAM_BOOL;
+                  $type = \PDO::PARAM_BOOL;
                   break;
               case is_null($value):
-                  $type = PDO::PARAM_NULL;
+                  $type = \PDO::PARAM_NULL;
                   break;
               default:
-                  $type = PDO::PARAM_STR;
+                  $type = \PDO::PARAM_STR;
           }
       }
     $this->stmt->bindValue($param, $value, $type);
@@ -67,12 +81,12 @@ class Database {
   
   public function resultset(){
       $this->execute();
-      return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
   }
   
   public function single(){
       $this->execute();
-      return $this->stmt->fetch(PDO::FETCH_ASSOC);
+      return $this->stmt->fetch(\PDO::FETCH_ASSOC);
   }
   
   public function rowCount(){

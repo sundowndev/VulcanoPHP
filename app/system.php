@@ -9,12 +9,11 @@ namespace App;
 
 use \Bramus\Router\Router as Router;
 use \App\DB\Database as Database;
-use \App\Secure\Secure as Secure;
 
 /**
  * Class App
  */
-Class Application
+class Application
 {
 	/**
      * @var bool
@@ -41,8 +40,11 @@ Class Application
      */
 	private $twig;
 
-	public $domain;
+    /**
+     * public variables
+     */
 	public $webroot;
+    public $domain;
 	public $app;
 	public $config_path;
 	public $resources;
@@ -51,8 +53,6 @@ Class Application
 	public $views;
 	public $src;
 	public $config;
-    
-    private $private_key;
 
 	/**
      * Constructor
@@ -61,8 +61,8 @@ Class Application
 	{
 		$this->debug = $debug;
 
-		$this->webroot = dirname($_SERVER['SCRIPT_FILENAME']);
-		$this->domain = $this->webroot;
+		$this->webroot = str_replace('/index.php', '', $_SERVER['ORIG_PATH_TRANSLATED']);
+		$this->domain = str_replace('/index.php', '', $_SERVER['REDIRECT_URL']);
 		$this->app = $this->webroot.'/app/';
 		$this->config_path = $this->webroot.'/app/config';
 		$this->resources = $this->webroot.'/app/Resources/';
