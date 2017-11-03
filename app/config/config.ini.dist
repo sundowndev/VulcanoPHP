@@ -9,6 +9,7 @@ thumbnail = ""
 [framework]
 path = ""
 URL = "http://www.example.com/"
+private_key = ""
 
 ; database config file
 
@@ -35,5 +36,5 @@ article = "/article/([a-z0-9_-]+)"
 content = "/content"
 themes = "/content/themes"
 uploads = "/content/uploads"
-; admin panel
+; Admin panel
 admin = "/admin"
