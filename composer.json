@@ -2,7 +2,7 @@
     "require": {
         "bramus/router": "~1.0",
         "twig/twig": "~1.0",
-        "defuse/php-encryption": "2.0.3"
+        "ircmaxell/password-compat": "~1.0"
     },
     "autoload": {
         "psr-4": {
