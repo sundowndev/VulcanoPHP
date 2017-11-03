@@ -1,0 +1,10 @@
+{
+    "name": "DaimyoCMS default template",
+    "slug": "/",
+    "author": "SundownDEV",
+    "version": "1.0.0",
+    "apiID": 0,
+    "slider": false,
+    "configurations": {},
+    "supported": {}
+}
