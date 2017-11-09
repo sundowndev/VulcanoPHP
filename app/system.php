@@ -60,17 +60,26 @@ class Application
 	public function __construct(bool $debug = false)
 	{
 		$this->debug = $debug;
+        $this->config = parse_ini_file($this->config_path.'/config.ini', true);
+        
+        if($this->debug){
+            ini_set('display_errors', 1);
+			ini_set('display_startup_errors', 1);
+			error_reporting(E_ALL);
+		}else{
+			ini_set('display_errors', 0);
+			ini_set('display_startup_errors', 0);
+			error_reporting(E_ALL);
+		}
 
-		$this->webroot = str_replace('/index.php', '', $_SERVER['ORIG_PATH_TRANSLATED']);
-		$this->domain = str_replace('/index.php', '', $_SERVER['REDIRECT_URL']);
-		$this->app = $this->webroot.'/app/';
-		$this->config_path = $this->webroot.'/app/config';
-		$this->resources = $this->webroot.'/app/Resources/';
+		$this->webroot = str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']);
+		$this->domain = $this->config['framework']['path'];
+		$this->app = $this->webroot.'app/';
+		$this->config_path = $this->webroot.'app/config';
+		$this->resources = $this->webroot.'app/Resources/';
 		$this->models = $this->resources.'models/';
 		$this->views = $this->resources.'views/';
-		$this->src = $this->webroot.'/src/';
-        
-        $this->config = parse_ini_file($this->config_path.'/config.ini', true);
+		$this->src = $this->webroot.'src/';
 
 		$this->router = new Router();
 
@@ -81,16 +90,6 @@ class Application
 		\Twig_Autoloader::register();
 		$this->twigLoader = new \Twig_Loader_Filesystem($this->views);
 		$this->twig = new \Twig_Environment($this->twigLoader, array('debug' => $this->debug));
-
-		if($this->debug){
-            ini_set('display_errors', 1);
-			ini_set('display_startup_errors', 1);
-			error_reporting(E_ALL);
-		}else{
-			ini_set('display_errors', 0);
-			ini_set('display_startup_errors', 0);
-			error_reporting(E_ALL);
-		}
 	}
 
 	private function __clone() {}
