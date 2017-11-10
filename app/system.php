@@ -59,8 +59,10 @@ class Application
      */
 	public function __construct (bool $debug = false)
 	{
+        // Initializing debug value
 		$this->debug = $debug;
         
+        // Enabling up PHP errors in development env
         if ($this->debug):
             ini_set('display_errors', 1);
 			ini_set('display_startup_errors', 1);
@@ -71,6 +73,7 @@ class Application
 			error_reporting(E_ALL);
         endif;
 		
+        // Router instance
         $this->webroot = str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']);
 		$this->app = $this->webroot.'app/';
 		$this->config_path = $this->webroot.'app/config';
@@ -80,13 +83,18 @@ class Application
 		$this->src = $this->webroot.'src/';
         $this->config = parse_ini_file($this->config_path.'/config.ini', true);
 		$this->domain = $this->config['framework']['path'];
-
-		$this->router = new Router();
-
-		$this->db = new Database($this->config['dbDns']['host'], $this->config['dbDns']['dbname'], $this->config['dbDns']['user'], $this->config['dbDns']['pass']);
         
+        // Setting up application private key
+        // Private key is a sha256 string which allows you to hash passwords in a secure way
         $this->private_key = $this->config['framework']['private_key'];
 
+        // Router instance
+		$this->router = new Router();
+
+        // Database instance
+		$this->db = new Database($this->config['dbDns']['host'], $this->config['dbDns']['dbname'], $this->config['dbDns']['user'], $this->config['dbDns']['pass']);
+        
+        // TwigLoader and Twig instances
 		\Twig_Autoloader::register();
 		$this->twigLoader = new \Twig_Loader_Filesystem($this->views);
 		$this->twig = new \Twig_Environment($this->twigLoader, array('debug' => $this->debug));
