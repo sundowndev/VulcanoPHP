@@ -57,29 +57,29 @@ class Application
 	/**
      * Constructor
      */
-	public function __construct(bool $debug = false)
+	public function __construct (bool $debug = false)
 	{
 		$this->debug = $debug;
-        $this->config = parse_ini_file($this->config_path.'/config.ini', true);
         
-        if($this->debug){
+        if ($this->debug):
             ini_set('display_errors', 1);
 			ini_set('display_startup_errors', 1);
 			error_reporting(E_ALL);
-		}else{
+		else:
 			ini_set('display_errors', 0);
 			ini_set('display_startup_errors', 0);
 			error_reporting(E_ALL);
-		}
-
-		$this->webroot = str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']);
-		$this->domain = $this->config['framework']['path'];
+        endif;
+		
+        $this->webroot = str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']);
 		$this->app = $this->webroot.'app/';
 		$this->config_path = $this->webroot.'app/config';
 		$this->resources = $this->webroot.'app/Resources/';
 		$this->models = $this->resources.'models/';
 		$this->views = $this->resources.'views/';
 		$this->src = $this->webroot.'src/';
+        $this->config = parse_ini_file($this->config_path.'/config.ini', true);
+		$this->domain = $this->config['framework']['path'];
 
 		$this->router = new Router();
 
@@ -92,14 +92,14 @@ class Application
 		$this->twig = new \Twig_Environment($this->twigLoader, array('debug' => $this->debug));
 	}
 
-	private function __clone() {}
+	private function __clone () {}
 
-	public function __destruct(){}
+	public function __destruct () {}
 	
 	/**
      * Get module instance
      */
-	public function getModule(string $module){
+	public function getModule (string $module) {
 		$module = "\App\\".$module;
 		$_instance = new $module();
 		return $_instance;
@@ -108,35 +108,35 @@ class Application
 	/**
      * Get debug value
      */
-	public function getDebug(){
+	public function getDebug () {
 		return (bool) $this->debug;
 	}
 
 	/**
      * Get router instance
      */
-	public function getRouter(){
+	public function getRouter () {
 		return $this->router;
 	}
 
 	/**
      * Get database instance
      */
-	public function getDB(){
+	public function getDB () {
 		return $this->db;
 	}
 
 	/**
      * Get twig instance
      */
-	public function getTwig(){
+	public function getTwig () {
 		return $this->twig;
 	}
 
 	/**
      * Get twig loader instance
      */
-	public function getTwigLoader(){
+	public function getTwigLoader () {
 		return $this->twigLoader;
 	}
 
@@ -146,7 +146,7 @@ class Application
      * @param $method 		The request method
      * @param $fn 			The route function
      */
-	public function get($pattern, $fn){
+	public function get ($pattern, $fn) {
 		$this->router->get($pattern, $fn);
 	}
 
@@ -156,7 +156,7 @@ class Application
      * @param $method 		The request method
      * @param $fn 			The route function
      */
-	public function post($pattern, $fn){
+	public function post ($pattern, $fn) {
 		$this->router->post($pattern, $fn);
 	}
 
@@ -166,7 +166,7 @@ class Application
      * @param $method 		The request method
      * @param $fn 			The route function
      */
-	public function match($method, $pattern, $fn){
+	public function match ($method, $pattern, $fn) {
 		$this->router->match($method, $pattern, $fn);
 	}
 
@@ -176,7 +176,7 @@ class Application
      * @param $method 		The request method
      * @param $fn 			The route function
      */
-	public function mount($pattern, $fn){
+	public function mount ($pattern, $fn) {
 		$this->router->mount($pattern, $fn);
 	}
 
@@ -186,7 +186,7 @@ class Application
      * @param $method 		The request method
      * @param $fn 			The route function
      */
-	public function put($pattern, $fn){
+	public function put ($pattern, $fn) {
 		$this->router->put($pattern, $fn);
 	}
 
@@ -196,7 +196,7 @@ class Application
      * @param $method 		The request method
      * @param $fn 			The route function
      */
-	public function delete($pattern, $fn){
+	public function delete ($pattern, $fn) {
 		$this->router->delete($pattern, $fn);
 	}
 
@@ -206,7 +206,7 @@ class Application
      * @param $method 		The request method
      * @param $fn 			The route function
      */
-	public function options($pattern, $fn){
+	public function options ($pattern, $fn) {
 		$this->router->options($pattern, $fn);
 	}
 
@@ -216,7 +216,7 @@ class Application
      * @param $method 		The request method
      * @param $fn 			The route function
      */
-	public function patch($pattern, $fn){
+	public function patch ($pattern, $fn) {
 		$this->router->patch($pattern, $fn);
 	}
 
@@ -226,7 +226,7 @@ class Application
      * @param $method 	The request method
      * @param $fn 		The route function
      */
-	public function before($method, $pattern, $fn){
+	public function before ($method, $pattern, $fn) {
 		$this->router->before($method, $pattern, $fn);
 	}
 
@@ -236,21 +236,21 @@ class Application
      * @param $method 		The request method
      * @param $fn 			The route function
      */
-	public function set404($fn){
+	public function set404 ($fn) {
 		$this->router->set404($fn);
 	}
 
 	/**
      * Run application function
      */
-	public function run($callback = null){
+	public function run ($callback = null) {
 		$this->router->run($callback);
 	}
 	
 	/**
      * Render template function using 
      */
-	public function render(array $template, array $args = []){
+	public function render (array $template, array $args = []) {
 		# Add a template path
 		# $this->getTwigLoader()->addPath('/admin', 'admin');
 
@@ -267,7 +267,7 @@ class Application
      * Load router function
      * Folder /app/Resources/routers/*.php
      */
-	public function router(string $file){
+	public function router (string $file) {
 		$app = $this;
 		require_once($this->resources.'routers/'.$file.'.php');
 	}
@@ -276,7 +276,7 @@ class Application
      * Load model function
      * Folder /src/*.php
      */
-	public function load(string $file){
+	public function load (string $file) {
 		$app = $this;
 		require_once($this->models.$file.'.php');
 	}
@@ -286,7 +286,7 @@ class Application
 	 *
 	 * @param $local	choose local redirection or external link
     */
-	public function redirect(string $path, bool $local = true){
+	public function redirect (string $path, bool $local = true) {
 		if ($local == true) {
 			header('Location:'.$this->domain.$path);
 		} else {

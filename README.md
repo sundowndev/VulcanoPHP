@@ -1,13 +1,12 @@
 # DaimyoCMS
-Open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.0.6 dev|non-stable```
+Open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.0.7 dev|non-stable```
 
 ## Features
 * Administration panel
 * Manage content such as users, articles and categories
-* Manage image and file upload locally or with APIs like Imgur or AnonUpload
-* Create your own templates using Twig
+* Manage image and file upload locally or with an external API
 * Easy to customize, add pages, plugins, templates and more
-* Secured by AES256bits encryption
+* Make templating using Twig
 
 ## Requirement
 * PHP 7+
