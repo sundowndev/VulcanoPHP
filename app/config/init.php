@@ -1,5 +1,16 @@
 <?php
 
+function removeRegex($path)
+{
+    $regex = strstr($path, '(');
+    
+    if(!empty($regex)){
+        $path = str_replace('/'.$regex, '', $path);
+    }
+    
+    return $path;
+}
+
 /* twig globals */
 $path = $app->config['framework']['path'];
 
@@ -11,15 +22,15 @@ $app->getTwig()->addGlobal('site', array(
 
 $app->getTwig()->addGlobal('path', array(
     'root' => $path,
-    'home' => $path.$app->config['paths']['home'],
-    'blog' => $path.$app->config['paths']['blog'],
-    'about' => $path.$app->config['paths']['about'],
-    'contact' => $path.$app->config['paths']['contact'],
-    'user' => $path.$app->config['paths']['user'],
-    'category' => $path.$app->config['paths']['category'],
-    'content' => $path.$app->config['paths']['content'],
-    'themes' => $path.$app->config['paths']['themes'],
-    'uploads' => $path.$app->config['paths']['uploads']
+    'home' => $path.removeRegex($app->config['paths']['home']),
+    'blog' => $path.removeRegex($app->config['paths']['blog']),
+    'about' => $path.removeRegex($app->config['paths']['about']),
+    'contact' => $path.removeRegex($app->config['paths']['contact']),
+    'user' => $path.removeRegex($app->config['paths']['user']),
+    'category' => $path.removeRegex($app->config['paths']['category']),
+    'content' => $path.removeRegex($app->config['paths']['content']),
+    'themes' => $path.removeRegex($app->config['paths']['themes']),
+    'uploads' => $path.removeRegex($app->config['paths']['uploads'])
 ));
 
 /* Adding admin twig views path */

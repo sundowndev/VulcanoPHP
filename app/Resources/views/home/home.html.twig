@@ -7,7 +7,7 @@
           {% for article in articles %}
               <div class="blog-post">
                 <h2 class="blog-post-title">{{ article.title }}</h2>
-                <p class="blog-post-meta">On {{ article.date|date("m/d/Y") }} at {{ article.date|date("h:s") }} by <a href="#">{{ article.author }}</a></p>
+                <p class="blog-post-meta">On {{ article.date|date("m/d/Y") }} at {{ article.date|date("h:s") }} by <a href="{{ paths.user }}/{{ article.author }}">{{ article.author }}</a></p>
 
                 {{ article.content }}
               </div>
