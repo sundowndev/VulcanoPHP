@@ -269,7 +269,12 @@ class Application
      */
 	public function router (string $file) {
 		$app = $this;
-		require_once($this->resources.'routers/'.$file.'.php');
+
+        if(file_exists($this->resources.'routers/'.$file.'.php')){
+            require_once($this->resources.'routers/'.$file.'.php');
+        }else{
+            exit('Router file '.$this->resources.'routers/'.$file.'.php doesn\'t exist.');
+        }
 	}
 
 	/**
@@ -278,7 +283,12 @@ class Application
      */
 	public function load (string $file) {
 		$app = $this;
-		require_once($this->models.$file.'.php');
+        
+        if(file_exists($this->models.$file.'.php')){
+            require_once($this->models.$file.'.php');
+        }else{
+            exit('Model file '.$this->models.$file.'.php doesn\'t exist.');
+        }
 	}
 
 	/**
