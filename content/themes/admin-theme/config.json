@@ -1,7 +1,7 @@
 {
     "name": "Admin default template",
     "slug": "/admin",
-    "author": "SundownDEV",
+    "author": "Bootstrap",
     "version": "1.0.0",
     "apiID": 1,
     "slider": false,
