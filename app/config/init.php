@@ -20,7 +20,7 @@ $app->getTwig()->addGlobal('site', array(
     'tags' => $app->config['general']['tags']
 ));
 
-$app->getTwig()->addGlobal('path', array(
+$app->getTwig()->addGlobal('paths', array(
     'root' => $path,
     'home' => $path.removeRegex($app->config['paths']['home']),
     'blog' => $path.removeRegex($app->config['paths']['blog']),
