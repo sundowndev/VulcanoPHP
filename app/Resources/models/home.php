@@ -5,4 +5,3 @@
     $articles = $app->getDB()->resultset();
 
     $app->getTwig()->addGlobal('articles', $articles);
-?>

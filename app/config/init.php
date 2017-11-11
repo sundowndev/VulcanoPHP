@@ -61,5 +61,3 @@ $app->get('/dev', function () use ($app) {
     /*echo $app->webroot;
     echo phpinfo();*/
 });
-
-?>
