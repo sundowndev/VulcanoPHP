@@ -41,19 +41,18 @@ $app->getTwigLoader()->addPath($app->views.'admin/', 'admin');
 /* Setting up the private key for password hash */
 $app->getModule('Secure\Secure')->setPrivateKey($app->config['framework']['private_key']);
 
+/* init session auth value if it doesn't exist */
 if(empty($app->getModule('Session\Session')->r('auth'))){
     $app->getModule('Session\Session')->w('auth', false);
+/* if the user is connected, pass session data to twig */
+}elseif($app->getModule('Session\Session')->r('auth') === true){
+    $app->getTwig()->addGlobal('session', array(
+        'auth' => $app->getModule('Session\Session')->r('auth'),
+        'id' => $app->getModule('Session\Session')->r('id'),
+        'username' => $app->getModule('Session\Session')->r('username'),
+        'csrf' => $app->getModule('Session\Session')->r('csrf')
+    ));
 }
-
-//if(!empty($app->getModule('Session\Session')->r('advert', 'message'))){
-//    $app->getTwig()->addGlobal('advert', array(
-//        'type' => $app->getModule('Session\Session')->r('advert', 'type'),
-//        'message' => $app->getModule('Session\Session')->r('advert', 'message')
-//    ));
-//    
-//    $app->getModule('Session\Session')->w('advert', '');
-//}
-//    var_dump($app->getModule('Session\Session')->r('advert'));
 
 $app->get('/dev', function () use ($app) {
     /*
@@ -64,12 +63,4 @@ $app->get('/dev', function () use ($app) {
 
     var_dump($articles);
     */
-
-    
-    /*
-    $test = $app->getModule('Secure\Secure')->hash_pass('test');
-    $app->getModule('Secure\Secure')->verifyHash('test', $test);
-    */
-    /*echo $app->webroot;
-    echo phpinfo();*/
 });
