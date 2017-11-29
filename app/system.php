@@ -237,6 +237,15 @@ class Application
 	public function before ($method, $pattern, $fn) {
 		$this->router->before($method, $pattern, $fn);
 	}
+    
+    /**
+     * setNamespace function
+     *
+     * @param $namespace 	The controllers namespace
+     */
+	public function setNamespace ($namespace) {
+		$this->router->setNamespace($namespace);
+	}
 
 	/**
      * Set 404 error function

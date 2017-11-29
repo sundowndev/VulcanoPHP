@@ -1,5 +1,9 @@
 <?php
 
+require __DIR__.'/../controllers/Admin/Controller.php';
+
+$app->setNamespace('\Controllers\Admin');
+
 /* Login page */
 $app->match('GET|POST','/', function () use ($app) {
 	$app->render(['models' => 'admin/login', 'views' => '@admin/login'], ['title' => 'Login']);
@@ -7,8 +11,16 @@ $app->match('GET|POST','/', function () use ($app) {
 
 /* Dashboard */
 $app->get('/dashboard', function () use ($app) {
-	$app->render(['views' => '@admin/dashboard'], ['title' => 'Dashboard']);
+	$app->render(['models' => 'admin/dashboard', 'views' => '@admin/dashboard'], ['title' => 'Dashboard']);
 });
+
+/* Settings */
+$app->get('/settings', function () use ($app) {
+	$app->render(['views' => '@admin/settings'], ['title' => 'Settings']);
+});
+
+/* Logout */
+$app->get('/logout/(\w+)', 'Controller@logoutAction');
 
 /* Create content */
 $app->mount('/create', function () use ($app) {

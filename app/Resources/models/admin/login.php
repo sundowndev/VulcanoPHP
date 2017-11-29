@@ -1,4 +1,9 @@
 <?php
+
+if($app->getModule('Session\Session')->r('auth') === true){
+    $app->redirect('/admin/dashboard');
+}
+
     if(!empty($_POST['username']) && !empty($_POST['password'])){
         $username = $_POST['username'];
         $pw = $_POST['password'];
