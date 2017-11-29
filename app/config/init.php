@@ -1,5 +1,7 @@
 <?php
 
+//$app->getModule('Session\Session')->start();
+
 function removeRegex($path)
 {
     $regex = strstr($path, '(');
@@ -42,6 +44,16 @@ $app->getModule('Secure\Secure')->setPrivateKey($app->config['framework']['priva
 if(empty($app->getModule('Session\Session')->r('auth'))){
     $app->getModule('Session\Session')->w('auth', false);
 }
+
+//if(!empty($app->getModule('Session\Session')->r('advert', 'message'))){
+//    $app->getTwig()->addGlobal('advert', array(
+//        'type' => $app->getModule('Session\Session')->r('advert', 'type'),
+//        'message' => $app->getModule('Session\Session')->r('advert', 'message')
+//    ));
+//    
+//    $app->getModule('Session\Session')->w('advert', '');
+//}
+//    var_dump($app->getModule('Session\Session')->r('advert'));
 
 $app->get('/dev', function () use ($app) {
     /*

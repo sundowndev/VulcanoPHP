@@ -21,8 +21,6 @@ class Advert
         $advert = array('type' => $type, 'message' => $message);
         
         $this->session->w('advert', $advert);
-        
-        $this->app->getTwig()->addGlobal('advert', $advert);
     }
 }
 

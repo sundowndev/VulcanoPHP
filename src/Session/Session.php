@@ -104,7 +104,7 @@ class Session
     {
         if ( !is_string($key) )
             throw new InvalidArgumentTypeException('Session key must be string value');
-        self::_init();
+            self::_init();
         if (isset($_SESSION[$key]))
         {
             self::_age();

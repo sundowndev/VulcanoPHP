@@ -24,7 +24,12 @@ if($app->getModule('Session\Session')->r('auth') === true){
         }else{
             $app->getModule('Session\Advert')->setAdvert('error', 'Bad username or password');
             
-            var_dump($app->getModule('Session\Session')->r('advert'));
+            $app->getTwig()->addGlobal('advert', array(
+                'type' => $app->getModule('Session\Session')->r('advert', 'type'),
+                'message' => $app->getModule('Session\Session')->r('advert', 'message')
+            ));
+    
+            $app->getModule('Session\Session')->w('advert', '');
         }
     }
 ?>
