@@ -268,12 +268,18 @@ class Application
      * Render template function using 
      */
 	public function render (array $template, array $args = []) {
-		# Add a template path
-		# $this->getTwigLoader()->addPath('/admin', 'admin');
-
 		if (!empty($template['models'])) {
 			$this->load($template['models']);
 		}
+        
+        if(!empty($this->getModule('Session\Session')->r('advert'))){
+            $this->getTwig()->addGlobal('advert', array(
+                'type' => $this->getModule('Session\Session')->r('advert', 'type'),
+                'message' => $this->getModule('Session\Session')->r('advert', 'message')
+            ));
+
+            $this->getModule('Session\Session')->w('advert', '');
+        }
 
 		if (!empty($template['views'])) {
 			echo $this->twig->render($template['views'].'.html.twig', $args);

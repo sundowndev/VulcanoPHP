@@ -23,13 +23,16 @@ if($app->getModule('Session\Session')->r('auth') === true){
             $app->redirect($app->config['paths']['admin'].'/dashboard');
         }else{
             $app->getModule('Session\Advert')->setAdvert('error', 'Bad username or password');
-            
-            $app->getTwig()->addGlobal('advert', array(
-                'type' => $app->getModule('Session\Session')->r('advert', 'type'),
-                'message' => $app->getModule('Session\Session')->r('advert', 'message')
-            ));
-    
-            $app->getModule('Session\Session')->w('advert', '');
         }
     }
+
+//if(!empty($app->getModule('Session\Session')->r('advert'))){
+//    $app->getTwig()->addGlobal('advert', array(
+//        'type' => $app->getModule('Session\Session')->r('advert', 'type'),
+//        'message' => $app->getModule('Session\Session')->r('advert', 'message')
+//    ));
+//    
+//    $app->getModule('Session\Session')->w('advert', '');
+//}
+
 ?>

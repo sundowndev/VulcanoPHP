@@ -14,7 +14,7 @@ $app->get('/dashboard', function () use ($app) {
 
 /* Settings */
 $app->get('/settings', function () use ($app) {
-	$app->render(['views' => '@admin/settings'], ['title' => 'Settings']);
+	$app->render(['models' => 'admin/settings', 'views' => '@admin/settings'], ['title' => 'Settings']);
 });
 
 /* Logout */

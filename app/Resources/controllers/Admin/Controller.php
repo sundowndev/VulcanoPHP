@@ -2,38 +2,26 @@
 
 namespace Controllers\Admin;
 
-//use \App\Application as Application;
+use \App\Application;
 
-class Controller {
+class Controller
+{
     
-    /**
-     * Get module instance
-     */
-	public function getModule (string $module) {
-		$module = "\App\\".$module;
-		$_instance = new $module();
-		return $_instance;
-	}
+    private $app;
+    private $session;
     
-    /**
-     * Redirect function
-	 *
-	 * @param $local	choose local redirection or external link
-    */
-	public function redirect (string $path, bool $local = true) {
-		if ($local == true) {
-			header('Location:'.$this->domain.$path);
-		} else {
-			header('Location:'.$path);
-		}
-	}
+    public function __construct()
+    {
+        $this->app = new \App\Application;
+        $this->session = new \App\Session\Session;
+    }
     
     public function logoutAction ($token) {
-        if($this->getModule('Session\Session')->r('auth') === true && $token == $this->getModule('Session\Session')->getCSRF()){
-            $this->getModule('Session\Session')->w('auth', false);
-            $this->redirect('/');
+        if($this->session->r('auth') === true && $token == $this->session->getCSRF()){
+            $this->session->destroy();
+            $this->app->redirect($this->app->config['paths']['admin']);
         } else {
-            $this->redirect('/404');
+            $this->app->redirect('/404');
         }
     }
 }

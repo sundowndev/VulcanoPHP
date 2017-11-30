@@ -4,8 +4,10 @@
 
 function removeRegex($path)
 {
+    // find regex in the route path
     $regex = strstr($path, '(');
     
+    // e.g: delete /([a-z0-9_-]+) from the path
     if(!empty($regex)){
         $path = str_replace('/'.$regex, '', $path);
     }
@@ -54,6 +56,12 @@ if(empty($app->getModule('Session\Session')->r('auth'))){
         'csrf' => $app->getModule('Session\Session')->r('csrf')
     ));
 }
+
+//$filterUsername = new Twig_SimpleFilter('getUsername', function ($int) {
+//    return User::getUsername($int);
+//});
+//
+//$twig->addFilter($filterUsername);
 
 $app->get('/dev', function () use ($app) {
     /*
