@@ -1,6 +1,6 @@
 <?php
 
-//$app->getModule('Session\Session')->start();
+$app->getModule('Session\Session')->start();
 
 function removeRegex($path)
 {

@@ -11,8 +11,6 @@
 
 	$app = new \App\Application($debug = true);
 
-    $app->getModule('Session\Session')->start();
-
 	require __DIR__.'/app/routes.php';
 
 	$app->run();
