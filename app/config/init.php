@@ -32,7 +32,8 @@ $app->getTwig()->addGlobal('paths', array(
     'category' => $path.removeRegex($app->config['paths']['category']),
     'content' => $path.removeRegex($app->config['paths']['content']),
     'themes' => $path.removeRegex($app->config['paths']['themes']),
-    'uploads' => $path.removeRegex($app->config['paths']['uploads'])
+    'uploads' => $path.removeRegex($app->config['paths']['uploads']),
+    'admin' => $path.removeRegex($app->config['paths']['admin'])
 ));
 
 /* Adding admin twig views path */
