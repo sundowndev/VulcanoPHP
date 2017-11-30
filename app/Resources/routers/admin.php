@@ -1,7 +1,5 @@
 <?php
 
-require __DIR__.'/../controllers/Admin/Controller.php';
-
 $app->setNamespace('\Controllers\Admin');
 
 /* Login page */

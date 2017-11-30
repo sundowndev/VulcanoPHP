@@ -1,7 +1,7 @@
 <?php
 
 if($app->getModule('Session\Session')->r('auth') === true){
-    $app->redirect('/admin/dashboard');
+    $app->redirect($app->config['paths']['admin'].'/dashboard');
 }
 
     if(!empty($_POST['username']) && !empty($_POST['password'])){

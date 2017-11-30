@@ -28,7 +28,7 @@ class Controller {
 		}
 	}
     
-    public function logoutAction($token) {
+    public function logoutAction ($token) {
         if($this->getModule('Session\Session')->r('auth') === true && $token == $this->getModule('Session\Session')->getCSRF()){
             $this->getModule('Session\Session')->w('auth', false);
             $this->redirect('/');
