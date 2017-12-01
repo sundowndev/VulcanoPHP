@@ -49,6 +49,15 @@
 
 namespace App\Session;
 
+class CustomException extends \Exception {}
+class SessionHandlerException extends CustomException {}
+class SessionDisabledException extends SessionHandlerException {}
+class InvalidArgumentTypeException extends SessionHandlerException {}
+class ExpiredSessionException extends SessionHandlerException {}
+class SessionUseOnlyCookiesException extends SessionHandlerException {}
+class SessionHttpOnlyCookieException extends SessionHandlerException {}
+class SessionCookieSecureException extends SessionHandlerException {}
+
 class Session
 {
     /**
