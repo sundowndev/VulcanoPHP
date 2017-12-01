@@ -4,17 +4,17 @@ $app->setNamespace('\Controllers\Admin');
 
 /* Login page */
 $app->match('GET|POST','/', function () use ($app) {
-	$app->render(['models' => 'admin/login', 'views' => '@admin/login'], ['title' => 'Login']);
+	$app->render(['models' => 'admin/login', 'views' => '@admin/login'], ['title' => 'Login', 'page' => 'login']);
 });
 
 /* Dashboard */
 $app->get('/dashboard', function () use ($app) {
-	$app->render(['models' => 'admin/dashboard', 'views' => '@admin/dashboard'], ['title' => 'Dashboard']);
+	$app->render(['models' => 'admin/dashboard', 'views' => '@admin/dashboard'], ['title' => 'Dashboard', 'page' => 'dashboard']);
 });
 
 /* Settings */
 $app->get('/settings', function () use ($app) {
-	$app->render(['models' => 'admin/settings', 'views' => '@admin/settings'], ['title' => 'Mes paramètres']);
+	$app->render(['models' => 'admin/settings', 'views' => '@admin/settings'], ['title' => 'Mes paramètres', 'page' => 'settings']);
 });
 
 /* Logout */
@@ -24,22 +24,22 @@ $app->get('/logout/(\w+)', 'Controller@logoutAction');
 $app->mount('/create', function () use ($app) {
 	/* Articles */
 	$app->match('GET|POST','/article', function () use ($app) {
-		$app->render(['models' => 'admin/create_article', 'views' => '@admin/create_article'], ['title' => 'Manage articles']);
+		$app->render(['models' => 'admin/create_article', 'views' => '@admin/create_article'], ['title' => 'Manage articles', 'page' => 'articles']);
 	});
 
 	/* Categories */
 	$app->match('GET|POST','/category', function () use ($app) {
-		$app->render(['models' => 'admin/create_category', 'views' => '@admin/create_category'], ['title' => 'Edit a category']);
+		$app->render(['models' => 'admin/create_category', 'views' => '@admin/create_category'], ['title' => 'Create a category', 'page' => 'categories']);
 	});
 
 	/* Users */
 	$app->match('GET|POST','/user', function () use ($app) {
-		$app->render(['models' => 'admin/create_user', 'views' => '@admin/create_user'], ['title' => 'Create an user']);
+		$app->render(['models' => 'admin/create_user', 'views' => '@admin/create_user'], ['title' => 'Create an user', 'page' => 'users']);
 	});
 
 	/* Uploads */
 	$app->match('GET|POST','/upload', function () use ($app) {
-		$app->render(['models' => 'admin/create_upload', 'views' => '@admin/create_upload'], ['title' => 'Upload a file']);
+		$app->render(['models' => 'admin/create_upload', 'views' => '@admin/create_upload'], ['title' => 'Upload a file', 'page' => 'uploads']);
 	});
 });
 
@@ -47,34 +47,34 @@ $app->mount('/create', function () use ($app) {
 $app->mount('/manage', function () use ($app) {
 	/* Articles */
 	$app->get('/articles', function () use ($app) {
-		$app->render(['models' => 'admin/manage_articles', 'views' => '@admin/manage_articles'], ['title' => 'Manage articles']);
+		$app->render(['models' => 'admin/manage_articles', 'views' => '@admin/manage_articles'], ['title' => 'Manage articles', 'page' => 'articles']);
 	});
 
 	$app->match('GET|POST','/article/([a-z0-9_-]+)', function ($id) use ($app) {
-		$app->render(['models' => 'admin/edit_article', 'views' => '@admin/edit_article'], ['title' => 'Edit an article', 'id' => $id]);
+		$app->render(['models' => 'admin/edit_article', 'views' => '@admin/edit_article'], ['title' => 'Edit an article', 'id' => $id, 'page' => 'articles']);
 	});
 
 	/* Categories */
 	$app->get('/categories', function () use ($app) {
-		$app->render(['models' => 'admin/manage_categories', 'views' => '@admin/manage_categories'], ['title' => 'Manage categories']);
+		$app->render(['models' => 'admin/manage_categories', 'views' => '@admin/manage_categories'], ['title' => 'Manage categories', 'page' => 'categories']);
 	});
 
 	$app->match('GET|POST','/category/([a-z0-9_-]+)', function ($name) use ($app) {
-		$app->render(['models' => 'admin/edit_category', 'views' => '@admin/edit_category'], ['title' => 'Edit a category', 'name' => $name]);
+		$app->render(['models' => 'admin/edit_category', 'views' => '@admin/edit_category'], ['title' => 'Edit a category', 'name' => $name, 'page' => 'categories']);
 	});
 
 	/* Users */
 	$app->get('/users', function () use ($app) {
-		$app->render(['views' => '@admin/manage_users'], ['title' => 'Manage users']);
+		$app->render(['views' => '@admin/manage_users'], ['title' => 'Manage users', 'page' => 'users']);
 	});
 
 	$app->match('GET|POST','/user/([a-z0-9_-]+)', function ($id) use ($app) {
-		$app->render(['models' => 'admin/edit_user', 'views' => '@admin/edit_user'], ['title' => 'Edit an user', 'id' => $id]);
+		$app->render(['models' => 'admin/edit_user', 'views' => '@admin/edit_user'], ['title' => 'Edit an user', 'id' => $id, 'page' => 'users']);
 	});
 
 	/* Uploads */
 	$app->get('/uploads', function () use ($app) {
-		$app->render(['views' => 'admin/manage_uploads', 'views' => '@admin/manage_uploads'], ['title' => 'Manage uploads']);
+		$app->render(['views' => 'admin/manage_uploads', 'views' => '@admin/manage_uploads'], ['title' => 'Manage uploads', 'page' => 'uploads']);
 	});
 });
 
@@ -82,21 +82,39 @@ $app->mount('/manage', function () use ($app) {
 $app->mount('/delete', function () use ($app) {
 	/* Articles */
 	$app->get('/article/([a-z0-9_-]+)', function ($id) use ($app) {
-		$app->render(['models' => '@admin/delete_article'], ['id' => $id]);
+		$app->render(['models' => '@admin/delete_article'], ['id' => $id, 'page' => 'delete']);
 	});
 
 	/* Categories */
 	$app->get('/category/([a-z0-9_-]+)', function ($name) use ($app) {
-		$app->render(['models' => 'admin/delete_category'], ['name' => $name]);
+		$app->render(['models' => 'admin/delete_category'], ['name' => $name, 'page' => 'categories']);
 	});
 
 	/* Users */
 	$app->get('/user/([a-z0-9_-]+)', function ($id) use ($app) {
-		$app->render(['models' => 'admin/delete_user'], ['id' => $id]);
+		$app->render(['models' => 'admin/delete_user'], ['id' => $id, 'page' => 'users']);
 	});
 
 	/* Uploads */
 	$app->get('/upload/([a-z0-9_-]+)', function ($id) use ($app) {
-		$app->render(['models' => 'admin/delete_uploads'], ['id' => $id]);
+		$app->render(['models' => 'admin/delete_uploads'], ['id' => $id, 'page' => 'uploads']);
+	});
+});
+
+/* Configuration */
+$app->mount('/configuration', function () use ($app) {
+	/* General */
+	$app->get('/', function () use ($app) {
+		$app->render(['models' => '@admin/configuration', 'views' => 'admin/configuration'], ['page' => 'configuration']);
+	});
+    
+    /* Appearance */
+	$app->get('/appearance', function () use ($app) {
+		$app->render(['models' => '@admin/appearance', 'views' => 'admin/appearance'], ['page' => 'configuration']);
+	});
+    
+    /* Plugins */
+	$app->get('/plugins', function () use ($app) {
+		$app->render(['models' => '@admin/plugins', 'views' => 'admin/plugins'], ['page' => 'configuration']);
 	});
 });
