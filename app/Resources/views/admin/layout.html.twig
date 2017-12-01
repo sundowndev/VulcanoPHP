@@ -99,8 +99,8 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Ajouter un article</a></li>
-            <li><a href="#">Gérer les articles</a></li>
+            <li><a href="{{ paths.admin }}/create/article">Ajouter un article</a></li>
+            <li><a href="{{ paths.admin }}/manage/articles">Gérer les articles</a></li>
           </ul>
         </li>
         
@@ -111,12 +111,12 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Ajouter une categorie</a></li>
-            <li><a href="#">Gérer les categories</a></li>
+            <li><a href="{{ paths.admin }}/create/category">Ajouter une categorie</a></li>
+            <li><a href="{{ paths.admin }}/manage/category">Gérer les categories</a></li>
           </ul>
         </li>
         
-        <li><a href="#"><i class="fa fa-upload"></i> <span>Fichiers</span></a></li>
+        <li><a href="{{ paths.admin }}/manage/uploads"><i class="fa fa-upload"></i> <span>Fichiers</span></a></li>
         
         <li class="treeview">
           <a href="#"><i class="fa fa-users"></i> <span>Utilisateurs</span>
@@ -125,8 +125,8 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Ajouter un utilisateur</a></li>
-            <li><a href="#">Gérer les utilisateurs</a></li>
+            <li><a href="{{ paths.admin }}/create/user">Ajouter un utilisateur</a></li>
+            <li><a href="{{ paths.admin }}/manage/users">Gérer les utilisateurs</a></li>
           </ul>
         </li>
         
@@ -137,9 +137,9 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Configuration générale</a></li>
-            <li><a href="#">Apparence</a></li>
-            <li><a href="#">Plugins</a></li>
+            <li><a href="{{ paths.admin }}/configuration">Configuration générale</a></li>
+            <li><a href="{{ paths.admin }}/apparence">Apparence</a></li>
+            <li><a href="{{ paths.admin }}/plugins">Plugins</a></li>
           </ul>
         </li>
       </ul>

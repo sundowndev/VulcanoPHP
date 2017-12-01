@@ -1,5 +1,95 @@
 {% extends 'admin/layout.html.twig' %}
 
 {% block body %}
-    <p>settings</p>
+<div class="row">
+    <div class="col-md-12">
+          <div class="box box-warning">
+            <div class="box-header with-border">
+              <h3 class="box-title">Paramètres généraux</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="InputText1">Nom d'utilisateur</label>
+                  <input type="text" class="form-control" id="InputText1" placeholder="Entrez un nom d'utilisateur">
+                </div>
+                <div class="form-group">
+                  <label for="InputFile1">Avatar</label>
+                  <input type="file" id="InputFile1">
+
+                  <p class="help-block">Choisissez une image au format .jpg ou .png d'une taille maximale de 10Mo.</p>
+                </div>
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+          
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Modifier l'adresse email</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="InputEmail1">Adresse email actuelle</label>
+                  <input type="email" class="form-control" id="InputEmail1" placeholder="Votre adresse email">
+                </div>
+                <div class="form-group">
+                  <label for="InputEmail2">Nouvelle adresse email</label>
+                  <input type="email" class="form-control" id="InputEmail2" placeholder="Votre adresse email">
+                </div>
+                <div class="form-group">
+                  <label for="InputPassword1">Mot de passe</label>
+                  <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
+                </div>
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+          
+          <div class="box box-warning">
+            <div class="box-header with-border">
+              <h3 class="box-title">Modifier le mot de passe</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="InputPassword2">Mot de passe actuel</label>
+                  <input type="password" class="form-control" id="InputPassword2" placeholder="Entrez votre mot de passe actuel">
+                </div>
+                <div class="form-group">
+                  <label for="InputPassword3">Nouveau mot de passe</label>
+                  <input type="password" class="form-control" id="InputPassword3" placeholder="Entrez votre nouveau mot de passe">
+                </div>
+                <div class="form-group">
+                  <label for="InputPassword4">Répéter nouveau mot de passe</label>
+                  <input type="password" class="form-control" id="InputPassword4" placeholder="Entrez à nouveau le mot de passe">
+                </div>
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+</div>
 {% endblock %}

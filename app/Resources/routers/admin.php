@@ -14,7 +14,7 @@ $app->get('/dashboard', function () use ($app) {
 
 /* Settings */
 $app->get('/settings', function () use ($app) {
-	$app->render(['models' => 'admin/settings', 'views' => '@admin/settings'], ['title' => 'Settings']);
+	$app->render(['models' => 'admin/settings', 'views' => '@admin/settings'], ['title' => 'Mes paramètres']);
 });
 
 /* Logout */
@@ -28,13 +28,13 @@ $app->mount('/create', function () use ($app) {
 	});
 
 	/* Categories */
-	$app->match('GET|POST','/category', function ($name) use ($app) {
-		$app->render(['models' => 'admin/create_category', 'views' => '@admin/create_category'], ['title' => 'Edit a category', 'name' => $name]);
+	$app->match('GET|POST','/category', function () use ($app) {
+		$app->render(['models' => 'admin/create_category', 'views' => '@admin/create_category'], ['title' => 'Edit a category']);
 	});
 
 	/* Users */
-	$app->match('GET|POST','/user', function ($id) use ($app) {
-		$app->render(['models' => 'admin/create_user', 'views' => '@admin/create_user'], ['title' => 'Create an user', 'id' => $id]);
+	$app->match('GET|POST','/user', function () use ($app) {
+		$app->render(['models' => 'admin/create_user', 'views' => '@admin/create_user'], ['title' => 'Create an user']);
 	});
 
 	/* Uploads */
