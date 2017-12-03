@@ -3,7 +3,7 @@
 $app->setNamespace('\Controllers\Admin');
 
 /* Login page */
-$app->match('GET|POST','/', function () use ($app) {
+$app->match('GET|POST', '/', function () use ($app) {
 	$app->render(['models' => 'admin/login', 'views' => '@admin/login'], ['title' => 'Login', 'page' => 'login']);
 });
 
@@ -13,7 +13,7 @@ $app->get('/dashboard', function () use ($app) {
 });
 
 /* Settings */
-$app->get('/settings', function () use ($app) {
+$app->match('GET|POST', '/settings', function () use ($app) {
 	$app->render(['models' => 'admin/settings', 'views' => '@admin/settings'], ['title' => 'Mes paramètres', 'page' => 'settings']);
 });
 
@@ -81,22 +81,22 @@ $app->mount('/manage', function () use ($app) {
 /* Delete content */
 $app->mount('/delete', function () use ($app) {
 	/* Articles */
-	$app->get('/article/([a-z0-9_-]+)', function ($id) use ($app) {
+	$app->get('/article/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($id,$token) use ($app) {
 		$app->render(['models' => '@admin/delete_article'], ['id' => $id, 'page' => 'delete']);
 	});
 
 	/* Categories */
-	$app->get('/category/([a-z0-9_-]+)', function ($name) use ($app) {
+	$app->get('/category/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($name,$token) use ($app) {
 		$app->render(['models' => 'admin/delete_category'], ['name' => $name, 'page' => 'categories']);
 	});
 
 	/* Users */
-	$app->get('/user/([a-z0-9_-]+)', function ($id) use ($app) {
+	$app->get('/user/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($id,$token) use ($app) {
 		$app->render(['models' => 'admin/delete_user'], ['id' => $id, 'page' => 'users']);
 	});
 
 	/* Uploads */
-	$app->get('/upload/([a-z0-9_-]+)', function ($id) use ($app) {
+	$app->get('/upload/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($id,$token) use ($app) {
 		$app->render(['models' => 'admin/delete_uploads'], ['id' => $id, 'page' => 'uploads']);
 	});
 });
@@ -104,17 +104,17 @@ $app->mount('/delete', function () use ($app) {
 /* Configuration */
 $app->mount('/configuration', function () use ($app) {
 	/* General */
-	$app->get('/', function () use ($app) {
-		$app->render(['models' => '@admin/configuration', 'views' => 'admin/configuration'], ['page' => 'configuration']);
+	$app->match('GET|POST', '/', function () use ($app) {
+		$app->render(['models' => 'admin/configuration', 'views' => 'admin/configuration'], ['title' => 'Configuration', 'page' => 'configuration']);
 	});
     
     /* Appearance */
 	$app->get('/appearance', function () use ($app) {
-		$app->render(['models' => '@admin/appearance', 'views' => 'admin/appearance'], ['page' => 'configuration']);
+		$app->render(['models' => 'admin/appearance', 'views' => 'admin/appearance'], ['title' => 'Appearance', 'page' => 'configuration']);
 	});
     
     /* Plugins */
 	$app->get('/plugins', function () use ($app) {
-		$app->render(['models' => '@admin/plugins', 'views' => 'admin/plugins'], ['page' => 'configuration']);
+		$app->render(['models' => 'admin/plugins', 'views' => 'admin/plugins'], ['title' => 'Plugins', 'page' => 'configuration']);
 	});
 });

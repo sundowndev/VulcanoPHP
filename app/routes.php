@@ -2,9 +2,10 @@
 
 require_once('config/init.php');
 
-/*$app->get('/install', function () use ($app) {
+/* echo hash of "test" string */
+$app->get('/install', function () use ($app) {
 	echo $app->getModule('Secure\Secure')->hash_pass('test');
-});*/
+});
 
 $app->get( $app->config['paths']['home'] , function () use ($app) {
 	$app->render(['models' => 'home', 'views' => 'home/home'], ['title' => 'Welcome']);

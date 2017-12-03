@@ -326,4 +326,13 @@ class Application
 			header('Location:'.$path);
 		}
 	}
+    
+    /**
+     * getRequest function
+     *
+     * Get the HTTP client requested path
+    */
+	public function getRequest () {
+		// code ...
+	}
 }
