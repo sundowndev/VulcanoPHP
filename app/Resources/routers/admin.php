@@ -38,7 +38,7 @@ $app->get('/logout/(\w+)', 'Controller@logoutAction');
 $app->mount('/create', function () use ($app) {
 	/* Articles */
 	$app->match('GET|POST','/article', function () use ($app) {
-		$app->render(['models' => 'admin/create_article', 'views' => '@admin/create_article'], ['title' => 'Manage articles', 'page' => 'articles']);
+		$app->render(['models' => 'admin/create_article', 'views' => '@admin/create_article'], ['title' => 'Create an article', 'page' => 'articles']);
 	});
 
 	/* Categories */

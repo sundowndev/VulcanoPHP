@@ -10,8 +10,7 @@ class Controller
     private $app;
     private $session;
     
-    public function __construct()
-    {
+    public function __construct () {
         $this->app = new \App\Application;
         $this->session = new \App\Session\Session;
     }
