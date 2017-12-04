@@ -1,8 +1,8 @@
 ; main configuration file
 
 [general]
-site_name = "DaimyoCMS"
-description = "My new CMS!"
+site_name = "Alexandre Tabaste"
+description = "Photography by Alexandre Tabaste"
 tags = ""
 thumbnail = ""
 
@@ -17,9 +17,9 @@ private_key = "8f096599520b9c46f10387aa6752a8f9d51ec23d5d9d6e6358a573a0154b4989"
 
 [dbDns]
 host = "127.0.0.1"
-dbname = "daimyocms"
+dbname = "portfolio-project"
 user = "root"
-pass = ""
+pass = "cvbn974"
 charset = "utf8"
 
 [paths]
@@ -39,4 +39,4 @@ content = "/content"
 themes = "/content/themes"
 uploads = "/content/uploads"
 ; Admin panel
-admin = "/admin"
+admin = "/manager"

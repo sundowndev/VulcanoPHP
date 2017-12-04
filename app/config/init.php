@@ -69,12 +69,6 @@ if(empty($app->getModule('Session\Session')->r('auth'))){
     ));
 }
 
-//$filterUsername = new Twig_SimpleFilter('getUsername', function ($int) {
-//    return User::getUsername($int);
-//});
-//
-//$twig->addFilter($filterUsername);
-
 $app->get('/dev', function () use ($app) {
     /*
     $app->getDB()->query('SELECT * FROM d_articles');
