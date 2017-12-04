@@ -1,12 +1,20 @@
 <?php
 
-if($app->getModule('Session\Session')->r('auth') === false && $app->getURI() != $app->config['paths']['admin']){
-    $app->getModule('Session\Advert')->setAdvert('error', 'Connectez vous pour accèder à cette page');
-    
-    $app->redirect($app->config['paths']['admin']);
-}
-
 $app->setNamespace('\Controllers\Admin');
+
+$app->before('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', '/.*', function() use ($app) {
+    if($app->getModule('Session\Session')->r('auth') === false){
+        $app->getModule('Session\Advert')->setAdvert('error', 'Connectez vous pour accèder à cette page');
+
+        $app->redirect($app->config['paths']['admin']);
+    }
+});
+
+$app->before('GET|POST', '/', function() use ($app) {
+    if($app->getModule('Session\Session')->r('auth') === true){
+        $app->redirect($app->config['paths']['admin'].'/dashboard');
+    }
+});
 
 /* Login page */
 $app->match('GET|POST', '/', function () use ($app) {

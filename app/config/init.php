@@ -41,7 +41,19 @@ $app->getTwig()->addGlobal('paths', array(
 /* Adding admin twig views path */
 $app->getTwigLoader()->addPath($app->views.'admin/', 'admin');
 
-/* Setting up the private key for password hash */
+/*
+ * Setting salt password and hash options
+ */
+$options = [
+    'salt' => 'RoYsaNpugD3XD0NT7Sxp',
+    'cost' => 12 // the default cost is 10
+];
+
+$app->getModule('Secure\Secure')->setOptions($options);
+
+/*
+ * Setting up the private key for password hash
+ */
 $app->getModule('Secure\Secure')->setPrivateKey($app->config['framework']['private_key']);
 
 /* init session auth value if it doesn't exist */

@@ -18,19 +18,6 @@
 
   <body>
 
-  {% block sidebar %}
-    <div class="blog-masthead">
-      <div class="container">
-        <nav class="nav blog-nav">
-          <a class="nav-link {% if page == 'home' %}active{% endif %}" href="{{ paths.home }}">Home</a>
-          <a class="nav-link {% if page == 'blog' %}active{% endif %}" href="{{ paths.blog }}">Blog</a>
-          <a class="nav-link {% if page == 'about' %}active{% endif %}" href="{{ paths.about }}">About</a>
-          <a class="nav-link {% if page == 'contact' %}active{% endif %}" href="{{ paths.contact }}">Contact</a>
-        </nav>
-      </div>
-    </div>
-  {% endblock sidebar %}
-
     <div class="blog-header">
       <div class="container">
         <h1 class="blog-title">{{ site.name }}</h1>
@@ -43,8 +30,6 @@
 
       	{% block body %}
 		{% endblock %}
-
-		{% include 'sidebar.html.twig' %}
 
       </div><!-- /.row -->
     </div><!-- /.container -->

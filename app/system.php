@@ -351,7 +351,7 @@ class Application
      *
      * @return string
      */
-	public function getURI () {
+	public function getURI ($array = null) {
 		// Get the current Request URI and remove rewrite base path from it (= allows one to run the router in a sub folder)
         $uri = substr($_SERVER['REQUEST_URI'], strlen($this->getBasePath()));
 
@@ -361,6 +361,12 @@ class Application
         }
 
         // Remove trailing slash + enforce a slash at the start
-        return '/'.trim($uri, '/');
+        $uri = '/'.trim($uri, '/');
+        
+        if($array === true){
+            return explode('/', $uri);
+        }else{
+            return $uri;
+        }
 	}
 }
