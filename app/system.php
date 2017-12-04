@@ -19,6 +19,11 @@ class Application
      * @var bool
      */
 	private $debug;
+    
+    /**
+     * @var string The Server Base Path for Router Execution
+     */
+    private $serverBasePath;
 
 	/**
      * @var instance
@@ -328,11 +333,34 @@ class Application
 	}
     
     /**
-     * getRequest function
+     * Return server base Path, and define it if isn't defined.
      *
-     * Get the HTTP client requested path
-    */
-	public function getRequest () {
-		// code ...
+     * @return string
+     */
+    public function getBasePath () {
+        // Check if server base path is defined, if not define it.
+        if ($this->serverBasePath === null) {
+            $this->serverBasePath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)).'/';
+        }
+
+        return $this->serverBasePath;
+    }
+    
+    /**
+     * Define the current relative URI.
+     *
+     * @return string
+     */
+	public function getURI () {
+		// Get the current Request URI and remove rewrite base path from it (= allows one to run the router in a sub folder)
+        $uri = substr($_SERVER['REQUEST_URI'], strlen($this->getBasePath()));
+
+        // Don't take query params into account on the URL
+        if (strstr($uri, '?')) {
+            $uri = substr($uri, 0, strpos($uri, '?'));
+        }
+
+        // Remove trailing slash + enforce a slash at the start
+        return '/'.trim($uri, '/');
 	}
 }

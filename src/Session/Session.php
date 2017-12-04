@@ -53,7 +53,9 @@ class CustomException extends \Exception {}
 class SessionHandlerException extends CustomException {}
 class SessionDisabledException extends SessionHandlerException {}
 class InvalidArgumentTypeException extends SessionHandlerException {}
-class ExpiredSessionException extends SessionHandlerException {}
+class ExpiredSessionException extends SessionHandlerException {
+    public function __construct(){}
+}
 class SessionUseOnlyCookiesException extends SessionHandlerException {}
 class SessionHttpOnlyCookieException extends SessionHandlerException {}
 class SessionCookieSecureException extends SessionHandlerException {}
@@ -213,7 +215,7 @@ class Session
         if (false !== $last && (time() - $last > self::$SESSION_AGE))
         {
             self::destroy();
-            throw new ExpiredSessionException();
+            //throw new ExpiredSessionException();
         }
         $_SESSION['LAST_ACTIVE'] = time();
     }
