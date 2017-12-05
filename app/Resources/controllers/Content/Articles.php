@@ -1,6 +1,7 @@
 <?php
+namespace Controllers\Content;
 
-abstract class Articles {
-    
-    public static function renderView(string $path, bool $layout = true) {}
+class Articles
+{ 
+    public function __construct () {}
 }
