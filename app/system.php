@@ -274,10 +274,10 @@ class Application
      */
 	public function render (array $template, array $args = []) {
 		if (!empty($template['models'])) {
-			$this->load($template['models']);
+			$this->load($template['models'], $args);
 		}
         
-        if(!empty($this->getModule('Session\Session')->r('advert'))){
+        if(!empty($this->getModule('Session\Session')->r('advert')) && !empty($template['views'])){
             $this->getTwig()->addGlobal('advert', array(
                 'type' => $this->getModule('Session\Session')->r('advert', 'type'),
                 'message' => $this->getModule('Session\Session')->r('advert', 'message')
@@ -295,9 +295,9 @@ class Application
      * Load router function
      * Folder /app/Resources/routers/*.php
      */
-	public function router (string $file) {
-		$app = $this;
-
+	public function router (string $file, $args = []) {
+        $app = $this;
+        
         if(file_exists($this->resources.'routers/'.$file.'.php')){
             require_once($this->resources.'routers/'.$file.'.php');
         }else{
@@ -309,9 +309,9 @@ class Application
      * Load model function
      * Folder /src/*.php
      */
-	public function load (string $file) {
-		$app = $this;
-        
+	public function load (string $file, $args = []) {
+        $app = $this;
+            
         if(file_exists($this->models.$file.'.php')){
             require_once($this->models.$file.'.php');
         }else{
