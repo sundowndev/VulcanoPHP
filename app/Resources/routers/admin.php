@@ -8,6 +8,10 @@ $app->before('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', '/.*', function() use ($a
 
         $app->redirect($app->config['paths']['admin']);
     }
+    
+    $app->set404(function () use ($app) {
+        $app->render(['views' => '@admin/404'], ['title' => 'Page not found']);
+    });
 });
 
 $app->before('GET|POST', '/', function() use ($app) {
@@ -96,22 +100,22 @@ $app->mount('/manage', function () use ($app) {
 $app->mount('/delete', function () use ($app) {
 	/* Articles */
 	$app->get('/article/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($id,$token) use ($app) {
-		$app->render(['models' => '@admin/delete_article'], ['id' => $id, 'page' => 'delete']);
+		$app->render(['models' => 'admin/delete_article'], ['id' => $id, 'token' => $token, 'page' => 'delete']);
 	});
 
 	/* Categories */
 	$app->get('/category/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($name,$token) use ($app) {
-		$app->render(['models' => 'admin/delete_category'], ['name' => $name, 'page' => 'categories']);
+		$app->render(['models' => 'admin/delete_category'], ['name' => $name, 'token' => $token, 'page' => 'categories']);
 	});
 
 	/* Users */
 	$app->get('/user/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($id,$token) use ($app) {
-		$app->render(['models' => 'admin/delete_user'], ['id' => $id, 'page' => 'users']);
+		$app->render(['models' => 'admin/delete_user'], ['id' => $id, 'token' => $token, 'page' => 'users']);
 	});
 
 	/* Uploads */
 	$app->get('/upload/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($id,$token) use ($app) {
-		$app->render(['models' => 'admin/delete_uploads'], ['id' => $id, 'page' => 'uploads']);
+		$app->render(['models' => 'admin/delete_uploads'], ['id' => $id, 'token' => $token, 'page' => 'uploads']);
 	});
 });
 

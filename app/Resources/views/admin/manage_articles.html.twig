@@ -20,10 +20,10 @@
                 <tr role="row" class="even">
                   <td>{{ article.id }}</td>
                   <td><a href="{{ paths.admin }}/manage/article/{{ article.hash_id }}">{{ article.title }}</a></td>
-                  <td>{{ article.author }}</td>
+                  <td><a href="{{ paths.admin }}/manager/user/{{ article.author }}">{{ article.author }}</a></td>
                   <td>{{ article.content|slice(0,80) }}</td>
                   <td>{{ article.publishDate }}</td>
-                  <td><a href="{{ paths.admin }}/manage/article/{{ article.hash_id }}" class="btn btn-primary btn-xs">Edit</a> <a href="{{ paths.admin }}/delete/article/{{ article.hash_id }}/{{ session.csrf }}" class="btn btn-danger btn-xs">Delete</a></td>
+                  <td><a href="{{ paths.admin }}/manage/article/{{ article.hash_id }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i> Edit</a> <a href="{{ paths.admin }}/delete/article/{{ article.hash_id }}/{{ session.csrf }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
