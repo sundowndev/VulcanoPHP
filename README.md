@@ -19,7 +19,8 @@ DaimyoCMs is an open-source PHP CMS based on the micro framework [Daimyo](https:
 * [Getting started](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/GetStarted.md)
 * [Administration panel](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/AdminPanel.md)
 
-### Developers
+#### Developers
+
 * [Routing](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/Routing.md)
 * [Templating](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/Templating.md)
 * [Exploited PDO Class](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/PDOClass.md)
