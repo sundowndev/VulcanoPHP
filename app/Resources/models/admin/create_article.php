@@ -14,7 +14,7 @@ if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['catego
     $app->getModule('Session\Advert')->setAdvert('success', 'You successfully published your article!');
 }
 
-$app->getDB()->query('SELECT * FROM d_category');
+$app->getDB()->query('SELECT * FROM d_category ORDER BY id DESC');
 $app->getDB()->execute();
 $categories = $app->getDB()->resultset();
 

@@ -1,6 +1,6 @@
 <?php
 
-if(!empty($_POST['name']) && !empty($_POST['description'])){
+if(!empty($_POST['name'])){
     $app->getDB()->query('INSERT INTO d_category (name, slug, createdDate, description) VALUES(:name, :slug, NOW(), :description)');
 
     $app->getDB()->bind(':name', $_POST['name']);
