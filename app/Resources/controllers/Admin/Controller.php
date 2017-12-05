@@ -2,8 +2,6 @@
 
 namespace Controllers\Admin;
 
-use \App\Application;
-
 class Controller
 {
     
@@ -13,6 +11,10 @@ class Controller
     public function __construct () {
         $this->app = new \App\Application;
         $this->session = new \App\Session\Session;
+    }
+    
+    public function getUsernameById ($id) {
+        //
     }
     
     public function logoutAction ($token) {
