@@ -157,7 +157,12 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-
+    {% if advert %}
+    <div class="callout callout-{{ advert.type }}">
+        <p>{{ advert.message }}</p>
+    </div>
+    {% endif %}
+     
       {% block body %}
       {% endblock %}
 

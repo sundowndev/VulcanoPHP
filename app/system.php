@@ -79,7 +79,7 @@ class Application
         endif;
 		
         // Router instance
-        $this->webroot = str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']);
+        $this->webroot = str_replace('public/index.php', '', $_SERVER['SCRIPT_FILENAME']);
 		$this->app = $this->webroot.'app/';
 		$this->config_path = $this->webroot.'app/config';
 		$this->resources = $this->webroot.'app/Resources/';

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  lun. 04 déc. 2017 à 14:06
+-- Généré le :  mar. 05 déc. 2017 à 09:30
 -- Version du serveur :  5.5.58-0+deb8u1
 -- Version de PHP :  7.0.26-1~dotdeb+8.1
 
@@ -30,10 +30,39 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `d_articles` (
   `id` int(11) NOT NULL,
+  `hash_id` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `author` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `publishDate` datetime NOT NULL,
   `content` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `d_category`
+--
+
+CREATE TABLE `d_category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `d_users`
+--
+
+CREATE TABLE `d_users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `registerDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -47,6 +76,18 @@ ALTER TABLE `d_articles`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `d_category`
+--
+ALTER TABLE `d_category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `d_users`
+--
+ALTER TABLE `d_users`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -54,7 +95,19 @@ ALTER TABLE `d_articles`
 -- AUTO_INCREMENT pour la table `d_articles`
 --
 ALTER TABLE `d_articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT pour la table `d_category`
+--
+ALTER TABLE `d_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT pour la table `d_users`
+--
+ALTER TABLE `d_users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -54,6 +54,12 @@ pass: sW5Yd1aPlmN
 
 #### then go to ```settings``` and change the default password.
 
+#### You can launch your localhost dev server
+
+~~~
+php -S localhost:8000 -t ./public
+~~~
+
 # Your DaimyoCMS is now setup and ready!
 See the [admin documentation](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/AdminPanel.md) to get started with the dashboard.
 
