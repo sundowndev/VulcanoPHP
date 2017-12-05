@@ -1,0 +1,45 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+          <div class="box box-primary">
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form role="form" action="" method="post">
+              <div class="box-body">
+                <div class="form-group">
+                  <label for="cover">Cover picture</label>
+                  <input type="file" id="cover">
+
+                  <p class="help-block">Choisissez une image au format .jpg ou .png d'une taille maximale de 10Mo.</p>
+                </div>
+                <div class="form-group">
+                  <label for="title">Title</label>
+                  <input type="text" name="title" class="form-control" id="title" placeholder="What is it about ?" value="{{ article.title }}">
+                </div>
+                <div class="form-group">
+                  <label for="category">Category</label>
+                    <select class="form-control" name="category" id="category">
+                        <option disabled="">Select a category</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}" {% if category.id == article.category_id %}selected=""{% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label for="content">Content</label>
+                    <textarea class="form-control" id="content" name="content" placeholder="Tell us something" rows="6">{{ article.content }}</textarea>
+                </div>
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Edit an article</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+</div>
+{% endblock %}

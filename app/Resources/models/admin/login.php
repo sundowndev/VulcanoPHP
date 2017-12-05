@@ -20,7 +20,11 @@ if($app->getModule('Session\Session')->r('auth') === true){
             $app->getModule('Session\Session')->w('username', $target['username']);
             $app->getModule('Session\Session')->setCSRF();
             
-            $app->redirect($app->config['paths']['admin'].'/dashboard');
+            if(!empty($_GET['redirect'])){
+                $app->redirect($_GET['redirect']);
+            }else{
+                $app->redirect($app->config['paths']['admin'].'/dashboard');
+            }
         }else{
             $app->getModule('Session\Advert')->setAdvert('error', 'Bad username or password');
         }
