@@ -4,12 +4,14 @@ DaimyoCMs is an open-source PHP CMS based on the micro framework [Daimyo](https:
 ![screenshot dashboard](https://raw.githubusercontent.com/sundowndev/portfolio-project/master/docs/screenshots/dashboard.jpg?token=APt3y8CN59s62eFA_p5Zox7CaZ2NMCavks5aMY3XwA%3D%3D)
 
 ## Features
-* Administration panel
 * Manage content such as users, articles and categories
-* Manage image and file upload locally or with an external API
+* Local file management or with an external API
 * Easy to customize, add pages, plugins, templates and more
 * Make templating using Twig
 * Lightweight and secure
+
+## Why DaimyoCMS ?
+You may ask why should you use this CMS while there's a lot of other popular ones, what makes this CMS better than another one ? Well, nothing. I created DaimyoCMS to handle tiny personal projects and code in my way as a junior developer. If you are looking for lightweight and micro php framework based content management system you're on the right way, DaimyoCMS is just part of my personal R&D. Feel free to give it a review or contribute!
 
 ## Requirement
 * PHP 7.*
