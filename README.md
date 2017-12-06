@@ -21,14 +21,14 @@ You may ask why should you use this CMS while there's a lot of other popular one
 **You need to install (or enable in php.ini) PHP "file info" extension.**
 
 # Documentations
-* [Getting started](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/GetStarted.md)
-* [Administration panel](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/AdminPanel.md)
+* [Getting started](docs/GetStarted.md)
+* [Administration panel](docs/AdminPanel.md)
 
 #### Developers
 
-* [Routing](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/Routing.md)
-* [Templating](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/Templating.md)
-* [Exploited PDO Class](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/PDOClass.md)
-* [File upload](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/UploadClass.md)
+* [Routing](docs/Routing.md)
+* [Templating](docs/Templating.md)
+* [Exploited PDO Class](docs/PDOClass.md)
+* [File upload](docs/UploadClass.md)
 
 #### If you're encountering a problem, do not hesitate to create an issue and explain it.
