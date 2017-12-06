@@ -8,7 +8,7 @@
               <div class="blog-post">
                 <img src="{{ paths.uploads }}/{{ article.image_url }}" alt="">
                 <h2 class="blog-post-title">{{ article.title }}</h2>
-                <p class="blog-post-meta">On {{ article.date|date("d/m/Y") }} at {{ article.date|date("h:m") }} by <a href="{{ paths.user }}/{{ article.author_id }}">{{ article.author_id }}</a> in <a href="{{ paths.category }}/{{ article.category_id }}">{{ article.category_id }}</a></p>
+                <p class="blog-post-meta">On {{ article.date|date("d/m/Y") }} at {{ article.date|date("h:m") }} by <a href="{{ paths.user }}/{{ article.author }}">{{ article.author }}</a> in <a href="{{ paths.category }}/{{ article.category }}">{{ article.category }}</a></p>
 
                 {{ article.content }}
               </div>

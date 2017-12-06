@@ -51,7 +51,9 @@ namespace App\Session;
 
 class CustomException extends \Exception {}
 class SessionHandlerException extends CustomException {}
-class SessionDisabledException extends SessionHandlerException {}
+class SessionDisabledException extends SessionHandlerException {
+    public function __construct(){}
+}
 class InvalidArgumentTypeException extends SessionHandlerException {}
 class ExpiredSessionException extends SessionHandlerException {
     public function __construct(){}

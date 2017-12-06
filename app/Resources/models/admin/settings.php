@@ -11,7 +11,9 @@ if(isset($_POST['changeUsername'])){
         
         $app->getModule('Session\Session')->w('username', $_POST['username']);
         
-        $app->getModule('Session\Advert')->setAdvert('success', 'You successfully created your category!');
+        exit(var_dump($_POST));
+        
+        $app->getModule('Session\Advert')->setAdvert('success', 'Changes has been saved'); 
     }else{
         $app->getModule('Session\Advert')->setAdvert('danger', 'Please enter a valid username that respect the format : a-Z0-9-_');
     }
