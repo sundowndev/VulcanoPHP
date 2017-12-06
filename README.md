@@ -9,6 +9,7 @@ DaimyoCMs is an open-source PHP CMS based on the micro framework [Daimyo](https:
 * Manage image and file upload locally or with an external API
 * Easy to customize, add pages, plugins, templates and more
 * Make templating using Twig
+* Lightweight and secure
 
 ## Requirement
 * PHP 7.*
