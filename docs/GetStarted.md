@@ -65,14 +65,12 @@ You can now launch your localhost dev server
 php -S localhost:8000 -t ./public
 ~~~
 
-See the [admin documentation](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/AdminPanel.md) to get started with the dashboard.
+See the [admin documentation](/docs/AdminPanel.md) to get started with the dashboard.
 
-# protips
-#### If you're not using the default root path ```path = "/"``` then make sure to change it in the ```.htaccess```
+## Protips
 
+If you're not using the default root path ```path = "/"``` then make sure to change it in the ```.htaccess```
 ~~~
 # Set rewrite base here
 ErrorDocument 403 /daimyo/404
 ~~~
-
-This will prevent people getting 403 error instead of 404 when trying to access to a forbiden file.
