@@ -7,7 +7,7 @@ $ composer install
 ~~~
 
 ## Step 2
-#### edit the file ```app/config/config.ini```
+edit the file ```app/config/config.ini```
 
 ~~~ ini
 ; main configuration file
@@ -36,7 +36,7 @@ charset = "utf8"
 ~~~
 
 ## Step 3
-#### Import the database ```app/config/database.sql```
+Import the database ```app/config/database.sql```
 
 ~~~ mysql
 mysql -u username -p database_name < database.sql
@@ -49,14 +49,14 @@ $ chmod -R 777 content/uploads
 ~~~
 
 ## Step 5
-#### Go to ```/admin``` and sign in with the default login:
+Go to ```/admin``` and sign in with the default login:
 
 ~~~
 login: admin
 pass: sW5Yd1aPlmN
 ~~~
 
-#### then go to ```settings``` and change the default password.
+then go to ```settings``` and change the default password.
 
 # Your CMS is now installed and ready!
 
