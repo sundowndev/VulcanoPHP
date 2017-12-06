@@ -36,7 +36,11 @@ charset = "utf8"
 ~~~
 
 ## Step 3
-#### Setup the database ```app/config/database.sql``` from PhpMyAdmin
+#### Import the database ```app/config/database.sql```
+
+~~~ mysql
+mysql -u username -p database_name < database.sql
+~~~
 
 ## Step 4
 Allow DaiymoCMS to write in ```uploads``` folder
@@ -54,13 +58,13 @@ pass: sW5Yd1aPlmN
 
 #### then go to ```settings``` and change the default password.
 
-#### You can launch your localhost dev server
+# Your CMS is now installed and ready!
 
+You can now launch your localhost dev server
 ~~~
 php -S localhost:8000 -t ./public
 ~~~
 
-# Your DaimyoCMS is now setup and ready!
 See the [admin documentation](https://github.com/SundownDEV/DaimyoCMS/blob/master/docs/AdminPanel.md) to get started with the dashboard.
 
 # protips
