@@ -17,6 +17,7 @@ if($app->getModule('Session\Session')->r('auth') === true){
         if($target && $app->getModule('Secure\Secure')->verifyHash($pw, $target['password'])){
             $app->getModule('Session\Session')->w('auth', true);
             $app->getModule('Session\Session')->w('id', $target['id']);
+            $app->getModule('Session\Session')->w('hash_id', $target['hash_id']);
             $app->getModule('Session\Session')->w('username', $target['username']);
             $app->getModule('Session\Session')->setCSRF();
             

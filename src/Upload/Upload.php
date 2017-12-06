@@ -118,6 +118,13 @@ class Upload {
 	 * @var string
 	 */
 	protected $root;
+    
+    /**
+	 * file extension
+	 *
+	 * @var string
+	 */
+	protected $ext;
 
 	/**
 	 * Return upload object
@@ -160,7 +167,7 @@ class Upload {
 		}
 
 		//create finfo object
-		$this->finfo = new finfo();
+		$this->finfo = new \finfo();
 
 	}
 
@@ -184,6 +191,8 @@ class Upload {
 	 */
 	public function upload($filename = '') {
 
+        $i = explode(".", $this->file_post['name']);
+        $this->ext = "jpg"/*end($i)*/;
 		$this->set_filename($filename);
 		
 		if ($this->check()) {
@@ -248,6 +257,33 @@ class Upload {
 
 	}
 
+    /**
+	 * Convert image to jpg
+	 *
+	 * @param string $filename
+	 */
+    public function convertImage($originalImage, $outputImage, $quality) {
+        // jpg, png, gif or bmp?
+        $exploded = explode('.',$originalImage);
+        $ext = $exploded[count($exploded) - 1]; 
+
+        if (preg_match('/jpg|jpeg/i',$ext))
+            $imageTmp = \imagecreatefromjpeg($originalImage);
+        else if (preg_match('/png/i',$ext))
+            $imageTmp = \imagecreatefrompng($originalImage);
+        else if (preg_match('/gif/i',$ext))
+            $imageTmp = \imagecreatefromgif($originalImage);
+        else if (preg_match('/bmp/i',$ext))
+            $imageTmp = \imagecreatefrombmp($originalImage);
+        else
+            return 0;
+
+        // quality is a value from 0 (worst) to 100 (best)
+        imagejpeg($imageTmp, $outputImage, $quality);
+        imagedestroy($imageTmp);
+
+        return 1;
+    }
 
 	/**
 	 * Save file on server
@@ -266,7 +302,9 @@ class Upload {
 		$this->file['full_path'] = $this->root . $this->destination . $this->filename;
         	$this->file['path'] = $this->destination . $this->filename;
 
-		$status = move_uploaded_file($this->tmp_name, $this->file['full_path']);
+		$status = move_uploaded_file($this->tmp_name, $this->file['full_path'].'.'.$this->ext);
+        
+        //$this->convertImage($this->file['full_path'].'.'.$this->ext, $this->file['full_path'].'.'.$this->ext, 100);
 
 		//checks whether upload successful
 		if (!$status) {
@@ -274,7 +312,7 @@ class Upload {
 		}
 
 		//done
-		$this->file['status']	= true;
+		$this->file['status'] = true;
 
 	}
 

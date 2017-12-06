@@ -64,6 +64,7 @@ if(empty($app->getModule('Session\Session')->r('auth'))){
     $app->getTwig()->addGlobal('session', array(
         'auth' => $app->getModule('Session\Session')->r('auth'),
         'id' => $app->getModule('Session\Session')->r('id'),
+        'hash_id' => $app->getModule('Session\Session')->r('hash_id'),
         'username' => $app->getModule('Session\Session')->r('username'),
         'csrf' => $app->getModule('Session\Session')->r('csrf')
     ));
