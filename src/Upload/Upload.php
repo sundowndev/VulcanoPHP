@@ -162,7 +162,7 @@ class Upload {
 		// set & create destination path
 		if (!$this->set_destination($destination)) {
 
-			throw new Exception('Upload: Can\'t create destination. '.$this->root . $this->destination);
+			throw new \Exception('Upload: Can\'t create destination. '.$this->root . $this->destination);
 
 		}
 
@@ -308,7 +308,7 @@ class Upload {
 
 		//checks whether upload successful
 		if (!$status) {
-			throw new Exception('Upload: Can\'t upload file.');
+			throw new \Exception('Upload: Can\'t upload file.');
 		}
 
 		//done
@@ -371,13 +371,13 @@ class Upload {
 
 		if (empty($instance_of_callback_object)) {
 
-			throw new Exception('Upload: $instance_of_callback_object can\'t be empty.');
+			throw new \Exception('Upload: $instance_of_callback_object can\'t be empty.');
 
 		}
 
 		if (!is_array($callback_methods)) {
 
-			throw new Exception('Upload: $callback_methods data type need to be array.');
+			throw new \Exception('Upload: $callback_methods data type need to be array.');
 
 		}
 
