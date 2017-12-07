@@ -23,8 +23,8 @@ foreach ($articles as $key => $article) {
     $app->getDB()->query('SELECT id,name FROM d_category WHERE id = :id');
     $app->getDB()->bind('id', $articles[$key]['category_id']);
     $app->getDB()->execute();
-    $category = $app->getDB()->resultset();
-    $articles[$key]['category'] = $category[0]['name'];
+    $category = $app->getDB()->single();
+    $articles[$key]['category'] = $category['name'];
 }
 
 $app->getTwig()->addGlobal('articles', $articles);
