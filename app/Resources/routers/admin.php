@@ -79,8 +79,8 @@ $app->mount('/manage', function () use ($app) {
 		$app->render(['models' => 'admin/manage_categories', 'views' => '@admin/manage_categories'], ['title' => 'Manage categories', 'page' => 'categories']);
 	});
 
-	$app->match('GET|POST','/category/([\w+]+)', function ($name) use ($app) {
-		$app->render(['models' => 'admin/edit_category', 'views' => '@admin/edit_category'], ['title' => 'Edit a category', 'name' => $name, 'page' => 'categories']);
+	$app->match('GET|POST','/category/([\w+]+)', function ($id) use ($app) {
+		$app->render(['models' => 'admin/edit_category', 'views' => '@admin/edit_category'], ['title' => 'Edit a category', 'id' => $id, 'page' => 'categories']);
 	});
 
 	/* Users */
@@ -106,8 +106,8 @@ $app->mount('/delete', function () use ($app) {
 	});
 
 	/* Categories */
-	$app->get('/category/([a-z0-9_-]+)/([\w+]+)', function ($name,$token) use ($app) {
-		$app->render(['models' => 'admin/delete_category'], ['name' => $name, 'token' => $token, 'page' => 'categories']);
+	$app->get('/category/([a-z0-9_-]+)/([\w+]+)', function ($id,$token) use ($app) {
+		$app->render(['models' => 'admin/delete_category'], ['id' => $id, 'token' => $token, 'page' => 'categories']);
 	});
 
 	/* Users */

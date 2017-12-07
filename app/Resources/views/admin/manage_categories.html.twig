@@ -18,10 +18,10 @@
                 {% for category in categories %}
                 <tr role="row" class="even">
                   <td>{{ category.id }}</td>
-                  <td><a href="{{ paths.admin }}/manage/category/{{ category.name }}">{{ category.name }}</a></td>
+                  <td><a href="{{ paths.admin }}/manage/category/{{ category.hash_id }}">{{ category.name }}</a></td>
                   <td>{{ category.description|slice(0,80) }}</td>
                   <td>{{ category.createdDate|date('d/m/Y') }} at {{ category.createdDate|date('h:m') }}</td>
-                  <td><a href="{{ paths.admin }}/manage/category/{{ category.name }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i> Edit</a> <a href="{{ paths.admin }}/delete/category/{{ category.id }}/{{ session.csrf }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a></td>
+                  <td><a href="{{ paths.admin }}/manage/category/{{ category.hash_id }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i> Edit</a> <a href="{{ paths.admin }}/delete/category/{{ category.hash_id }}/{{ session.csrf }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
