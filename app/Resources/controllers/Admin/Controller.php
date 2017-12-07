@@ -2,6 +2,9 @@
 
 namespace Controllers\Admin;
 
+use App\Application;
+use App\Session\Session;
+
 class Controller
 {
     
@@ -9,8 +12,8 @@ class Controller
     private $session;
     
     public function __construct () {
-        $this->app = new \App\Application;
-        $this->session = new \App\Session\Session;
+        $this->app = new Application;
+        $this->session = new Session;
     }
     
     public function getUsernameById ($id) {
