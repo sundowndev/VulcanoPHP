@@ -15,6 +15,7 @@ You may ask why should you use this CMS while there's a lot of other popular one
 
 ## Requirement
 * PHP 7.*
+  * php7.*-gd
 * MySQL 5.*
 * Composer ~1.5.*
 
