@@ -10,17 +10,17 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="name">Category name</label>
-                  <input type="text" name="name" class="form-control" id="name" placeholder="What is it about ?">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="What is it about ?" value="{% if POST.name %}{{ POST.name }}{% else %}{{ category.name }}{% endif %}">
                 </div>
                 <div class="form-group">
                   <label for="description">Description</label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Tell us something"></textarea>
+                    <textarea class="form-control" id="description" name="description" placeholder="Tell us something">{% if POST.description %}{{ POST.description }}{% else %}{{ category.description }}{% endif %}</textarea>
                 </div>
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" name="createCategory" class="btn btn-primary">Create a category</button>
+                <button type="submit" name="editCategory" class="btn btn-primary">Create a category</button>
               </div>
             </form>
           </div>

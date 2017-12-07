@@ -70,7 +70,7 @@ $app->mount('/manage', function () use ($app) {
 		$app->render(['models' => 'admin/manage_articles', 'views' => '@admin/manage_articles'], ['title' => 'Manage articles', 'page' => 'articles']);
 	});
 
-	$app->match('GET|POST','/article/([a-z0-9_-]+)', function ($id) use ($app) {
+	$app->match('GET|POST','/article/([\w+]+)', function ($id) use ($app) {
 		$app->render(['models' => 'admin/edit_article', 'views' => '@admin/edit_article'], ['title' => 'Edit an article', 'id' => $id, 'page' => 'articles']);
 	});
 
@@ -79,7 +79,7 @@ $app->mount('/manage', function () use ($app) {
 		$app->render(['models' => 'admin/manage_categories', 'views' => '@admin/manage_categories'], ['title' => 'Manage categories', 'page' => 'categories']);
 	});
 
-	$app->match('GET|POST','/category/([a-z0-9_-]+)', function ($name) use ($app) {
+	$app->match('GET|POST','/category/([\w+]+)', function ($name) use ($app) {
 		$app->render(['models' => 'admin/edit_category', 'views' => '@admin/edit_category'], ['title' => 'Edit a category', 'name' => $name, 'page' => 'categories']);
 	});
 
@@ -88,7 +88,7 @@ $app->mount('/manage', function () use ($app) {
 		$app->render(['views' => '@admin/manage_users'], ['title' => 'Manage users', 'page' => 'users']);
 	});
 
-	$app->match('GET|POST','/user/([a-z0-9_-]+)', function ($id) use ($app) {
+	$app->match('GET|POST','/user/([\w+]+)', function ($id) use ($app) {
 		$app->render(['models' => 'admin/edit_user', 'views' => '@admin/edit_user'], ['title' => 'Edit an user', 'id' => $id, 'page' => 'users']);
 	});
 
@@ -101,22 +101,22 @@ $app->mount('/manage', function () use ($app) {
 /* Delete content */
 $app->mount('/delete', function () use ($app) {
 	/* Articles */
-	$app->get('/article/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($id,$token) use ($app) {
+	$app->get('/article/([\w+]+)/([\w+]+)', function ($id,$token) use ($app) {
 		$app->render(['models' => 'admin/delete_article'], ['id' => $id, 'token' => $token, 'page' => 'delete']);
 	});
 
 	/* Categories */
-	$app->get('/category/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($name,$token) use ($app) {
+	$app->get('/category/([a-z0-9_-]+)/([\w+]+)', function ($name,$token) use ($app) {
 		$app->render(['models' => 'admin/delete_category'], ['name' => $name, 'token' => $token, 'page' => 'categories']);
 	});
 
 	/* Users */
-	$app->get('/user/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($id,$token) use ($app) {
+	$app->get('/user/([\w+]+)/([\w+]+)', function ($id,$token) use ($app) {
 		$app->render(['models' => 'admin/delete_user'], ['id' => $id, 'token' => $token, 'page' => 'users']);
 	});
 
 	/* Uploads */
-	$app->get('/upload/([a-z0-9_-]+)/([a-z0-9_-]+)', function ($id,$token) use ($app) {
+	$app->get('/upload/([\w+]+)/([\w+]+)', function ($id,$token) use ($app) {
 		$app->render(['models' => 'admin/delete_uploads'], ['id' => $id, 'token' => $token, 'page' => 'uploads']);
 	});
 });

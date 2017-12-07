@@ -19,6 +19,7 @@ if($app->getModule('Session\Session')->r('auth') === true){
             $app->getModule('Session\Session')->w('id', $target['id']);
             $app->getModule('Session\Session')->w('hash_id', $target['hash_id']);
             $app->getModule('Session\Session')->w('username', $target['username']);
+            $app->getModule('Session\Session')->w('email', $target['email']);
             $app->getModule('Session\Session')->setCSRF();
             
             if(!empty($_GET['redirect'])){

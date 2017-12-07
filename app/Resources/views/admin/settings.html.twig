@@ -13,7 +13,7 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="username">Nom d'utilisateur</label>
-                  <input type="text" name="username" class="form-control" id="username" placeholder="Entrez un nom d'utilisateur" value="{{ session.username }}">
+                  <input type="text" name="username" class="form-control" id="username" placeholder="Entrez un nom d'utilisateur" value="{% if POST.username %}{{ POST.username }}{% else %}{{ session.username }}{% endif %}">
                 </div>
                 <div class="form-group">
                   <label for="avatar">Avatar</label>
@@ -37,25 +37,25 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form">
+            <form role="form" method="post" action="">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="InputEmail1">Adresse email actuelle</label>
-                  <input type="email" class="form-control" id="InputEmail1" placeholder="Votre adresse email">
+                  <label for="actualemail">Adresse email actuelle</label>
+                  <input type="email" name="actualemail" class="form-control" id="actualemail" placeholder="Votre adresse email" value="{% if POST.newemail %}{{ POST.newemail }}{% else %}{{ session.email }}{% endif %}" disabled="">
                 </div>
                 <div class="form-group">
-                  <label for="InputEmail2">Nouvelle adresse email</label>
-                  <input type="email" class="form-control" id="InputEmail2" placeholder="Votre adresse email">
+                  <label for="newemail">Nouvelle adresse email</label>
+                  <input type="email" name="newemail" class="form-control" id="newemail" placeholder="Votre adresse email" value="{% if POST.newemail %}{{ POST.newemail }}{% endif %}">
                 </div>
                 <div class="form-group">
-                  <label for="InputPassword1">Mot de passe</label>
-                  <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
+                  <label for="password">Mot de passe</label>
+                  <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                 </div>
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <button type="submit" name="changeEmail" class="btn btn-primary">Enregistrer</button>
               </div>
             </form>
           </div>
@@ -67,25 +67,25 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form">
+            <form role="form" method="post" action="">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="InputPassword2">Mot de passe actuel</label>
-                  <input type="password" class="form-control" id="InputPassword2" placeholder="Entrez votre mot de passe actuel">
+                  <label for="actualpassword">Mot de passe actuel</label>
+                  <input type="password" name="actualpassword" class="form-control" id="actualpassword" placeholder="Entrez votre mot de passe actuel">
                 </div>
                 <div class="form-group">
-                  <label for="InputPassword3">Nouveau mot de passe</label>
-                  <input type="password" class="form-control" id="InputPassword3" placeholder="Entrez votre nouveau mot de passe">
+                  <label for="newpassword">Nouveau mot de passe</label>
+                  <input type="password" name="newpassword" class="form-control" id="newpassword" placeholder="Entrez votre nouveau mot de passe">
                 </div>
                 <div class="form-group">
-                  <label for="InputPassword4">Répéter nouveau mot de passe</label>
-                  <input type="password" class="form-control" id="InputPassword4" placeholder="Entrez à nouveau le mot de passe">
+                  <label for="repeatpassword">Répéter nouveau mot de passe</label>
+                  <input type="password" name="repeatpassword" class="form-control" id="repeatpassword" placeholder="Entrez à nouveau le mot de passe">
                 </div>
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                <button type="submit" name="changePassword" class="btn btn-primary">Enregistrer</button>
               </div>
             </form>
           </div>

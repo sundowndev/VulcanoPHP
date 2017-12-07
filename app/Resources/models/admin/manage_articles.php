@@ -19,6 +19,12 @@ foreach ($articles as $key => $article) {
     $app->getDB()->execute();
     $username = $app->getDB()->resultset();
     $articles[$key]['author'] = $username[0]['username'];
+    
+    $app->getDB()->query('SELECT id,name FROM d_category WHERE id = :id');
+    $app->getDB()->bind('id', $articles[$key]['category_id']);
+    $app->getDB()->execute();
+    $category = $app->getDB()->resultset();
+    $articles[$key]['category'] = $category[0]['name'];
 }
 
 $app->getTwig()->addGlobal('articles', $articles);

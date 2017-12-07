@@ -9,6 +9,7 @@
                 <tr role="row">
                     <th>#ID</th>
                     <th>Title</th>
+                    <th>Category</th>
                     <th>Author</th>
                     <th>Extract</th>
                     <th>Date published</th>
@@ -20,6 +21,7 @@
                 <tr role="row" class="even">
                   <td>{{ article.id }}</td>
                   <td><a href="{{ paths.admin }}/manage/article/{{ article.hash_id }}">{{ article.title }}</a></td>
+                  <td><a href="{{ paths.admin }}/manage/category/{{ article.category }}">{{ article.category }}</a></td>
                   <td><a href="{{ paths.admin }}/manage/user/{{ article.author }}">{{ article.author }}</a></td>
                   <td>{{ article.content|slice(0,80) }}</td>
                   <td>{{ article.publishDate|date('d/m/Y') }} at {{ article.publishDate|date('h:m') }}</td>

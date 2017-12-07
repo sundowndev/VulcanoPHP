@@ -6,7 +6,7 @@
           <div class="box box-primary">
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="" method="post">
+            <form role="form" method="post" action="">
               <div class="box-body">
                 <div class="form-group">
                   <label for="cover">Cover picture</label>
@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-group">
                   <label for="title">Title</label>
-                  <input type="text" name="title" class="form-control" id="title" placeholder="What is it about ?" value="{{ article.title }}">
+                  <input type="text" name="title" class="form-control" id="title" placeholder="What is it about ?" value="{% if POST.title %}{{ POST.title }}{% else %}{{ article.title }}{% endif %}">
                 </div>
                 <div class="form-group">
                   <label for="category">Category</label>
@@ -29,13 +29,13 @@
                 </div>
                 <div class="form-group">
                   <label for="content">Content</label>
-                    <textarea class="form-control" id="content" name="content" placeholder="Tell us something" rows="6">{{ article.content }}</textarea>
+                    <textarea class="form-control" id="content" name="content" placeholder="Tell us something" rows="6">{% if POST.content %}{{ POST.content }}{% else %}{{ article.content }}{% endif %}</textarea>
                 </div>
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Edit an article</button>
+                <button type="submit" name="editArticle" class="btn btn-primary">Edit an article</button>
               </div>
             </form>
           </div>

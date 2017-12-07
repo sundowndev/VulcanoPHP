@@ -66,6 +66,7 @@ if(empty($app->getModule('Session\Session')->r('auth'))){
         'id' => $app->getModule('Session\Session')->r('id'),
         'hash_id' => $app->getModule('Session\Session')->r('hash_id'),
         'username' => $app->getModule('Session\Session')->r('username'),
+        'email' => $app->getModule('Session\Session')->r('email'),
         'csrf' => $app->getModule('Session\Session')->r('csrf')
     ));
 }
