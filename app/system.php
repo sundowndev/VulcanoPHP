@@ -282,7 +282,7 @@ class Application
                 'type' => $this->getModule('Session\Session')->r('advert', 'type'),
                 'message' => $this->getModule('Session\Session')->r('advert', 'message')
             ));
-
+            
             $this->getModule('Session\Session')->w('advert', '');
         }
 
@@ -330,6 +330,8 @@ class Application
 		} else {
 			header('Location:'.$path);
 		}
+    
+        exit();
 	}
     
     /**
