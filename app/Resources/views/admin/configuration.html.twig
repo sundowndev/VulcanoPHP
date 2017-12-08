@@ -9,25 +9,25 @@
               <div class="box-body">
                 <div class="form-group">
                   <label for="sitename">Nom du site</label>
-                  <input type="text" name="sitename" class="form-control" id="sitename" placeholder="Votre adresse email">
+                  <input type="text" name="sitename" class="form-control" id="sitename" placeholder="Nom de votre site" value="{% if POST.name %}{{ POST.name }}{% else %}{{ site.name }}{% endif %}">
                 </div>
                 <div class="form-group">
                   <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" placeholder="Description de votre site"></textarea>
+                    <textarea class="form-control" name="description" id="description" placeholder="Description de votre site">{% if POST.description %}{{ POST.description }}{% else %}{{ site.description }}{% endif %}</textarea>
                 </div>
                 <div class="form-group">
                   <label for="tags">Tags</label>
-                  <input type="text" class="form-control" name="tags" id="tags" placeholder="Entrez des tags séparés par des virgules">
+                  <input type="text" class="form-control" name="tags" id="tags" placeholder="Entrez des tags séparés par des virgules" value="{% if POST.tags %}{{ POST.tags }}{% else %}{{ site.tags }}{% endif %}">
                 </div>
                 <div class="form-group">
-                  <label for="domain">Nom de domaine</label>
-                  <input type="text" class="form-control" name="domain" id="domain" placeholder="Entrez le nom de domain de votre site">
+                  <label for="thumbnail">Image du site</label>
+                  <input type="file" class="form-control" name="thumbnail" id="thumbnail">
                 </div>
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Enregistrer la configuration</button>
+                <button type="submit" name="saveConfig" class="btn btn-primary">Enregistrer la configuration</button>
               </div>
             </form>
         </div>

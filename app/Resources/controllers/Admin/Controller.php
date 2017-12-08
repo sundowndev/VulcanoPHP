@@ -16,8 +16,12 @@ class Controller
         $this->session = new Session;
     }
     
-    public function getUsernameById ($id) {
-        //
+    public function deleteUpload ($file) {
+        if(file_exists($this->app->config['paths']['uploads'].'/'.$file)){
+            \unlink($this->app->webroot . $this->app->config['paths']['uploads'].'/' . $file);
+        }else{
+            return false;
+        }
     }
     
     public function logoutAction ($token) {

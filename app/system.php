@@ -48,6 +48,7 @@ class Application
     /**
      * public variables
      */
+	public $root;
 	public $webroot;
     public $domain;
 	public $app;
@@ -79,13 +80,14 @@ class Application
         endif;
 		
         // Router instance
-        $this->webroot = str_replace('public/index.php', '', $_SERVER['SCRIPT_FILENAME']);
-		$this->app = $this->webroot.'app/';
-		$this->config_path = $this->webroot.'app/config';
-		$this->resources = $this->webroot.'app/Resources/';
+        $this->root = str_replace('public/index.php', '', $_SERVER['SCRIPT_FILENAME']);
+        $this->webroot = str_replace('/index.php', '', $_SERVER['SCRIPT_FILENAME']);
+		$this->app = $this->root.'app/';
+		$this->config_path = $this->root.'app/config';
+		$this->resources = $this->root.'app/Resources/';
 		$this->models = $this->resources.'models/';
 		$this->views = $this->resources.'views/';
-		$this->src = $this->webroot.'src/';
+		$this->src = $this->root.'src/';
         $this->config = parse_ini_file($this->config_path.'/config.ini', true);
 		$this->domain = $this->config['framework']['path'];
         

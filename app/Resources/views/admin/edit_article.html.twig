@@ -6,11 +6,18 @@
           <div class="box box-primary">
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="post" action="">
+            <form role="form" method="post" action="" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group">
+                  {% if cover %}
+                  <div style="width:60%;margin-bottom:20px;">
+                      <img src="{{ cover }}" class="img-thumbnail rounded" alt="">
+                  </div>
+                  {% endif %}
                   <label for="cover">Cover picture</label>
-                  <input type="file" id="cover">
+                  
+                  
+                  <input type="file" name="cover" id="cover" class="form-control">
 
                   <p class="help-block">Choisissez une image au format .jpg ou .png d'une taille maximale de 10Mo.</p>
                 </div>
