@@ -1,5 +1,5 @@
 # DaimyoCMS
-DaimyoCMs is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.1.1 dev|non-stable```
+DaimyoCMs is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.1.6 dev|non-stable```
 
 ![screenshot dashboard](https://raw.githubusercontent.com/sundowndev/portfolio-project/master/docs/screenshots/dashboard.jpg?token=APt3y8CN59s62eFA_p5Zox7CaZ2NMCavks5aMY3XwA%3D%3D)
 
@@ -31,5 +31,3 @@ You may ask why should you use this CMS while there's a lot of other popular one
 * [Templating](docs/Templating.md)
 * [Exploited PDO Class](docs/PDOClass.md)
 * [File upload](docs/UploadClass.md)
-
-#### If you're encountering a problem, do not hesitate to create an issue and explain it.
