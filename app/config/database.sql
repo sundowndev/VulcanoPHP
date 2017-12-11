@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  mar. 05 déc. 2017 à 09:30
+-- Généré le :  lun. 11 déc. 2017 à 10:05
 -- Version du serveur :  5.5.58-0+deb8u1
 -- Version de PHP :  7.0.26-1~dotdeb+8.1
 
@@ -35,6 +35,7 @@ CREATE TABLE `d_articles` (
   `author` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `publishDate` datetime NOT NULL,
+  `editedDate` datetime NOT NULL,
   `content` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -46,6 +47,7 @@ CREATE TABLE `d_articles` (
 
 CREATE TABLE `d_category` (
   `id` int(11) NOT NULL,
+  `hash_id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
   `createdDate` datetime NOT NULL,
@@ -60,9 +62,12 @@ CREATE TABLE `d_category` (
 
 CREATE TABLE `d_users` (
   `id` int(11) NOT NULL,
+  `hash_id` varchar(255) NOT NULL,
   `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `registerDate` datetime NOT NULL
+  `registerDate` datetime NOT NULL,
+  `access` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -95,13 +100,13 @@ ALTER TABLE `d_users`
 -- AUTO_INCREMENT pour la table `d_articles`
 --
 ALTER TABLE `d_articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT pour la table `d_category`
 --
 ALTER TABLE `d_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `d_users`
