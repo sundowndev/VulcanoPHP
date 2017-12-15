@@ -1,7 +1,7 @@
 # DaimyoCMS
 DaimyoCMs is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.1.6 dev|non-stable```
 
-![screenshot dashboard](https://raw.githubusercontent.com/sundowndev/portfolio-project/master/docs/screenshots/dashboard.jpg?token=APt3y8CN59s62eFA_p5Zox7CaZ2NMCavks5aMY3XwA%3D%3D)
+![screenshot dashboard](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/dashboard.jpg)
 
 ## Features
 * Manage content such as users, articles and categories
