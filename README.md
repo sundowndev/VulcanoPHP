@@ -1,5 +1,5 @@
 # DaimyoCMS
-DaimyoCMs is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.1.6 dev|non-stable```
+DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.1.6 dev|non-stable```
 
 ![screenshot dashboard](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/dashboard.jpg)
 
