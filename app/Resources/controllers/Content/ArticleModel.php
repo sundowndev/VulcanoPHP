@@ -1,7 +1,7 @@
 <?php
 namespace Controllers\Content;
 
-class Articles
+class ArticleModel
 { 
     public function __construct () {}
     
@@ -12,4 +12,6 @@ class Articles
     public function deleteArticle ($id) {}
     
     public function getArticle ($id) {}
+    
+    public function getAllArticles () {}
 }
