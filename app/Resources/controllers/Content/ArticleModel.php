@@ -13,5 +13,9 @@ class ArticleModel
     
     public function getArticle ($id) {}
     
-    public function getAllArticles () {}
+    public function getAllArticles ($limit = '') {}
+    
+    public function increaseArticle ($id) {}
+    
+    public function decreaseArticle ($id) {}
 }
