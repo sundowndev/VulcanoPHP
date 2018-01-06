@@ -13,7 +13,7 @@ class CategoryModel
     
     public function getCategory ($id) {}
     
-    public function getAllCategories () {}
+    public function getAllCategories ($limit = '') {}
     
     public function increaseCategory ($id) {}
     
