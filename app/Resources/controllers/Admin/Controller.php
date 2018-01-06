@@ -16,13 +16,25 @@ class Controller
         $this->session = new Session;
     }
     
-    public function deleteUpload ($file) {
-        if(file_exists($this->app->config['paths']['uploads'].'/'.$file)){
-            \unlink($this->app->webroot . $this->app->config['paths']['uploads'].'/' . $file);
-        }else{
-            return false;
-        }
-    }
+    public function dashboardAction () {}
+    
+    /* Articles */
+    public function manageArticlesAction () {}
+    
+    public function createArticleAction () {}
+    
+    public function editArticleAction ($id) {}
+    
+    /* Categories */
+    public function manageCategoriesAction () {}
+    
+    public function createCategoryAction () {}
+    
+    public function editCategoryAction ($id) {}
+    
+    public function configAction () {}
+    
+    public function settingsAction () {}
     
     public function logoutAction ($token) {
         if($this->session->r('auth') === true && $token == $this->session->getCSRF()){
@@ -30,6 +42,15 @@ class Controller
             $this->app->redirect($this->app->config['paths']['admin']);
         } else {
             $this->app->redirect('/404');
+        }
+    }
+    
+    /* extra methods */
+    public function deleteUpload ($file) {
+        if(file_exists($this->app->config['paths']['uploads'].'/'.$file)){
+            \unlink($this->app->webroot . $this->app->config['paths']['uploads'].'/' . $file);
+        }else{
+            return false;
         }
     }
 }
