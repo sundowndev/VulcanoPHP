@@ -9,30 +9,30 @@ $ composer install
 ## Step 2
 edit the file ```app/config/config.ini```
 
-~~~ ini
-; main configuration file
-
-[general]
-site_name = "DaimyoCMS"
-description = ""
-tags = ""
-thumbnail = ""
-
-[framework]
-path = "/"
-URL = "http://www.example.com/"
-
-; database config file
-
-[dbDns]
-host = "127.0.0.1"
-dbname = "daimyocms"
-user = "root"
-pass = ""
-charset = "utf8"
-
-[paths]
-...
+~~~ json
+{
+    "general": {
+        "site_name": "daimyocms",
+        "description": "blabla",
+        "tags": "",
+        "thumbnail": ""
+    },
+    "framework": {
+        "URL": "http:\/\/localhost:8000",
+        "path": "",
+        "private_key": "8f096599520b9c46f10387aa6752a8f9d51ec23d5d9d6e6358a573a0154b4989"
+    },
+    "dbDns": {
+        "host": "127.0.0.1",
+        "dbname": "daimyocms",
+        "user": "root",
+        "pass": "",
+        "charset": "utf8"
+    },
+    "paths": {
+        ...
+    }
+}
 ~~~
 
 ## Step 3
