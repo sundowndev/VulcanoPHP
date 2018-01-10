@@ -66,11 +66,3 @@ php -S localhost:8000 -t ./public
 ~~~
 
 See the [admin documentation](/docs/AdminPanel.md) to get started with the dashboard.
-
-## Protips
-
-If you're not using the default root path ```path = "/"``` then make sure to change it in the ```.htaccess```
-~~~
-# Set rewrite base here
-ErrorDocument 403 /daimyo/404
-~~~
