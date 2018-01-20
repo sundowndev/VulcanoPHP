@@ -10,6 +10,7 @@ DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https:
 - [ ] Administration
   - [ ] Admin login feature
   - [ ] Manage articles
+      - [ ] Markdown editor
   - [ ] Manage categories
   - [ ] Manage local files
   - [ ] Manage users
