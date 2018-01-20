@@ -1,5 +1,29 @@
 # DaimyoCMS
-DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) ```version 0.1.6 dev|non-stable```
+### ```version 0.1.6 dev|non-stable```
+DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) using PHP 7, markdown editor and bootstrap 4.
+
+## Development
+
+- [ ] Templating
+  - [ ] Default blog template
+  - [ ] Default admin dashboard template
+- [ ] Administration
+  - [ ] Admin login feature
+  - [ ] Manage articles
+  - [ ] Manage categories
+  - [ ] Manage local files
+  - [ ] Manage users
+    - [ ] User groups feature
+  - [ ] General configuration settings
+  - [ ] User settings
+  - [ ] Plugin management
+  - [ ] Templates management
+  - [ ] Pages management
+- [ ] Blog
+  - [ ] Read articles
+  - [ ] Comments
+  - [ ] Sign up/in as simple user
+  - [ ] Search feature
 
 ![screenshot dashboard](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/dashboard.jpg)
 
@@ -7,7 +31,7 @@ DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https:
 * Manage content such as users, articles and categories
 * Local file management or with an external API
 * Easy to customize, add pages, plugins, templates and more
-* Make templating using Twig
+* Make templating easily using Twig
 * Lightweight and secure
 
 ## Why DaimyoCMS ?
