@@ -45,11 +45,18 @@ mysql -u username -p database_name < database.sql
 ## Step 4
 Allow DaiymoCMS to write in ```uploads``` folder
 ~~~ bash
-$ chmod -R 777 content/uploads
+$ find ./content -type f -exec chmod 644 {} \;
+$ find ./content -type d -exec chmod 755 {} \;
 ~~~
 
-## Step 5
-Go to ```/admin``` and sign in with the default login:
+# DaimyoCMS is now installed and ready!
+
+You can now launch your localhost dev server
+~~~
+php -S localhost:8000 -t ./public
+~~~
+
+Go to ```localhost:8000/admin``` and sign in with the default login:
 
 ~~~
 login: admin
@@ -57,12 +64,5 @@ pass: sW5Yd1aPlmN
 ~~~
 
 then go to ```settings``` and change the default password.
-
-# Your CMS is now installed and ready!
-
-You can now launch your localhost dev server
-~~~
-php -S localhost:8000 -t ./public
-~~~
 
 See the [admin documentation](/docs/AdminPanel.md) to get started with the dashboard.
