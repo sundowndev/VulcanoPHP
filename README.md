@@ -1,9 +1,9 @@
 # DaimyoCMS
-### ```version 0.1.6 dev|non-stable```
+
 DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) using PHP 7, markdown editor and bootstrap 4.
 
 ## Development
-
+```version 0.1.6 dev|non-stable```
 - [ ] Templating
   - [ ] Default blog template
   - [ ] Default admin dashboard template
