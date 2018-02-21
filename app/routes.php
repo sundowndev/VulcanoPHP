@@ -2,14 +2,17 @@
 
 require_once('config/init.php');
 
-$app->setNamespace('\Controllers\Controller');
+$app->setNamespace('\Controllers\MainController');
 
-/* echo hash of "test" string */
-$app->get('/install', function () use ($app) {
+/*
+ * dev route
+ * return the hash of "test"
+*/
+/*$app->get('/install', function () use ($app) {
 	echo $app->getModule('Secure\Secure')->hash_pass('test');
-});
+});*/
 
-$app->get( $app->config['paths']['home'] , 'Controller@HomeAction');
+$app->get( $app->config['paths']['home'] , 'Controller@homeAction');
 
 $app->get( $app->config['paths']['search'] , function () use ($app) {
 	$app->render(['models' => 'search', 'views' => 'search'], ['title' => 'Search']);

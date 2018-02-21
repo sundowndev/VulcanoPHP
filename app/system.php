@@ -160,8 +160,8 @@ class Application
 	/**
      * Use GET method
      *
-     * @param $method 		The request method
-     * @param $fn 			The route function
+     * @param $pattern 		Pattern to match
+     * @param $fn 			Route function or Controller action
      */
 	public function get ($pattern, $fn) {
 		$this->router->get($pattern, $fn);
@@ -170,28 +170,39 @@ class Application
 	/**
      * Use POST method
      *
-     * @param $method 		The request method
-     * @param $fn 			The route function
+     * @param $pattern 		Pattern to match
+     * @param $fn 			Route function or Controller action
      */
 	public function post ($pattern, $fn) {
 		$this->router->post($pattern, $fn);
 	}
 
-	/**
+    /**
      * Match function
      *
-     * @param $method 		The request method
-     * @param $fn 			The route function
+     * @param $method 		Request method
+     * @param $pattern 		Pattern to match
+     * @param $fn 			Route function or Controller actionRoute function or Controller action
      */
-	public function match ($method, $pattern, $fn) {
-		$this->router->match($method, $pattern, $fn);
-	}
+    public function match ($method, $pattern, $fn) {
+        $this->router->match($method, $pattern, $fn);
+    }
+
+    /**
+     * Match all methods function
+     *
+     * @param $pattern 		Pattern to match
+     * @param $fn 			Route function or Controller action
+     */
+    public function all ($pattern, $fn) {
+        $this->router->match('GET|POST|PUT|DELETE|OPTIONS|PATCH', $pattern, $fn);
+    }
 
 	/**
      * Mount function
      *
-     * @param $method 		The request method
-     * @param $fn 			The route function
+     * @param $pattern 		Pattern to match
+     * @param $fn 			Route function or Controller action
      */
 	public function mount ($pattern, $fn) {
 		$this->router->mount($pattern, $fn);
@@ -200,8 +211,8 @@ class Application
 	/**
      * Put function
      *
-     * @param $method 		The request method
-     * @param $fn 			The route function
+     * @param $pattern 		Pattern to match
+     * @param $fn 			Route function or Controller action
      */
 	public function put ($pattern, $fn) {
 		$this->router->put($pattern, $fn);
@@ -210,8 +221,8 @@ class Application
 	/**
      * Delete function
      *
-     * @param $method 		The request method
-     * @param $fn 			The route function
+     * @param $pattern 		Pattern to match
+     * @param $fn 			Route function or Controller action
      */
 	public function delete ($pattern, $fn) {
 		$this->router->delete($pattern, $fn);
@@ -220,8 +231,8 @@ class Application
 	/**
      * Options function
      *
-     * @param $method 		The request method
-     * @param $fn 			The route function
+     * @param $method 		Request method
+     * @param $fn 			Route function or Controller action
      */
 	public function options ($pattern, $fn) {
 		$this->router->options($pattern, $fn);
@@ -230,8 +241,8 @@ class Application
 	/**
      * Patch function
      *
-     * @param $method 		The request method
-     * @param $fn 			The route function
+     * @param $pattern 		Pattern to match
+     * @param $fn 			Route function or Controller action
      */
 	public function patch ($pattern, $fn) {
 		$this->router->patch($pattern, $fn);
@@ -240,8 +251,9 @@ class Application
 	/**
      * Before function
      *
-     * @param $method 	The request method
-     * @param $fn 		The route function
+     * @param $method 	    Request method
+     * @param $pattern 	    Pattern to match
+     * @param $fn 		    Route function or Controller action
      */
 	public function before ($method, $pattern, $fn) {
 		$this->router->before($method, $pattern, $fn);
@@ -259,7 +271,6 @@ class Application
 	/**
      * Set 404 error function
      *
-     * @param $method 		The request method
      * @param $fn 			The route function
      */
 	public function set404 ($fn) {
@@ -274,7 +285,9 @@ class Application
 	}
 	
 	/**
-     * Render template function using 
+     * Render template function using
+     * @param $template     The template to render
+     * @param $args         Parameter(s) passed to twig
      */
 	public function render (array $template, array $args = []) {
 		if (!empty($template['models'])) {
@@ -298,8 +311,11 @@ class Application
 	/**
      * Load router function
      * Folder /app/Resources/routers/*.php
+     *
+     * @param $file         Routing file to include
+     * @param $args         Parameters
      */
-	public function router (string $file, $args = []) {
+	public function router (string $file, array $args = []) {
         $app = $this;
         
         if(file_exists($this->DIR_RESOURCES . 'routers/'.$file.'.php')){
@@ -312,8 +328,11 @@ class Application
 	/**
      * Load model function
      * Folder /src/*.php
+     *
+     * @param $file         Model file to include
+     * @param $args         Parameters
      */
-	public function load (string $file, $args = []) {
+	public function load (string $file, array $args = []) {
         $app = $this;
             
         if(file_exists($this->DIR_MODELS . $file . '.php')){
@@ -326,7 +345,8 @@ class Application
 	/**
      * Redirect function
 	 *
-	 * @param $local	choose local redirection or external link
+	 * @param $path	        Redirection path or link
+	 * @param $local	    Local redirection (true) or external link (false)
     */
 	public function redirect (string $path, bool $local = true) {
 		if ($local == true) {

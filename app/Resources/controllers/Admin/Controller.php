@@ -16,7 +16,9 @@ class Controller
         $this->session = new Session;
     }
     
-    public function dashboardAction () {}
+    public function dashboardAction () {
+        echo 'dashboard';
+    }
     
     /* Articles */
     public function manageArticlesAction () {}
