@@ -48,16 +48,15 @@ class Application
     /**
      * public variables
      */
-	public $root;
-	public $webroot;
-    public $domain;
-	public $app;
-	public $config_path;
-	public $resources;
-	public $controllers;
-	public $models;
-	public $views;
-	public $src;
+	public $ROOT;
+	public $WEBROOT;
+	public $DIR_APP;
+	public $DIR_CONFIG;
+	public $DIR_RESOURCES;
+	public $DIR_CONTROLLERS;
+	public $DIR_MODELS;
+	public $DIR_VIEWS;
+	public $DIR_SRC;
 	public $config;
 
 	/**
@@ -80,17 +79,20 @@ class Application
         endif;
 		
         // Router instance
-        $this->root = str_replace('public/index.php', '', $_SERVER['SCRIPT_FILENAME']);
-        $this->webroot = str_replace('/index.php', '', $_SERVER['SCRIPT_FILENAME']);
-		$this->app = $this->root.'app/';
-		$this->config_path = $this->root.'app/config';
-		$this->resources = $this->root.'app/Resources/';
-		$this->models = $this->resources.'models/';
-		$this->views = $this->resources.'views/';
-		$this->src = $this->root.'src/';
-        $this->config = parse_ini_file($this->config_path.'/config.ini', true);
-		$this->domain = $this->config['framework']['path'];
-        
+        $this->ROOT = dirname(dirname($_SERVER['SCRIPT_FILENAME']));
+        if (dirname($_SERVER['SCRIPT_NAME']) != '/') {
+            $this->WEBROOT = dirname($_SERVER['SCRIPT_NAME']).'/';
+        }else{
+            $this->WEBROOT = dirname($_SERVER['SCRIPT_NAME']);
+        }
+        $this->DIR_APP = $this->ROOT.'/app/';
+		$this->DIR_CONFIG = $this->DIR_APP.'config/';
+		$this->DIR_RESOURCES = $this->DIR_APP.'Resources/';
+		$this->DIR_MODELS = $this->DIR_RESOURCES.'models/';
+		$this->DIR_VIEWS = $this->DIR_RESOURCES.'views/';
+		$this->DIR_SRC = $this->ROOT.'src/';
+        $this->config = json_decode(file_get_contents($this->DIR_CONFIG.'/config.json'), true);
+
         // Setting up application private key
         // Private key is a sha256 string which allows you to hash passwords in a secure way
         $this->private_key = $this->config['framework']['private_key'];
@@ -103,7 +105,7 @@ class Application
         
         // TwigLoader and Twig instances
 		\Twig_Autoloader::register();
-		$this->twigLoader = new \Twig_Loader_Filesystem($this->views);
+		$this->twigLoader = new \Twig_Loader_Filesystem($this->DIR_VIEWS);
 		$this->twig = new \Twig_Environment($this->twigLoader, array('debug' => $this->debug));
 	}
 
@@ -300,10 +302,10 @@ class Application
 	public function router (string $file, $args = []) {
         $app = $this;
         
-        if(file_exists($this->resources.'routers/'.$file.'.php')){
-            require_once($this->resources.'routers/'.$file.'.php');
+        if(file_exists($this->DIR_RESOURCES . 'routers/'.$file.'.php')){
+            require_once($this->DIR_RESOURCES . 'routers/'.$file.'.php');
         }else{
-            exit('Router file '.$this->resources.'routers/'.$file.'.php doesn\'t exist.');
+            exit('Router file ' . $this->DIR_RESOURCES . 'routers/'.$file.'.php doesn\'t exist.');
         }
 	}
 
@@ -314,10 +316,10 @@ class Application
 	public function load (string $file, $args = []) {
         $app = $this;
             
-        if(file_exists($this->models.$file.'.php')){
-            require_once($this->models.$file.'.php');
+        if(file_exists($this->DIR_MODELS . $file . '.php')){
+            require_once($this->DIR_MODELS . $file . '.php');
         }else{
-            exit('Model file '.$this->models.$file.'.php doesn\'t exist.');
+            exit('Model file '.$this->DIR_MODELS . $file . '.php doesn\'t exist.');
         }
 	}
 

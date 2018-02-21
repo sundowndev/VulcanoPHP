@@ -2,8 +2,7 @@
 
 $app->getModule('Session\Session')->start();
 
-function removeRegex($path)
-{
+function removeRegex ($path) {
     // find regex in the route path
     $regex = strstr($path, '(');
     
@@ -16,7 +15,7 @@ function removeRegex($path)
 }
 
 /* twig globals */
-$path = $app->config['framework']['path'];
+$path = $app->WEBROOT;
 
 $app->getTwig()->addGlobal('site', array(
     'name' => $app->config['general']['site_name'],
@@ -39,7 +38,7 @@ $app->getTwig()->addGlobal('paths', array(
 ));
 
 /* Adding admin twig views path */
-$app->getTwigLoader()->addPath($app->views.'admin/', 'admin');
+$app->getTwigLoader()->addPath($app->DIR_VIEWS.'admin/', 'admin');
 
 /*
  * Setting salt password and hash options

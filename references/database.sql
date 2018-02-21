@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.5
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le :  lun. 11 déc. 2017 à 10:05
--- Version du serveur :  5.5.58-0+deb8u1
--- Version de PHP :  7.0.26-1~dotdeb+8.1
+-- Généré le :  mer. 21 fév. 2018 à 22:28
+-- Version du serveur :  5.7.21-0ubuntu0.17.10.1
+-- Version de PHP :  7.1.14-1+ubuntu17.10.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `portfolio-project`
+-- Base de données :  `daimyocms`
 --
 
 -- --------------------------------------------------------
@@ -71,6 +71,13 @@ CREATE TABLE `d_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Déchargement des données de la table `d_users`
+--
+
+INSERT INTO `d_users` (`id`, `hash_id`, `username`, `email`, `password`, `registerDate`, `access`) VALUES
+(2, '123', 'admin', 'admin@daimyo.fr', '$2y$10$1DrA71.COOnqx1sMvYrRLeakZ4UYP0tMz4Et9VFpJe7cA69ZgI0sC', '2018-02-21 00:00:00', '0');
+
+--
 -- Index pour les tables déchargées
 --
 
@@ -112,7 +119,7 @@ ALTER TABLE `d_category`
 -- AUTO_INCREMENT pour la table `d_users`
 --
 ALTER TABLE `d_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
