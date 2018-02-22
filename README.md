@@ -1,6 +1,6 @@
 # DaimyoCMS
 
-DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) using PHP 7, markdown editor and bootstrap 4.
+DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) using PHP 7.
 
 ## Development
 ```version 0.1.6 dev|non-stable```
@@ -30,6 +30,7 @@ DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https:
 
 ## Features
 * Manage content such as users, articles and categories
+* Markdown editor
 * Local file management or with an external API
 * Easy to customize, add pages, plugins, templates and more
 * Make templating easily using Twig
@@ -41,8 +42,8 @@ You may ask why should you use this CMS while there's a lot of other popular one
 ## Requirement
 * PHP 7.*
   * php7.*-gd
-* MySQL 5.*
-* Composer ~1.5.*
+* MySQL 5
+* Composer
 
 **You need to install (or enable in php.ini) PHP "file info" extension.**
 
@@ -56,3 +57,4 @@ You may ask why should you use this CMS while there's a lot of other popular one
 * [Templating](docs/Templating.md)
 * [Exploited PDO Class](docs/PDOClass.md)
 * [File upload](docs/UploadClass.md)
+* [Validator class](docs/ValidatorClass.md)
