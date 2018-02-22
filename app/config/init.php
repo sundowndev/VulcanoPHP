@@ -2,39 +2,6 @@
 
 $app->getModule('Session\Session')->start();
 
-function removeRegex ($path) {
-    // find regex in the route path
-    $regex = strstr($path, '(');
-    
-    // e.g: delete /([a-z0-9_-]+) from the path
-    if(!empty($regex)){
-        $path = str_replace('/' . $regex, '', $path);
-    }
-    
-    return $path;
-}
-
-/* twig globals */
-$app->getTwig()->addGlobal('site', [
-    'name' => $app->config['general']['site_name'],
-    'description' => $app->config['general']['description'],
-    'tags' => $app->config['general']['tags']
-]);
-
-$app->getTwig()->addGlobal('paths', [
-    'root' => $app->WEBROOT,
-    'home' => removeRegex($app->config['paths']['home']),
-    'blog' => removeRegex($app->config['paths']['blog']),
-    'about' => removeRegex($app->config['paths']['about']),
-    'contact' => removeRegex($app->config['paths']['contact']),
-    'user' => removeRegex($app->config['paths']['user']),
-    'category' => removeRegex($app->config['paths']['category']),
-    'content' => removeRegex($app->config['paths']['content']),
-    'themes' => removeRegex($app->config['paths']['themes']),
-    'uploads' => removeRegex($app->config['paths']['uploads']),
-    'admin' => removeRegex($app->config['paths']['admin'])
-]);
-
 /* Adding admin twig views path */
 $app->getTwigLoader()->addPath($app->DIR_VIEWS.'admin/', 'admin');
 
