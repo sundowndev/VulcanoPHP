@@ -84,7 +84,7 @@ class Application
 
         $this->DIR_APP = $this->ROOT.'/app/';
 		$this->DIR_CONFIG = $this->DIR_APP.'config/';
-		$this->DIR_RESOURCES = $this->ROOT.'/Resources/';
+		$this->DIR_RESOURCES = $this->ROOT.'/resources/';
 		$this->DIR_MODELS = $this->DIR_RESOURCES.'models/';
 		$this->DIR_VIEWS = $this->DIR_RESOURCES.'views/';
         $this->config = json_decode(file_get_contents($this->DIR_CONFIG.'/config.json'), true);

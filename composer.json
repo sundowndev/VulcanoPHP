@@ -5,8 +5,8 @@
     },
     "autoload": {
         "psr-4": {
-        	"App\\": "Resources/models",
-        	"Controllers\\": "Resources/controllers"
+        	"App\\": "resources/models",
+        	"Controllers\\": "resources/controllers"
         }
     },
     "require-dev": {
