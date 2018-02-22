@@ -1,8 +1,8 @@
 <?php
 
-namespace Controllers\MainController;
+namespace Controllers\HTTP;
 
-class Controller extends \App\Application
+class MainController extends \App\Application
 {
 
     public function HomeAction ()
@@ -47,7 +47,9 @@ class Controller extends \App\Application
     }
 
     public function ContactAction ()
-    {}
+    {
+        $this->render(['views' => 'contact/contact'], ['title' => 'Me contacter']);
+    }
 
     public function SingleArticleAction ($id)
     {
@@ -62,16 +64,6 @@ class Controller extends \App\Application
     public function SingleCategoryAction ()
     {
         $this->render(['views' => 'categories/single_category'], ['title' => '']);
-    }
-
-    public function SingleUserAction ()
-    {
-        $this->render(['views' => 'users/single_user'], ['title' => '']);
-    }
-
-    public function ContactAction ()
-    {
-        $this->render(['views' => 'contact/contact'], ['title' => 'Me contacter']);
     }
 
     public function SingleUserAction ()

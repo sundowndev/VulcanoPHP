@@ -1,9 +1,6 @@
 <?php
 
-
 $app->before('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', '/.*', function() use ($app) {
-    $app->setNamespace('\Controllers\Admin');
-
     if($app->getModule('Session\Session')->r('auth') === false){
         $app->getModule('Session\Advert')->setAdvert('error', 'Connectez vous pour accèder à cette page');
 
@@ -39,7 +36,7 @@ $app->match('GET|POST', '/settings', function () use ($app) {
 });
 
 /* Logout */
-$app->get('/logout/(\w+)', 'Controller@logoutAction');
+$app->get('/logout/(\w+)', 'AdminController@logoutAction');
 
 /* Create content */
 $app->mount('/create', function () use ($app) {

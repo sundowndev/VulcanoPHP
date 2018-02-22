@@ -1,6 +1,6 @@
 <?php
 
-$app->setNamespace('\Controllers\MainController');
+$app->setNamespace('\Controllers\HTTP');
 
 /*
  * dev route
@@ -10,30 +10,30 @@ $app->setNamespace('\Controllers\MainController');
 	echo $app->getModule('Secure\Secure')->hash_pass('test');
 });*/
 
-$app->get( $app->config['paths']['home'] , 'Controller@HomeAction');
+$app->get( $app->config['paths']['home'] , 'MainController@HomeAction');
 
-$app->get( $app->config['paths']['search'] , 'Controller@SearchAction');
+$app->get( $app->config['paths']['search'] , 'MainController@SearchAction');
 
 /* Blog page */
-$app->get( $app->config['paths']['blog'] , 'Controller@BlogAction');
+$app->get( $app->config['paths']['blog'] , 'MainController@BlogAction');
 
 /* About page */
-$app->get( $app->config['paths']['about'] , 'Controller@AboutAction');
+$app->get( $app->config['paths']['about'] , 'MainController@AboutAction');
 
 /* Single article */
-$app->get( $app->config['paths']['article'] , 'Controller@SingleArticleAction');
+$app->get( $app->config['paths']['article'] , 'MainController@SingleArticleAction');
 
 /* Categories */
-$app->get( $app->config['paths']['categories'] , 'Controller@CategoriesAction');
+$app->get( $app->config['paths']['categories'] , 'MainController@CategoriesAction');
 
 /* Single category */
-$app->get( $app->config['paths']['category'] , 'Controller@SingleCategoryAction');
+$app->get( $app->config['paths']['category'] , 'MainController@SingleCategoryAction');
 
 /* Single user */
-$app->get( $app->config['paths']['user'] , 'Controller@SingleUserAction');
+$app->get( $app->config['paths']['user'] , 'MainController@SingleUserAction');
 
 /* Contact page */
-$app->match('GET|POST', $app->config['paths']['contact'] , 'Controller@ContactAction');
+$app->match('GET|POST', $app->config['paths']['contact'] , 'MainController@ContactAction');
 
 /* Including admin routes */
 $app->mount( $app->config['paths']['admin'] , function () use ($app) {
@@ -41,4 +41,4 @@ $app->mount( $app->config['paths']['admin'] , function () use ($app) {
 });
 
 /* 404 error page */
-$app->set404('Controller@ErrorAction');
+$app->set404('MainController@ErrorAction');

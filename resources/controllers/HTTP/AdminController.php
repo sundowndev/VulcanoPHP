@@ -1,10 +1,9 @@
 <?php
 
-namespace Controllers\Admin;
+namespace Controllers\HTTP;
 
-use \Controllers\MainController;
 
-class Controller extends MainController\Controller
+class AdminController extends MainController
 {
 
     public function dashboardAction ()

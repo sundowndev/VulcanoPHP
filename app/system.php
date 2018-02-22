@@ -93,10 +93,6 @@ class Application
             $this->config['paths'][$key] = $this->WEBROOT . $path;
         }
 
-        // Setting up application private key
-        // Private key is a sha256 string which allows you to hash passwords in a secure way
-        $this->private_key = $this->config['framework']['private_key'];
-
         // Router instance
 		$this->router = new Router();
 
