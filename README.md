@@ -4,14 +4,14 @@ DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https:
 
 ## Development
 ```version 0.1.6 dev|non-stable```
-- [ ] Templating
-  - [ ] Default blog template
-  - [ ] Default admin dashboard template
+- [x] Templating
+  - [x] Default blog template
+  - [x] Default admin dashboard template
 - [ ] Administration
-  - [ ] Admin login feature
+  - [x] Admin login feature
   - [ ] Manage articles
       - [ ] Markdown editor
-  - [ ] Manage categories
+  - [x] Manage categories
   - [ ] Manage local files
   - [ ] Manage users
     - [ ] User groups feature
