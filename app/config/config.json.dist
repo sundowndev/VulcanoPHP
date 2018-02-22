@@ -1,14 +1,9 @@
 {
     "general": {
-        "site_name": "daimyocms",
-        "description": "blabla",
-        "tags": "",
+        "site_name": "DaimyoCMS",
+        "description": "CMS based on the micro PHP framework Daimyo.",
+        "tags": "daimyo, cms, php",
         "thumbnail": ""
-    },
-    "framework": {
-        "URL": "http:\/\/localhost:8000",
-        "path": "",
-        "private_key": "8f096599520b9c46f10387aa6752a8f9d51ec23d5d9d6e6358a573a0154b4989"
     },
     "dbDns": {
         "host": "127.0.0.1",
@@ -18,18 +13,18 @@
         "charset": "utf8"
     },
     "paths": {
-        "home": "\/",
-        "blog": "\/blog",
-        "about": "\/about",
-        "contact": "\/contact",
-        "search": "\/search",
-        "categories": "\/categories",
-        "user": "\/user\/([a-z0-9_-]+)",
-        "category": "\/category\/([a-zA-Z0-9_-]+)",
-        "article": "\/photo\/([a-z0-9_-]+)",
-        "content": "\/content",
-        "themes": "\/content\/themes",
-        "uploads": "\/content\/uploads",
-        "admin": "\/manager"
+        "home": "",
+        "blog": "blog",
+        "about": "about",
+        "contact": "contact",
+        "search": "search",
+        "categories": "categories",
+        "user": "user\/([a-z0-9_-]+)",
+        "category": "category\/([a-zA-Z0-9_-]+)",
+        "article": "photo\/([a-z0-9_-]+)",
+        "content": "content",
+        "themes": "content\/themes",
+        "uploads": "content\/uploads",
+        "admin": "manager"
     }
 }

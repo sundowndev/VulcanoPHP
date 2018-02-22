@@ -12,42 +12,28 @@ $app->setNamespace('\Controllers\MainController');
 
 $app->get( $app->config['paths']['home'] , 'Controller@HomeAction');
 
-$app->get( $app->config['paths']['search'] , function () use ($app) {
-	$app->render(['models' => 'search', 'views' => 'search'], ['title' => 'Search']);
-});
+$app->get( $app->config['paths']['search'] , 'Controller@SearchAction');
 
 /* Blog page */
-$app->get( $app->config['paths']['blog'] , function () use ($app) {
-	$app->render(['models' => 'blog', 'views' => 'blog/blog'], ['title' => 'Blog']);
-});
+$app->get( $app->config['paths']['blog'] , 'Controller@BlogAction');
 
 /* About page */
 $app->get( $app->config['paths']['about'] , 'Controller@AboutAction');
 
 /* Single article */
-$app->get( $app->config['paths']['article'] , function () use ($app) {
-	$app->render(['views' => 'articles/single_article'], ['title' => '']);
-});
+$app->get( $app->config['paths']['article'] , 'Controller@SingleArticleAction');
 
 /* Categories */
-$app->get( $app->config['paths']['categories'] , function () use ($app) {
-	$app->render(['views' => 'categories/categories'], ['title' => 'Categories']);
-});
+$app->get( $app->config['paths']['categories'] , 'Controller@CategoriesAction');
 
 /* Single category */
-$app->get( $app->config['paths']['category'] , function () use ($app) {
-	$app->render(['views' => 'categories/single_category'], ['title' => '']);
-});
+$app->get( $app->config['paths']['category'] , 'Controller@SingleCategoryAction');
 
 /* Single user */
-$app->get( $app->config['paths']['user'] , function () use ($app) {
-	$app->render(['views' => 'users/single_user'], ['title' => '']);
-});
+$app->get( $app->config['paths']['user'] , 'Controller@SingleUserAction');
 
 /* Contact page */
-$app->match('GET|POST', $app->config['paths']['contact'] , function () use ($app) {
-	$app->render(['models' => 'contact','views' => 'contact/contact'], ['title' => 'Me contacter']);
-});
+$app->match('GET|POST', $app->config['paths']['contact'] , 'Controller@ContactAction');
 
 /* Including admin routes */
 $app->mount( $app->config['paths']['admin'] , function () use ($app) {

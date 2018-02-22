@@ -32,10 +32,14 @@ class Controller extends \App\Application
     }
 
     public function SearchAction ()
-    {}
+    {
+        $this->render(['views' => 'search'], ['title' => 'Search']);
+    }
 
     public function BlogAction ()
-    {}
+    {
+        $this->render(['views' => 'blog/blog'], ['title' => 'Blog']);
+    }
 
     public function AboutAction ()
     {
@@ -44,6 +48,36 @@ class Controller extends \App\Application
 
     public function ContactAction ()
     {}
+
+    public function SingleArticleAction ($id)
+    {
+        $this->render(['views' => 'articles/single_article'], ['title' => '']);
+    }
+
+    public function CategoriesAction ()
+    {
+        $this->render(['views' => 'categories/categories'], ['title' => 'Categories']);
+    }
+
+    public function SingleCategoryAction ()
+    {
+        $this->render(['views' => 'categories/single_category'], ['title' => '']);
+    }
+
+    public function SingleUserAction ()
+    {
+        $this->render(['views' => 'users/single_user'], ['title' => '']);
+    }
+
+    public function ContactAction ()
+    {
+        $this->render(['views' => 'contact/contact'], ['title' => 'Me contacter']);
+    }
+
+    public function SingleUserAction ()
+    {
+        $this->render(['views' => 'users/single_user'], ['title' => '']);
+    }
 
     public function ErrorAction ()
     {
