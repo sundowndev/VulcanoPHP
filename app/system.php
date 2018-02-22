@@ -114,11 +114,15 @@ class Application
 	public function __destruct () {}
 	
 	/**
-     * Get module instance
+     * Get module instance function
+     *
+     * @param $module           Model to call
+     * @param $args             Optional parameters for the model constructor
      */
-	public function getModule (string $module) {
+	public function getModule (string $module, $args = null) {
 		$module = "\App\\".$module;
-		$_instance = new $module();
+		$_instance = new $module($args);
+
 		return $_instance;
 	}
 

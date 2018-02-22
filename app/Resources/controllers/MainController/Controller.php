@@ -31,11 +31,19 @@ class Controller extends \App\Application
         $this->render(['views' => 'home/home'], ['title' => 'Welcome']);
     }
 
-    public function BlogAction (){}
+    public function SearchAction ()
+    {}
 
-    public function AboutAction (){}
+    public function BlogAction ()
+    {}
 
-    public function ContactAction (){}
+    public function AboutAction ()
+    {
+        $this->render(['views' => 'about/about'], ['title' => 'About']);
+    }
+
+    public function ContactAction ()
+    {}
 
     public function ErrorAction ()
     {

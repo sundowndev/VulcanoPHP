@@ -21,28 +21,6 @@ $app->getTwig()->addGlobal('site', [
     'tags' => $app->config['general']['tags']
 ]);
 
-/*$app->addTwigGlobals([
-    'name' => $app->config['general']['site_name'],
-    'description' => $app->config['general']['description'],
-    'tags' => $app->config['general']['tags']
-]);
-
-$app->addTwigGlobals([
-    'paths' => [
-        'root' => $app->WEBROOT,
-        'home' => removeRegex($app->config['paths']['home']),
-        'blog' => removeRegex($app->config['paths']['blog']),
-        'about' => removeRegex($app->config['paths']['about']),
-        'contact' => removeRegex($app->config['paths']['contact']),
-        'user' => removeRegex($app->config['paths']['user']),
-        'category' => removeRegex($app->config['paths']['category']),
-        'content' => removeRegex($app->config['paths']['content']),
-        'themes' => removeRegex($app->config['paths']['themes']),
-        'uploads' => removeRegex($app->config['paths']['uploads']),
-        'admin' => removeRegex($app->config['paths']['admin'])
-    ]
-]);*/
-
 $app->getTwig()->addGlobal('paths', [
     'root' => $app->WEBROOT,
     'home' => removeRegex($app->config['paths']['home']),
@@ -68,11 +46,6 @@ $options = [
 ];
 
 $app->getModule('Secure\Secure')->setOptions($options);
-
-/*
- * Setting up the private key for password hash
- */
-$app->getModule('Secure\Secure')->setPrivateKey($app->config['framework']['private_key']);
 
 /* init session auth value if it doesn't exist */
 if(empty($app->getModule('Session\Session')->r('auth'))){

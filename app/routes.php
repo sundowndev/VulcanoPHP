@@ -22,9 +22,7 @@ $app->get( $app->config['paths']['blog'] , function () use ($app) {
 });
 
 /* About page */
-$app->get( $app->config['paths']['about'] , function () use ($app) {
-	$app->render(['views' => 'about/about'], ['title' => 'About']);
-});
+$app->get( $app->config['paths']['about'] , 'Controller@AboutAction');
 
 /* Single article */
 $app->get( $app->config['paths']['article'] , function () use ($app) {

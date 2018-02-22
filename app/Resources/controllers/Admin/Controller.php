@@ -2,21 +2,13 @@
 
 namespace Controllers\Admin;
 
-use App\Application;
-use App\Session\Session;
+use \Controllers\MainController;
 
-class Controller
+class Controller extends MainController\Controller
 {
-    
-    private $app;
-    private $session;
-    
-    public function __construct () {
-        $this->app = new Application;
-        $this->session = new Session;
-    }
-    
-    public function dashboardAction () {
+
+    public function dashboardAction ()
+    {
         echo 'dashboard';
     }
     
@@ -38,24 +30,27 @@ class Controller
     
     public function settingsAction () {}
 
-    public function loginAction () {
+    public function loginAction ()
+    {
         //
     }
 
-    public function logoutAction ($csrf) {
-        if($this->session->r('auth') === true && $csrf == $this->session->getCSRF()){
-            $this->session->w('auth', false);
-            $this->session->destroy();
-            $this->app->redirect($this->app->config['paths']['admin']);
+    public function logoutAction ($csrf)
+    {
+        if($this->getModule('Session\Session')->r('auth') === true && $csrf == $this->getModule('Session\Session')->getCSRF()){
+            $this->getModule('Session\Session')->w('auth', false);
+            $this->getModule('Session\Session')->destroy();
+            $this->redirect($this->config['paths']['admin']);
         } else {
-            $this->app->redirect('/404');
+            $this->redirect('/404');
         }
     }
     
     /* extra methods */
-    public function deleteUpload ($file) {
-        if(file_exists($this->app->config['paths']['uploads'].'/'.$file)){
-            \unlink($this->app->webroot . $this->app->config['paths']['uploads'].'/' . $file);
+    public function deleteUpload ($file)
+    {
+        if(file_exists($this->config['paths']['uploads'].'/'.$file)){
+            \unlink($this->webroot . $this->config['paths']['uploads'].'/' . $file);
         }else{
             return false;
         }
