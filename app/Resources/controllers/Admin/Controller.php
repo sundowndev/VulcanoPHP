@@ -37,9 +37,14 @@ class Controller
     public function configAction () {}
     
     public function settingsAction () {}
-    
-    public function logoutAction ($token) {
-        if($this->session->r('auth') === true && $token == $this->session->getCSRF()){
+
+    public function loginAction () {
+        //
+    }
+
+    public function logoutAction ($csrf) {
+        if($this->session->r('auth') === true && $csrf == $this->session->getCSRF()){
+            $this->session->w('auth', false);
             $this->session->destroy();
             $this->app->redirect($this->app->config['paths']['admin']);
         } else {

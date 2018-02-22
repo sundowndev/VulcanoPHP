@@ -56,7 +56,6 @@ class Application
 	public $DIR_CONTROLLERS;
 	public $DIR_MODELS;
 	public $DIR_VIEWS;
-	public $DIR_SRC;
 	public $config;
 
 	/**
@@ -80,18 +79,19 @@ class Application
 		
         // Router instance
         $this->ROOT = dirname(dirname($_SERVER['SCRIPT_FILENAME']));
-        if (dirname($_SERVER['SCRIPT_NAME']) != '/') {
-            $this->WEBROOT = dirname($_SERVER['SCRIPT_NAME']).'/';
-        }else{
-            $this->WEBROOT = dirname($_SERVER['SCRIPT_NAME']);
-        }
+
+        $this->WEBROOT = (dirname($_SERVER['SCRIPT_NAME']) != '/') ? dirname($_SERVER['SCRIPT_NAME']).'/' : dirname($_SERVER['SCRIPT_NAME']);
+
         $this->DIR_APP = $this->ROOT.'/app/';
 		$this->DIR_CONFIG = $this->DIR_APP.'config/';
 		$this->DIR_RESOURCES = $this->DIR_APP.'Resources/';
 		$this->DIR_MODELS = $this->DIR_RESOURCES.'models/';
 		$this->DIR_VIEWS = $this->DIR_RESOURCES.'views/';
-		$this->DIR_SRC = $this->ROOT.'src/';
         $this->config = json_decode(file_get_contents($this->DIR_CONFIG.'/config.json'), true);
+
+        foreach ($this->config['paths'] as $key => $path) {
+            $this->config['paths'][$key] = $this->WEBROOT . $path;
+        }
 
         // Setting up application private key
         // Private key is a sha256 string which allows you to hash passwords in a secure way
@@ -349,10 +349,10 @@ class Application
 	 * @param $local	    Local redirection (true) or external link (false)
     */
 	public function redirect (string $path, bool $local = true) {
-		if ($local == true) {
-			header('Location:'.$this->domain.$path);
+		if ($local == true && $this->WEBROOT != '/') {
+			header('Location:' . $this->WEBROOT . $path);
 		} else {
-			header('Location:'.$path);
+			header('Location:' . $path);
 		}
     
         exit();

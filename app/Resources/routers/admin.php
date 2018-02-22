@@ -1,16 +1,17 @@
 <?php
 
-$app->setNamespace('\Controllers\Admin');
 
 $app->before('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', '/.*', function() use ($app) {
+    $app->setNamespace('\Controllers\Admin');
+
     if($app->getModule('Session\Session')->r('auth') === false){
         $app->getModule('Session\Advert')->setAdvert('error', 'Connectez vous pour accèder à cette page');
-        
+
         $url = $app->getURI();
 
         $app->redirect($app->config['paths']['admin'].'?redirect='.$url);
     }
-    
+
     $app->set404(function () use ($app) {
         $app->render(['views' => '@admin/404'], ['title' => 'Page not found']);
     });

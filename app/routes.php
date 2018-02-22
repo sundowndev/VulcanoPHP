@@ -1,7 +1,5 @@
 <?php
 
-require_once('config/init.php');
-
 $app->setNamespace('\Controllers\MainController');
 
 /*
@@ -12,7 +10,7 @@ $app->setNamespace('\Controllers\MainController');
 	echo $app->getModule('Secure\Secure')->hash_pass('test');
 });*/
 
-$app->get( $app->config['paths']['home'] , 'Controller@homeAction');
+$app->get( $app->config['paths']['home'] , 'Controller@HomeAction');
 
 $app->get( $app->config['paths']['search'] , function () use ($app) {
 	$app->render(['models' => 'search', 'views' => 'search'], ['title' => 'Search']);
@@ -59,6 +57,4 @@ $app->mount( $app->config['paths']['admin'] , function () use ($app) {
 });
 
 /* 404 error page */
-$app->set404(function () use ($app) {
-    $app->render(['views' => '404/404'], ['title' => 'Page not found']);
-});
+$app->set404('Controller@ErrorAction');

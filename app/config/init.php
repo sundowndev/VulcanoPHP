@@ -8,43 +8,62 @@ function removeRegex ($path) {
     
     // e.g: delete /([a-z0-9_-]+) from the path
     if(!empty($regex)){
-        $path = str_replace('/'.$regex, '', $path);
+        $path = str_replace('/' . $regex, '', $path);
     }
     
     return $path;
 }
 
 /* twig globals */
-$path = $app->WEBROOT;
-
-$app->getTwig()->addGlobal('site', array(
+$app->getTwig()->addGlobal('site', [
     'name' => $app->config['general']['site_name'],
     'description' => $app->config['general']['description'],
     'tags' => $app->config['general']['tags']
-));
+]);
 
-$app->getTwig()->addGlobal('paths', array(
-    'root' => $path,
-    'home' => $path.removeRegex($app->config['paths']['home']),
-    'blog' => $path.removeRegex($app->config['paths']['blog']),
-    'about' => $path.removeRegex($app->config['paths']['about']),
-    'contact' => $path.removeRegex($app->config['paths']['contact']),
-    'user' => $path.removeRegex($app->config['paths']['user']),
-    'category' => $path.removeRegex($app->config['paths']['category']),
-    'content' => $path.removeRegex($app->config['paths']['content']),
-    'themes' => $path.removeRegex($app->config['paths']['themes']),
-    'uploads' => $path.removeRegex($app->config['paths']['uploads']),
-    'admin' => $path.removeRegex($app->config['paths']['admin'])
-));
+/*$app->addTwigGlobals([
+    'name' => $app->config['general']['site_name'],
+    'description' => $app->config['general']['description'],
+    'tags' => $app->config['general']['tags']
+]);
+
+$app->addTwigGlobals([
+    'paths' => [
+        'root' => $app->WEBROOT,
+        'home' => removeRegex($app->config['paths']['home']),
+        'blog' => removeRegex($app->config['paths']['blog']),
+        'about' => removeRegex($app->config['paths']['about']),
+        'contact' => removeRegex($app->config['paths']['contact']),
+        'user' => removeRegex($app->config['paths']['user']),
+        'category' => removeRegex($app->config['paths']['category']),
+        'content' => removeRegex($app->config['paths']['content']),
+        'themes' => removeRegex($app->config['paths']['themes']),
+        'uploads' => removeRegex($app->config['paths']['uploads']),
+        'admin' => removeRegex($app->config['paths']['admin'])
+    ]
+]);*/
+
+$app->getTwig()->addGlobal('paths', [
+    'root' => $app->WEBROOT,
+    'home' => removeRegex($app->config['paths']['home']),
+    'blog' => removeRegex($app->config['paths']['blog']),
+    'about' => removeRegex($app->config['paths']['about']),
+    'contact' => removeRegex($app->config['paths']['contact']),
+    'user' => removeRegex($app->config['paths']['user']),
+    'category' => removeRegex($app->config['paths']['category']),
+    'content' => removeRegex($app->config['paths']['content']),
+    'themes' => removeRegex($app->config['paths']['themes']),
+    'uploads' => removeRegex($app->config['paths']['uploads']),
+    'admin' => removeRegex($app->config['paths']['admin'])
+]);
 
 /* Adding admin twig views path */
 $app->getTwigLoader()->addPath($app->DIR_VIEWS.'admin/', 'admin');
 
 /*
- * Setting salt password and hash options
+ * Setting password hash options
  */
 $options = [
-    'salt' => 'RoYsaNpugD3XD0NT7Sxp',
     'cost' => 12 // the default cost is 10
 ];
 
@@ -69,14 +88,3 @@ if(empty($app->getModule('Session\Session')->r('auth'))){
         'csrf' => $app->getModule('Session\Session')->r('csrf')
     ));
 }
-
-$app->get('/dev', function () use ($app) {
-    /*
-    $app->getDB()->query('SELECT * FROM d_articles');
-    $app->getDB()->execute();
-
-    $articles = $app->getDB()->resultset();
-
-    var_dump($articles);
-    */
-});
