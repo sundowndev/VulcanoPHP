@@ -257,7 +257,7 @@ class AdminController extends MainController
 
     public function EditUserAction ($id)
     {
-        $this->render(['models' => 'admin/edit_user', 'views' => '@admin/edit_user'], ['title' => 'Edit an user', 'id' => $id, 'page' => 'users']);
+        $this->render('@admin/edit_user', ['title' => 'Edit an user', 'id' => $id, 'page' => 'users']);
     }
 
     public function EditUserPostAction ($id)
