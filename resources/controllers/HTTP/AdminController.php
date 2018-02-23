@@ -4,10 +4,14 @@ namespace Controllers\HTTP;
 
 use App\Upload\Upload;
 
-
 class AdminController extends MainController
 {
 
+    /*
+     * Authentification
+     *
+     * Sign in & sign out features
+     */
     public function loginAction ()
     {
         $this->render('@admin/login', ['title' => 'Login', 'page' => 'login']);
@@ -66,26 +70,271 @@ class AdminController extends MainController
     {
         $this->render('@admin/dashboard', ['title' => 'Dashboard', 'page' => 'dashboard']);
     }
-    
-    /* Articles */
+
+    /*
+     * Articles
+     *
+     * Articles management
+     */
     public function ManageArticlesAction ()
-    {}
-    
+    {
+        $this->getDB()->query('SELECT hash_id, title, author, category_id, publishDate, content FROM d_articles ORDER BY id DESC');
+
+        $this->getDB()->execute();
+        $articles = $this->getDB()->resultset();
+
+        foreach ($articles as $key => $article) {
+            $this->getDB()->query('SELECT id, username FROM d_users WHERE id = :id');
+            $this->getDB()->bind('id', $articles[$key]['author']);
+            $this->getDB()->execute();
+            $username = $this->getDB()->resultset();
+            $articles[$key]['author'] = $username[0]['username'];
+
+            $this->getDB()->query('SELECT id, hash_id, name FROM d_category WHERE id = :id');
+            $this->getDB()->bind('id', $articles[$key]['category_id']);
+            $this->getDB()->execute();
+            $category = $this->getDB()->single();
+            $articles[$key]['category_hash_id'] = $category['hash_id'];
+            $articles[$key]['category'] = $category['name'];
+        }
+
+        $this->getTwig()->addGlobal('articles', $articles);
+        
+        $this->render('@admin/manage_articles', ['title' => 'Manage articles', 'page' => 'articles']);
+    }
+
     public function CreateArticleAction ()
-    {}
-    
+    {
+        $this->getDB()->query('SELECT id, hash_id, name, slug, createdDate, description FROM d_category ORDER BY id DESC');
+        $this->getDB()->execute();
+        $categories = $this->getDB()->resultset();
+
+        $this->getTwig()->addGlobal('categories', $categories);
+        
+        $this->render('@admin/create_article', ['title' => 'Create an article', 'page' => 'articles']);
+    }
+
+    public function CreateArticlePostAction ()
+    {
+        if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
+            $this->getDB()->query('INSERT INTO d_articles (hash_id, title, author, category_id, publishDate, editedDate, content) VALUES(:hash_id, :title, :author, :category_id, NOW(), NOW(), :content)');
+
+            $hash_id = md5(uniqid());
+
+            $this->getDB()->bind(':hash_id', $hash_id);
+            $this->getDB()->bind(':title', $_POST['title']);
+            $this->getDB()->bind(':author', $this->getModule('Session\Session')->r('id'));
+            $this->getDB()->bind(':category_id', $_POST['category']);
+            $this->getDB()->bind(':content', $_POST['content']);
+
+            $this->getDB()->execute();
+
+            if (!empty($_FILES['cover'])) {
+                //set max. file size (2 in mb)
+                $upload = Upload::factory('content/uploads');
+
+                $upload->set_max_file_size(10);
+                //set allowed mime types
+                $upload->set_allowed_mime_types(array('image/jpeg','image/png'));
+
+                $upload->file($_FILES['cover']);
+                $results = $upload->upload($filename = $hash_id);
+            }
+
+            $this->getModule('Session\Advert')->setAdvert('success', 'You successfully published your article!');
+
+            $this->redirect($this->config['paths']['admin'].'/manage/articles');
+        }else{
+            $this->getModule('Session\Advert')->setAdvert('danger', "You didn't complete all fields");
+        }
+
+        $this->getTwig()->addGlobal('POST', $_POST);
+
+        $this->redirect($this->config['paths']['admin'] . '/create/article');
+    }
+
     public function EditArticleAction ($id)
-    {}
-    
-    /* Categories */
+    {
+        $this->render('@admin/edit_article', ['title' => 'Edit an article', 'id' => $id, 'page' => 'articles']);
+    }
+
+    public function EditArticlePostAction ($id)
+    {
+        $this->render('@admin/edit_article', ['title' => 'Edit an article', 'id' => $id, 'page' => 'articles']);
+    }
+
+    public function DeleteArticleAction ($id, $csrf)
+    {
+        if(!empty($id) && !empty($csrf) && $csrf === $this->getModule('Session\Session')->r('csrf')){
+            $this->getDB()->query('DELETE FROM d_articles WHERE hash_id = :id');
+            $this->getDB()->bind(':id', $id);
+            $this->getDB()->execute();
+
+            $this->deleteUpload($id . '.jpg');
+
+            $this->getModule('Session\Advert')->setAdvert('success', 'Article deleted');
+
+            $this->redirect($this->config['paths']['admin'].'/manage/articles');
+        }else{
+            $this->AdminErrorAction();
+        }
+    }
+
+    /*
+     * Categories
+     *
+     * Categories management
+     */
     public function ManageCategoriesAction ()
-    {}
-    
+    {
+        $this->getDB()->query('SELECT hash_id, name, slug, createdDate, description FROM d_category ORDER BY id DESC');
+        $this->getDB()->execute();
+        $categories = $this->getDB()->resultset();
+
+        $this->getTwig()->addGlobal('categories', $categories);
+        
+        $this->render('@admin/manage_categories', ['title' => 'Manage categories', 'page' => 'categories']);
+    }
+
     public function CreateCategoryAction ()
-    {}
-    
+    {
+        $this->render('@admin/create_category', ['title' => 'Create a category', 'page' => 'categories']);
+    }
+
+    public function CreateCategoryPostAction ()
+    {
+        if(!empty($_POST['name'])){
+            $this->getDB()->query('INSERT INTO d_category (hash_id, name, slug, createdDate, description) VALUES(:hash_id, :name, :slug, NOW(), :description)');
+
+            $this->getDB()->bind(':hash_id', md5(uniqid()));
+            $this->getDB()->bind(':name', $_POST['name']);
+            $this->getDB()->bind(':slug', 'www');
+            $this->getDB()->bind(':description', $_POST['description']);
+
+            $this->getDB()->execute();
+
+            $this->getModule('Session\Advert')->setAdvert('success', 'You successfully created your category!');
+        }
+
+        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
+    }
+
     public function EditCategoryAction ($id)
+    {
+        $this->getDB()->query('SELECT hash_id, name, slug, createdDate, description FROM d_category WHERE hash_id = :id');
+
+        $this->getDB()->bind('id', $id);
+
+        $this->getDB()->execute();
+
+        $category = $this->getDB()->single();
+
+        if(!$category){
+            $this->redirect($this->config['paths']['admin'].'/404');
+        }
+
+        $this->getTwig()->addGlobal('category', $category);
+        
+        $this->render('@admin/edit_category', ['title' => 'Edit an category', 'id' => $id, 'page' => 'categories']);
+    }
+
+    public function EditCategoryPostAction ($id)
+    {
+        if(!empty($_POST['name']) && !empty($_POST['csrf']) && $_POST['csrf'] === $this->getModule('Session\Session')->r('csrf')){
+            $this->getDB()->query('UPDATE d_category SET name = :name, description = :desc WHERE hash_id = :hash_id');
+
+            $this->getDB()->bind(':name', $_POST['name']);
+            $this->getDB()->bind(':hash_id', $id);
+            $this->getDB()->bind(':desc', $_POST['description']);
+
+            $this->getDB()->execute();
+
+            $this->getModule('Session\Advert')->setAdvert('success', 'You successfully edited your category!');
+        }
+
+        $this->getTwig()->addGlobal('POST', $_POST);
+
+        $this->redirect($this->config['paths']['admin'] . '/manage/category/' . $id);
+    }
+
+    public function DeleteCategoryAction ($id, $csrf)
+    {
+        if(!empty($id) && !empty($csrf) && $csrf === $this->getModule('Session\Session')->r('csrf')){
+            $this->getDB()->query('DELETE FROM d_category WHERE hash_id = :id');
+            $this->getDB()->bind(':id', $id);
+            $this->getDB()->execute();
+
+            $this->getModule('Session\Advert')->setAdvert('success', 'You successfully deleted a category');
+
+            $this->redirect($this->config['paths']['admin'].'/manage/categories');
+        }else{
+            $this->AdminErrorAction();
+        }
+
+        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
+    }
+
+    /*
+     * Users
+     *
+     * Users management
+     */
+    public function ManageUsersAction ()
     {}
+
+    public function CreateUserAction ()
+    {
+        $this->render('@admin/create_category', ['title' => 'Create a category', 'page' => 'categories']);
+    }
+
+    public function CreateUserPostAction ()
+    {
+        $this->render('@admin/create_category', ['title' => 'Create a category', 'page' => 'categories']);
+    }
+
+    public function EditUserAction ($id)
+    {
+        $this->render(['models' => 'admin/edit_user', 'views' => '@admin/edit_user'], ['title' => 'Edit an user', 'id' => $id, 'page' => 'users']);
+    }
+
+    public function EditUserPostAction ($id)
+    {
+        //
+    }
+
+    public function DeleteUserAction ($id, $csrf)
+    {
+        $this->render(['models' => 'admin/delete_user'], ['id' => $id, 'token' => $token, 'page' => 'users']);
+    }
+
+    /*
+     * Uploads
+     *
+     * File uploads management
+     */
+    public function ManageUploadsAction ()
+    {}
+
+    public function CreateUploadAction ()
+    {
+        $this->render('@admin/create_upload', ['title' => 'Upload a file', 'page' => 'uploads']);
+    }
+
+    public function CreateUploadPostAction ()
+    {
+        $this->render('@admin/create_category', ['title' => 'Create a category', 'page' => 'categories']);
+    }
+
+    public function EditUploadAction ($id)
+    {}
+
+    public function EditUploadPostAction ($id)
+    {}
+
+    public function DeleteUploadAction ($id, $csrf)
+    {
+        $this->render(['models' => 'admin/delete_uploads'], ['id' => $id, 'token' => $token, 'page' => 'uploads']);
+    }
 
     /* Configuration */
     public function ConfigurationAction ()
@@ -229,6 +478,11 @@ class AdminController extends MainController
         }
 
         $this->redirect($this->config['paths']['admin'] . '/settings');
+    }
+    
+    public function AdminErrorAction ()
+    {
+        $this->render('@admin/404', ['title' => 'Page not found']);
     }
     
     /* extra methods */

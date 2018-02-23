@@ -1,6 +1,6 @@
 <?php
 
-$app->before('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', '/.*', function() use ($app) {
+$app->before('GET|POST', '/.*', function() use ($app) {
     if($app->getModule('Session\Session')->r('auth') === false){
         $app->getModule('Session\Advert')->setAdvert('error', 'Connectez vous pour accèder à cette page');
 
@@ -9,9 +9,7 @@ $app->before('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', '/.*', function() use ($a
         $app->redirect($app->config['paths']['admin'].'?redirect='.$url);
     }
 
-    $app->set404(function () use ($app) {
-        $app->render(['views' => '@admin/404'], ['title' => 'Page not found']);
-    });
+    $app->set404('AdminController@AdminErrorAction');
 });
 
 $app->before('GET|POST', '/', function() use ($app) {
@@ -36,96 +34,106 @@ $app->post('/settings/post/password', 'AdminController@SettingsPasswordPostActio
 /* Logout */
 $app->get('/logout/(\w+)', 'AdminController@logoutAction');
 
-/* Create content */
-$app->mount('/create', function () use ($app) {
-	/* Articles */
-	$app->match('GET|POST','/article', function () use ($app) {
-		$app->render(['models' => 'admin/create_article', 'views' => '@admin/create_article'], ['title' => 'Create an article', 'page' => 'articles']);
-	});
-
-	/* Categories */
-	$app->match('GET|POST','/category', function () use ($app) {
-		$app->render(['models' => 'admin/create_category', 'views' => '@admin/create_category'], ['title' => 'Create a category', 'page' => 'categories']);
-	});
-
-	/* Users */
-	$app->match('GET|POST','/user', function () use ($app) {
-		$app->render(['models' => 'admin/create_user', 'views' => '@admin/create_user'], ['title' => 'Create an user', 'page' => 'users']);
-	});
-
-	/* Uploads */
-	$app->match('GET|POST','/upload', function () use ($app) {
-		$app->render(['models' => 'admin/create_upload', 'views' => '@admin/create_upload'], ['title' => 'Upload a file', 'page' => 'uploads']);
-	});
-});
-
 /* Manage content */
 $app->mount('/manage', function () use ($app) {
-	/* Articles */
-	$app->get('/articles', function () use ($app) {
-		$app->render(['models' => 'admin/manage_articles', 'views' => '@admin/manage_articles'], ['title' => 'Manage articles', 'page' => 'articles']);
-	});
+    /*
+     * Articles
+     */
+    $app->get('/articles', 'AdminController@ManageArticlesAction');
 
-	$app->match('GET|POST','/article/([\w+]+)', function ($id) use ($app) {
-		$app->render(['models' => 'admin/edit_article', 'views' => '@admin/edit_article'], ['title' => 'Edit an article', 'id' => $id, 'page' => 'articles']);
-	});
+    $app->get('/article/([\w+]+)', 'AdminController@EditArticleAction');
+    $app->post('/article/([\w+]+)', 'AdminController@EditArticlePostAction');
 
-	/* Categories */
-	$app->get('/categories', function () use ($app) {
-		$app->render(['models' => 'admin/manage_categories', 'views' => '@admin/manage_categories'], ['title' => 'Manage categories', 'page' => 'categories']);
-	});
+    /*
+     * Categories
+     */
+    $app->get('/categories', 'AdminController@ManageCategoriesAction');
 
-	$app->match('GET|POST','/category/([\w+]+)', function ($id) use ($app) {
-		$app->render(['models' => 'admin/edit_category', 'views' => '@admin/edit_category'], ['title' => 'Edit a category', 'id' => $id, 'page' => 'categories']);
-	});
+    $app->get('/category/([\w+]+)', 'AdminController@EditCategoryAction');
+    $app->post('/category/([\w+]+)', 'AdminController@EditCategoryPostAction');
 
-	/* Users */
-	$app->get('/users', function () use ($app) {
-		$app->render(['views' => '@admin/manage_users'], ['title' => 'Manage users', 'page' => 'users']);
-	});
+    /*
+     * Users
+     */
+    $app->get('/user', 'AdminController@ManageUsersAction');
 
-	$app->match('GET|POST','/user/([\w+]+)', function ($id) use ($app) {
-		$app->render(['models' => 'admin/edit_user', 'views' => '@admin/edit_user'], ['title' => 'Edit an user', 'id' => $id, 'page' => 'users']);
-	});
+    $app->get('/user/([\w+]+)', 'AdminController@EditUserAction');
+    $app->post('/user/([\w+]+)', 'AdminController@EditUserPostAction');
 
-	/* Uploads */
-	$app->get('/uploads', function () use ($app) {
-		$app->render(['views' => 'admin/manage_uploads', 'views' => '@admin/manage_uploads'], ['title' => 'Manage uploads', 'page' => 'uploads']);
-	});
+    /*
+     * Uploads
+     */
+    $app->get('/uploads', 'AdminController@ManageUploadsAction');
+
+    $app->get('/upload/([\w+]+)', 'AdminController@EditUploadAction');
+    $app->post('/upload/([\w+]+)', 'AdminController@EditUploadPostAction');
+});
+
+/* Create content */
+$app->mount('/create', function () use ($app) {
+	/*
+	 * Articles
+	 */
+	$app->get('/article', 'AdminController@CreateArticleAction');
+	$app->post('/article', 'AdminController@CreateArticlePostAction');
+
+	/*
+	 * Categories
+	 */
+	$app->get('/category', 'AdminController@CreateCategoryAction');
+	$app->post('/category', 'AdminController@CreateCategoryPostAction');
+
+	/*
+	 * Users
+	 */
+	$app->get('/user', 'AdminController@CreateUserAction');
+	$app->post('/user', 'AdminController@CreateUserPostAction');
+
+	/*
+	 * Uploads
+	 */
+	$app->get('/upload', 'AdminController@CreateUploadAction');
+	$app->post('/upload', 'AdminController@CreateUploadPostAction');
 });
 
 /* Delete content */
 $app->mount('/delete', function () use ($app) {
-	/* Articles */
-	$app->get('/article/([\w+]+)/([\w+]+)', function ($id,$token) use ($app) {
-		$app->render(['models' => 'admin/delete_article'], ['id' => $id, 'token' => $token, 'page' => 'delete']);
-	});
+	/*
+	 * Articles
+	 */
+	$app->get('/article/([\w+]+)/([\w+]+)', 'AdminController@DeleteArticleAction');
 
-	/* Categories */
-	$app->get('/category/([a-z0-9_-]+)/([\w+]+)', function ($id,$token) use ($app) {
-		$app->render(['models' => 'admin/delete_category'], ['id' => $id, 'token' => $token, 'page' => 'categories']);
-	});
+	/*
+	 * Categories
+	 */
+	$app->get('/category/([a-z0-9_-]+)/([\w+]+)', 'AdminController@DeleteCategoryAction');
 
-	/* Users */
-	$app->get('/user/([\w+]+)/([\w+]+)', function ($id,$token) use ($app) {
-		$app->render(['models' => 'admin/delete_user'], ['id' => $id, 'token' => $token, 'page' => 'users']);
-	});
+	/*
+	 * Users
+	 */
+	$app->get('/user/([\w+]+)/([\w+]+)', 'AdminController@DeleteUsersAction');
 
-	/* Uploads */
-	$app->get('/upload/([\w+]+)/([\w+]+)', function ($id,$token) use ($app) {
-		$app->render(['models' => 'admin/delete_uploads'], ['id' => $id, 'token' => $token, 'page' => 'uploads']);
-	});
+	/*
+	 * Uploads
+	 */
+	$app->get('/upload/([\w+]+)/([\w+]+)', 'AdminController@DeleteUploadsAction');
 });
 
 /* Configuration */
 $app->mount('/configuration', function () use ($app) {
-	/* General */
+	/*
+	 * General
+	 */
 	$app->get('/', 'AdminController@ConfigurationAction');
 	$app->post('/', 'AdminController@ConfigurationPostAction');
 
-    /* Appearance */
+    /*
+     * Appearance
+     */
 	$app->get('/appearance', 'AdminController@AppearanceAction');
-    
-    /* Plugins */
+
+    /*
+     * Plugins
+     */
 	$app->get('/plugins', 'AdminController@PluginsAction');
 });
