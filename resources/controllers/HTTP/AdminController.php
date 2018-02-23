@@ -2,7 +2,6 @@
 
 namespace Controllers\HTTP;
 
-use App\Application;
 use App\Session\Auth;
 use App\Content\ArticleModel;
 use App\Content\CategoryModel;
@@ -369,7 +368,7 @@ class AdminController extends MainController
 
     public function SettingsEmailPostAction ()
     {
-        if(!empty($_POST['newemail']) && !empty($_POST['password'])){s
+        if(!empty($_POST['newemail']) && !empty($_POST['password'])){
             $this->getDB()->query('SELECT * FROM d_users WHERE id = :id');
 
             $this->getDB()->bind(':id', $this->getModule('Session\Session')->r('id'));
