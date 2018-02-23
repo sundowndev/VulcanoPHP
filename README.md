@@ -26,6 +26,7 @@ DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https:
   - [ ] Comments
   - [ ] Sign up/in as simple user
   - [ ] Search feature
+- [ ] Unit tests
 
 ![screenshot dashboard](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/dashboard.jpg)
 
@@ -40,10 +41,12 @@ DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https:
 ## Why DaimyoCMS ?
 You may ask why should you use this CMS while there's a lot of other popular ones, what makes this CMS better than another one ? Well, nothing. I created DaimyoCMS to handle tiny personal projects and code in my way as a junior developer. If you are looking for lightweight and micro php framework based content management system you're on the right way, DaimyoCMS is just part of my personal R&D. Feel free to give it a review or contribute!
 
+DaimyoCMS is fast, secure and lightweight, but also basic in features.
+
 ## Requirement
-* PHP 7.*
+* PHP >= 7.*
   * php7.*-gd
-* MySQL 5
+* MySQL >= 5.6
 * Composer
 
 **You need to install (or enable in php.ini) PHP "file info" extension.**
@@ -54,6 +57,7 @@ You may ask why should you use this CMS while there's a lot of other popular one
 
 #### Developers
 
+* [Overview](docs/Overview.md)
 * [Routing](docs/Routing.md)
 * [Templating](docs/Templating.md)
 * [Exploited PDO Class](docs/PDOClass.md)
