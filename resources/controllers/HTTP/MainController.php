@@ -28,51 +28,51 @@ class MainController extends \App\Application
 
         $this->getTwig()->addGlobal('articles', $articles);
 
-        $this->render(['views' => 'home/home'], ['title' => 'Welcome']);
+        $this->render('home/home', ['title' => 'Welcome']);
     }
 
     public function SearchAction ()
     {
-        $this->render(['views' => 'search'], ['title' => 'Search']);
+        $this->render('search', ['title' => 'Search']);
     }
 
     public function BlogAction ()
     {
-        $this->render(['views' => 'blog/blog'], ['title' => 'Blog']);
+        $this->render('blog/blog', ['title' => 'Blog']);
     }
 
     public function AboutAction ()
     {
-        $this->render(['views' => 'about/about'], ['title' => 'About']);
+        $this->render('about/about', ['title' => 'About']);
     }
 
     public function ContactAction ()
     {
-        $this->render(['views' => 'contact/contact'], ['title' => 'Me contacter']);
+        $this->render('contact/contact', ['title' => 'Me contacter']);
     }
 
     public function SingleArticleAction ($id)
     {
-        $this->render(['views' => 'articles/single_article'], ['title' => '']);
+        $this->render('articles/single_article', ['title' => '']);
     }
 
     public function CategoriesAction ()
     {
-        $this->render(['views' => 'categories/categories'], ['title' => 'Categories']);
+        $this->render('categories/categories', ['title' => 'Categories']);
     }
 
     public function SingleCategoryAction ()
     {
-        $this->render(['views' => 'categories/single_category'], ['title' => '']);
+        $this->render('categories/single_category', ['title' => '']);
     }
 
     public function SingleUserAction ()
     {
-        $this->render(['views' => 'users/single_user'], ['title' => '']);
+        $this->render('users/single_user', ['title' => '']);
     }
 
     public function ErrorAction ()
     {
-        $this->render(['views' => '404/404'], ['title' => 'Page not found']);
+        $this->render('404/404', ['title' => 'Page not found']);
     }
 }

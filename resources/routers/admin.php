@@ -21,19 +21,17 @@ $app->before('GET|POST', '/', function() use ($app) {
 });
 
 /* Login page */
-$app->match('GET|POST', '/', function () use ($app) {
-	$app->render(['models' => 'admin/login', 'views' => '@admin/login'], ['title' => 'Login', 'page' => 'login']);
-});
+$app->get('/', 'AdminController@LoginAction');
+$app->post('/', 'AdminController@LoginPostAction');
 
 /* Dashboard */
-$app->get('/dashboard', function () use ($app) {
-	$app->render(['models' => 'admin/dashboard', 'views' => '@admin/dashboard'], ['title' => 'Dashboard', 'page' => 'dashboard']);
-});
+$app->get('/dashboard', 'AdminController@DashboardAction');
 
 /* Settings */
-$app->match('GET|POST', '/settings', function () use ($app) {
-	$app->render(['models' => 'admin/settings', 'views' => '@admin/settings'], ['title' => 'Mes paramètres', 'page' => 'settings']);
-});
+$app->get('/settings', 'AdminController@SettingsAction');
+$app->post('/settings/post/general', 'AdminController@SettingsGeneralPostAction');
+$app->post('/settings/post/email', 'AdminController@SettingsEmailPostAction');
+$app->post('/settings/post/password', 'AdminController@SettingsPasswordPostAction');
 
 /* Logout */
 $app->get('/logout/(\w+)', 'AdminController@logoutAction');
@@ -122,17 +120,12 @@ $app->mount('/delete', function () use ($app) {
 /* Configuration */
 $app->mount('/configuration', function () use ($app) {
 	/* General */
-	$app->match('GET|POST', '/', function () use ($app) {
-		$app->render(['models' => 'admin/configuration', 'views' => 'admin/configuration'], ['title' => 'Configuration', 'page' => 'configuration']);
-	});
-    
+	$app->get('/', 'AdminController@ConfigurationAction');
+	$app->post('/', 'AdminController@ConfigurationPostAction');
+
     /* Appearance */
-	$app->get('/appearance', function () use ($app) {
-		$app->render(['models' => 'admin/appearance', 'views' => 'admin/appearance'], ['title' => 'Appearance', 'page' => 'configuration']);
-	});
+	$app->get('/appearance', 'AdminController@AppearanceAction');
     
     /* Plugins */
-	$app->get('/plugins', function () use ($app) {
-		$app->render(['models' => 'admin/plugins', 'views' => 'admin/plugins'], ['title' => 'Plugins', 'page' => 'configuration']);
-	});
+	$app->get('/plugins', 'AdminController@PluginsAction');
 });

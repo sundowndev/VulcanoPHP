@@ -104,6 +104,9 @@ class Application
 		$this->twigLoader = new \Twig_Loader_Filesystem($this->DIR_VIEWS);
 		$this->twig = new \Twig_Environment($this->twigLoader, array('debug' => $this->debug));
 
+        /* Adding admin twig views path */
+        $this->getTwigLoader()->addPath($this->DIR_VIEWS.'admin/', 'admin');
+
         $this->getTwig()->addGlobal('site', [
             'name' => $this->config['general']['site_name'],
             'description' => $this->config['general']['description'],
@@ -123,6 +126,21 @@ class Application
             'uploads' => $this->removeRegex($this->config['paths']['uploads']),
             'admin' => $this->removeRegex($this->config['paths']['admin'])
         ]);
+
+        /* init session auth value if it doesn't exist */
+        if(empty($this->getModule('Session\Session')->r('auth'))) {
+            $this->getModule('Session\Session')->w('auth', false);
+            /* if the user is connected, pass session data to twig */
+        }elseif($this->getModule('Session\Session')->r('auth') === true){
+            $this->getTwig()->addGlobal('session', array(
+                'auth' => $this->getModule('Session\Session')->r('auth'),
+                'id' => $this->getModule('Session\Session')->r('id'),
+                'hash_id' => $this->getModule('Session\Session')->r('hash_id'),
+                'username' => $this->getModule('Session\Session')->r('username'),
+                'email' => $this->getModule('Session\Session')->r('email'),
+                'csrf' => $this->getModule('Session\Session')->r('csrf')
+            ));
+        }
 	}
 
 	private function __clone () {}
@@ -321,12 +339,10 @@ class Application
      * @param $template     The template to render
      * @param $args         Parameter(s) passed to twig
      */
-	public function render (array $template, array $args = []) {
-		if (!empty($template['models'])) {
-			$this->load($template['models'], $args);
-		}
-        
-        if(!empty($this->getModule('Session\Session')->r('advert')) && !empty($template['views'])){
+	public function render (string $template, array $args = [])
+    {
+        if(!empty($this->getModule('Session\Session')->r('advert')))
+        {
             $this->getTwig()->addGlobal('advert', array(
                 'type' => $this->getModule('Session\Session')->r('advert', 'type'),
                 'message' => $this->getModule('Session\Session')->r('advert', 'message')
@@ -335,9 +351,7 @@ class Application
             $this->getModule('Session\Session')->w('advert', '');
         }
 
-		if (!empty($template['views'])) {
-			echo $this->twig->render($template['views'].'.html.twig', $args);
-		}
+		echo $this->twig->render($template . '.html.twig', $args);
 	}
 
 	/**
@@ -347,7 +361,8 @@ class Application
      * @param $file         Routing file to include
      * @param $args         Parameters
      */
-	public function router (string $file, array $args = []) {
+	public function router (string $file, array $args = [])
+    {
         $app = $this;
         
         if(file_exists($this->DIR_RESOURCES . 'routers/'.$file.'.php')){

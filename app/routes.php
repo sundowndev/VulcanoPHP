@@ -1,7 +1,5 @@
 <?php
 
-$app->setNamespace('\Controllers\HTTP');
-
 /*
  * dev route
  * return the hash of "test"
@@ -9,6 +7,13 @@ $app->setNamespace('\Controllers\HTTP');
 /*$app->get('/install', function () use ($app) {
 	echo $app->getModule('Secure\Secure')->hash_pass('test');
 });*/
+
+$app->setNamespace('\Controllers\HTTP');
+
+/* Including admin routes */
+$app->mount( $app->config['paths']['admin'] , function () use ($app) {
+    $app->router('admin'); // include admin routes
+});
 
 $app->get( $app->config['paths']['home'] , 'MainController@HomeAction');
 
@@ -34,11 +39,6 @@ $app->get( $app->config['paths']['user'] , 'MainController@SingleUserAction');
 
 /* Contact page */
 $app->match('GET|POST', $app->config['paths']['contact'] , 'MainController@ContactAction');
-
-/* Including admin routes */
-$app->mount( $app->config['paths']['admin'] , function () use ($app) {
-	$app->router('admin'); // include admin routes
-});
 
 /* 404 error page */
 $app->set404('MainController@ErrorAction');

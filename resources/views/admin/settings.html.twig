@@ -9,7 +9,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="" method="post" enctype="multipart/form-data">
+            <form role="form" action="{{ paths.admin }}/settings/post/general" method="post" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group">
                   <label for="username">Nom d'utilisateur</label>
@@ -37,7 +37,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="post" action="">
+            <form role="form" method="post" action="{{ paths.admin }}/settings/post/email">
               <div class="box-body">
                 <div class="form-group">
                   <label for="actualemail">Adresse email actuelle</label>
@@ -67,7 +67,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="post" action="">
+            <form role="form" method="post" action="{{ paths.admin }}/settings/post/password">
               <div class="box-body">
                 <div class="form-group">
                   <label for="actualpassword">Mot de passe actuel</label>
