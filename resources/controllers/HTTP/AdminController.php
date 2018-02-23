@@ -51,7 +51,7 @@ class AdminController extends MainController
             }
         }
 
-        $this->render('@admin/login', ['title' => 'Login', 'page' => 'login']);
+        $this->redirect($this->config['paths']['admin']);
     }
 
     public function logoutAction ($csrf)
@@ -139,6 +139,7 @@ class AdminController extends MainController
 
                 $upload->file($_FILES['cover']);
                 $results = $upload->upload($filename = $hash_id);
+                // TODO: stocker l'extension dans la colonne image_url
             }
 
             $this->getModule('Session\Advert')->setAdvert('success', 'You successfully published your article!');
@@ -155,12 +156,63 @@ class AdminController extends MainController
 
     public function EditArticleAction ($id)
     {
+        $this->getDB()->query('SELECT * FROM d_articles WHERE hash_id = :id');
+
+        $this->getDB()->bind(':id', $id);
+
+        $this->getDB()->execute();
+
+        $article = $this->getDB()->single();
+
+        $this->getTwig()->addGlobal('article', $article);
+
+        if(file_exists($this->webroot.$this->config['paths']['uploads'].'/'.$article['hash_id'].'.jpg')){
+            $cover = $this->config['paths']['uploads'].'/'.$article['hash_id'].'.jpg';
+
+            $this->getTwig()->addGlobal('cover', $cover);
+        }
+
+        $this->getDB()->query('SELECT * FROM d_category');
+
+        $this->getDB()->execute();
+
+        $categories = $this->getDB()->resultset();
+
+        $this->getTwig()->addGlobal('categories', $categories);
+        
         $this->render('@admin/edit_article', ['title' => 'Edit an article', 'id' => $id, 'page' => 'articles']);
     }
 
     public function EditArticlePostAction ($id)
     {
-        $this->render('@admin/edit_article', ['title' => 'Edit an article', 'id' => $id, 'page' => 'articles']);
+        if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
+            $this->getDB()->query('UPDATE d_articles SET title = :title, category_id = :cat, content = :content, editedDate = NOW() WHERE hash_id = :id');
+
+            $this->getDB()->bind(':id', $id);
+            $this->getDB()->bind(':title', $_POST['title']);
+            $this->getDB()->bind(':cat', $_POST['category']);
+            $this->getDB()->bind(':content', $_POST['content']);
+
+            $this->getDB()->execute();
+
+            if (!empty($_FILES['cover'])) {
+                //set max. file size (2 in mb)
+                $upload = Upload::factory('content/uploads');
+
+                $upload->set_max_file_size(10);
+                //set allowed mime types
+                $upload->set_allowed_mime_types(array('image/jpeg','image/png'));
+
+                $upload->file($_FILES['cover']);
+                $results = $upload->upload($filename = $article['hash_id']);
+            }
+
+            $this->getModule('Session\Advert')->setAdvert('success', 'You successfully edited your article!');
+        }
+
+        $this->getTwig()->addGlobal('POST', $_POST);
+
+        $this->redirect($this->config['paths']['admin'] . '/manage/article/' . $id);
     }
 
     public function DeleteArticleAction ($id, $csrf)
@@ -289,7 +341,7 @@ class AdminController extends MainController
 
     public function CreateUserPostAction ()
     {
-        $this->render('@admin/create_category', ['title' => 'Create a category', 'page' => 'categories']);
+        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
     }
 
     public function EditUserAction ($id)
@@ -299,7 +351,7 @@ class AdminController extends MainController
 
     public function EditUserPostAction ($id)
     {
-        //
+        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
     }
 
     public function DeleteUserAction ($id, $csrf)
@@ -322,14 +374,16 @@ class AdminController extends MainController
 
     public function CreateUploadPostAction ()
     {
-        $this->render('@admin/create_category', ['title' => 'Create a category', 'page' => 'categories']);
+        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
     }
 
     public function EditUploadAction ($id)
     {}
 
     public function EditUploadPostAction ($id)
-    {}
+    {
+        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
+    }
 
     public function DeleteUploadAction ($id, $csrf)
     {

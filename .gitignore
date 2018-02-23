@@ -2,4 +2,4 @@
 vendor/
 app/config/config.json
 stats/
-uploads/*
+public/content/uploads/*

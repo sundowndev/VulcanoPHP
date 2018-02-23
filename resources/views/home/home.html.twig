@@ -6,11 +6,11 @@
           
           {% for article in articles|slice(0, 4) %}
               <div class="blog-post">
-                <img src="{{ paths.uploads }}/{{ article.image_url }}" alt="">
-                <h2 class="blog-post-title">{{ article.title }}</h2>
+                <img src="{{ paths.uploads }}/{{ article.hash_id }}.jpg" width="100%" alt="">
+                <h2 class="blog-post-title"><a href="{{ paths.root }}article/{{ article.hash_id }}">{{ article.title }}</a></h2>
                 <p class="blog-post-meta">On {{ article.date|date("d/m/Y") }} at {{ article.date|date("h:m") }} by <a href="{{ paths.user }}/{{ article.author }}">{{ article.author }}</a> in <a href="{{ paths.category }}/{{ article.category }}">{{ article.category }}</a></p>
 
-                {{ article.content }}
+                {{ article.content|slice(0, 400) }}{% if article.content|length > 400 %}... <a href="{{ paths.root }}article/{{ article.hash_id }}">Learn more</a>{% endif %}
               </div>
           {% endfor %}
           

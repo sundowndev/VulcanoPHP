@@ -53,7 +53,26 @@ class MainController extends \App\Application
 
     public function SingleArticleAction ($id)
     {
-        $this->render('articles/single_article', ['title' => '']);
+        $this->getDB()->query('SELECT id, hash_id, title, author, category_id, publishDate, editedDate, content FROM d_articles WHERE hash_id = :id');
+        $this->getDB()->bind('id', $id);
+        $this->getDB()->execute();
+        $article = $this->getDB()->single();
+
+        $this->getDB()->query('SELECT id,username FROM d_users WHERE id = :id');
+        $this->getDB()->bind('id', $article['author']);
+        $this->getDB()->execute();
+        $username = $this->getDB()->resultset();
+        $article['author'] = $username[0]['username'];
+
+        $this->getDB()->query('SELECT id,name FROM d_category WHERE id = :id');
+        $this->getDB()->bind('id', $article['category_id']);
+        $this->getDB()->execute();
+        $category = $this->getDB()->resultset();
+        $article['category'] = $category[0]['name'];
+
+        $this->getTwig()->addGlobal('article', $article);
+
+        $this->render('blog/single_article', ['title' => $article['title']]);
     }
 
     public function CategoriesAction ()
