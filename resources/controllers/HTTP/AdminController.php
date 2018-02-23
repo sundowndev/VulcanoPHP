@@ -3,10 +3,10 @@
 namespace Controllers\HTTP;
 
 use App\Application;
-use App\Upload\Upload;
 use App\Session\Auth;
 use App\Content\ArticleModel;
 use App\Content\CategoryModel;
+use App\Upload\UploadModel;
 
 class AdminController extends MainController
 {
@@ -54,9 +54,7 @@ class AdminController extends MainController
 
     public function CreateArticleAction ()
     {
-        $this->getDB()->query('SELECT id, hash_id, name, slug, createdDate, description FROM d_category ORDER BY id DESC');
-        $this->getDB()->execute();
-        $categories = $this->getDB()->resultset();
+        $categories = CategoryModel::getAllCategories(null, $this);
 
         $this->getTwig()->addGlobal('categories', $categories);
         
@@ -66,18 +64,11 @@ class AdminController extends MainController
     public function CreateArticlePostAction ()
     {
         if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
-            $this->getDB()->query('INSERT INTO d_articles (hash_id, title, author, category_id, publishDate, editedDate, content, slug) VALUES(:hash_id, :title, :author, :category_id, NOW(), NOW(), :content, :slug)');
-
-            $hash_id = md5(uniqid());
-
-            $this->getDB()->bind(':hash_id', $hash_id);
-            $this->getDB()->bind(':title', $_POST['title']);
-            $this->getDB()->bind(':author', $this->getModule('Session\Session')->r('id'));
-            $this->getDB()->bind(':category_id', $_POST['category']);
-            $this->getDB()->bind(':content', $_POST['content']);
-            $this->getDB()->bind(':slug', 'www');
-
-            $this->getDB()->execute();
+            ArticleModel::createArticle([
+                'title' => $_POST['title'],
+                'category' => $_POST['category'],
+                'content' => $_POST['content']
+            ], $this);
 
             if (!empty($_FILES['cover'])) {
                 //set max. file size (2 in mb)
@@ -106,28 +97,14 @@ class AdminController extends MainController
 
     public function EditArticleAction ($id)
     {
-        $this->getDB()->query('SELECT * FROM d_articles WHERE hash_id = :id');
+        $article = ArticleModel::getArticle($id);
+        $categories = CategoryModel::getAllCategories(null, $this);
 
-        $this->getDB()->bind(':id', $id);
-
-        $this->getDB()->execute();
-
-        $article = $this->getDB()->single();
-
-        $this->getTwig()->addGlobal('article', $article);
-
-        if(file_exists($this->webroot.$this->config['paths']['uploads'].'/'.$article['hash_id'].'.jpg')){
-            $cover = $this->config['paths']['uploads'].'/'.$article['hash_id'].'.jpg';
-
+        if($cover = UploadModel::fileExist($article['hash_id'].'.jpg', $this)){
             $this->getTwig()->addGlobal('cover', $cover);
         }
 
-        $this->getDB()->query('SELECT * FROM d_category');
-
-        $this->getDB()->execute();
-
-        $categories = $this->getDB()->resultset();
-
+        $this->getTwig()->addGlobal('article', $article);
         $this->getTwig()->addGlobal('categories', $categories);
         
         $this->render('@admin/edit_article', ['title' => 'Edit an article', 'id' => $id, 'page' => 'articles']);
@@ -135,16 +112,14 @@ class AdminController extends MainController
 
     public function EditArticlePostAction ($id)
     {
+        $article = ArticleModel::getArticle($id);
+
         if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
-            $this->getDB()->query('UPDATE d_articles SET title = :title, category_id = :cat, content = :content, editedDate = NOW(), slug = :slug WHERE hash_id = :id');
-
-            $this->getDB()->bind(':id', $id);
-            $this->getDB()->bind(':title', $_POST['title']);
-            $this->getDB()->bind(':cat', $_POST['category']);
-            $this->getDB()->bind(':content', $_POST['content']);
-            $this->getDB()->bind(':slug', 'www');
-
-            $this->getDB()->execute();
+            ArticleModel::editArticle($id, [
+                'title' => $_POST['title'],
+                'category' => $_POST['category'],
+                'content' => $_POST['content']
+            ], $this);
 
             if (!empty($_FILES['cover'])) {
                 //set max. file size (2 in mb)
@@ -169,9 +144,7 @@ class AdminController extends MainController
     public function DeleteArticleAction ($id, $csrf)
     {
         if(!empty($id) && !empty($csrf) && $csrf === $this->getModule('Session\Session')->r('csrf')){
-            $this->getDB()->query('DELETE FROM d_articles WHERE hash_id = :id');
-            $this->getDB()->bind(':id', $id);
-            $this->getDB()->execute();
+            ArticleModel::deleteArticle($id, $this);
 
             $this->deleteUpload($id . '.jpg');
 
@@ -190,9 +163,7 @@ class AdminController extends MainController
      */
     public function ManageCategoriesAction ()
     {
-        $this->getDB()->query('SELECT hash_id, name, slug, createdDate, description FROM d_category ORDER BY id DESC');
-        $this->getDB()->execute();
-        $categories = $this->getDB()->resultset();
+        $categories = CategoryModel::getAllCategories(null, $this);
 
         $this->getTwig()->addGlobal('categories', $categories);
         
@@ -207,14 +178,12 @@ class AdminController extends MainController
     public function CreateCategoryPostAction ()
     {
         if(!empty($_POST['name'])){
-            $this->getDB()->query('INSERT INTO d_category (hash_id, name, slug, createdDate, description) VALUES(:hash_id, :name, :slug, NOW(), :description)');
+            $description = $_POST['description'] ?? '';
 
-            $this->getDB()->bind(':hash_id', md5(uniqid()));
-            $this->getDB()->bind(':name', $_POST['name']);
-            $this->getDB()->bind(':slug', 'www');
-            $this->getDB()->bind(':description', $_POST['description']);
-
-            $this->getDB()->execute();
+            CategoryModel::createCategory([
+                'name' => $_POST['name'],
+                'description' => $description
+            ], $this);
 
             $this->getModule('Session\Advert')->setAdvert('success', 'You successfully created your category!');
         }
@@ -224,16 +193,8 @@ class AdminController extends MainController
 
     public function EditCategoryAction ($id)
     {
-        $this->getDB()->query('SELECT hash_id, name, slug, createdDate, description FROM d_category WHERE hash_id = :id');
-
-        $this->getDB()->bind('id', $id);
-
-        $this->getDB()->execute();
-
-        $category = $this->getDB()->single();
-
-        if(!$category){
-            $this->redirect($this->config['paths']['admin'].'/404');
+        if(!$category = CategoryModel::getCategory($id, $this)){
+            $this->ErrorAction();
         }
 
         $this->getTwig()->addGlobal('category', $category);
@@ -244,13 +205,12 @@ class AdminController extends MainController
     public function EditCategoryPostAction ($id)
     {
         if(!empty($_POST['name']) && !empty($_POST['csrf']) && $_POST['csrf'] === $this->getModule('Session\Session')->r('csrf')){
-            $this->getDB()->query('UPDATE d_category SET name = :name, description = :desc WHERE hash_id = :hash_id');
+            $description = $_POST['description'] ?? '';
 
-            $this->getDB()->bind(':name', $_POST['name']);
-            $this->getDB()->bind(':hash_id', $id);
-            $this->getDB()->bind(':desc', $_POST['description']);
-
-            $this->getDB()->execute();
+            CategoryModel::editCategory($id, [
+                'name' => $_POST['name'],
+                'description' => $description
+            ], $this);
 
             $this->getModule('Session\Advert')->setAdvert('success', 'You successfully edited your category!');
         }
@@ -338,7 +298,7 @@ class AdminController extends MainController
 
     public function DeleteUploadAction ($id, $csrf)
     {
-        $this->render(['models' => 'admin/delete_uploads'], ['id' => $id, 'token' => $token, 'page' => 'uploads']);
+        UploadModel::deleteUpload($id, $csrf, $this);
     }
 
     /* Configuration */
@@ -409,7 +369,7 @@ class AdminController extends MainController
 
     public function SettingsEmailPostAction ()
     {
-        if(!empty($_POST['newemail']) && !empty($_POST['password'])){
+        if(!empty($_POST['newemail']) && !empty($_POST['password'])){s
             $this->getDB()->query('SELECT * FROM d_users WHERE id = :id');
 
             $this->getDB()->bind(':id', $this->getModule('Session\Session')->r('id'));
@@ -493,12 +453,6 @@ class AdminController extends MainController
     /* extra methods */
     public function deleteUpload ($file)
     {
-        // UploadModel::deleteUpload($file);
-
-        if(file_exists($this->config['paths']['uploads'].'/'.$file)){
-            \unlink($this->webroot . $this->config['paths']['uploads'].'/' . $file);
-        }else{
-            return false;
-        }
+        UploadModel::deleteUpload($file, $this);
     }
 }

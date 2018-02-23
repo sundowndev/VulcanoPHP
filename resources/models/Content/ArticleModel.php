@@ -1,23 +1,64 @@
 <?php
+
 namespace App\Content;
 
 use App\Application;
 
 class ArticleModel
 { 
-    public function __construct () {}
+    public function __construct ()
+    {}
 
-    public static function createArticle ($article) {}
+    public static function createArticle (array $article, Application $app)
+    {
+        $app->getDB()->query('INSERT INTO d_articles (hash_id, title, author, category_id, publishDate, editedDate, content, slug) VALUES(:hash_id, :title, :author, :category_id, NOW(), NOW(), :content, :slug)');
 
-    public static function editArticle ($id, $article) {}
+        $hash_id = md5(uniqid());
 
-    public static function deleteArticle ($id) {}
+        $app->getDB()->bind(':hash_id', $hash_id);
+        $app->getDB()->bind(':title', $article['title']);
+        $app->getDB()->bind(':author', $app->getModule('Session\Session')->r('id'));
+        $app->getDB()->bind(':category_id', $article['category']);
+        $app->getDB()->bind(':content', $article['content']);
+        $app->getDB()->bind(':slug', 'www');
+        
+        $app->getDB()->execute();
+    }
 
-    public static function getArticle ($id) {}
+    public static function editArticle ($id, $article, Application $app)
+    {
+        $app->getDB()->query('UPDATE d_articles SET title = :title, category_id = :cat, content = :content, editedDate = NOW(), slug = :slug WHERE hash_id = :id');
+        $app->getDB()->bind(':id', $id);
+        $app->getDB()->bind(':title', $article['title']);
+        $app->getDB()->bind(':cat', $article['category']);
+        $app->getDB()->bind(':content', $article['content']);
+        $app->getDB()->bind(':slug', 'www');
+        $app->getDB()->execute();
+    }
 
-    public static function getAllArticles ($limit = null, Application $app) {
-        $app->getDB()->query('SELECT hash_id, title, author, category_id, publishDate, content FROM d_articles ORDER BY id DESC');
+    public static function deleteArticle ($id, Application $app)
+    {
+        $app->getDB()->query('DELETE FROM d_articles WHERE hash_id = :id');
+        $app->getDB()->bind(':id', $id);
+        $app->getDB()->execute();
+    }
 
+    public static function getArticle ($id, Application $app)
+    {
+        $app->getDB()->query('SELECT id, hash_id, title, author, category_id, publishDate, editedDate, content, slug FROM d_articles WHERE hash_id = :id');
+
+        $app->getDB()->bind(':id', $id);
+
+        $app->getDB()->execute();
+
+        $article = $app->getDB()->single();
+
+        return $article;
+    }
+
+    public static function getAllArticles ($limit = null, Application $app)
+    {
+        $app->getDB()->query('SELECT id, hash_id, title, author, category_id, publishDate, content FROM d_articles ORDER BY id DESC');
         $app->getDB()->execute();
         $articles = $app->getDB()->resultset();
 
