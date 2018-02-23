@@ -1,21 +1,29 @@
 <?php
-namespace Controllers\Content;
+namespace App\Content;
 
 class CategoryModel
 { 
-    public function __construct () {}
+    public function __construct ()
+    {}
     
-    public function createCategory ($category) {}
+    public static function createCategory ($category)
+    {}
     
-    public function editCategory ($id, $category) {}
+    public static function editCategory ($id, $category)
+    {}
     
-    public function deleteCategory ($id) {}
+    public static function deleteCategory ($id)
+    {}
     
-    public function getCategory ($id) {}
+    public static function getCategory ($id)
+    {}
     
-    public function getAllCategories ($limit = '') {}
+    public static function getAllCategories ($limit = '')
+    {}
     
-    public function increaseCategory ($id) {}
+    public static function increaseCategory ($id)
+    {}
     
-    public function decreaseCategory ($id) {}
+    public static function decreaseCategory ($id)
+    {}
 }

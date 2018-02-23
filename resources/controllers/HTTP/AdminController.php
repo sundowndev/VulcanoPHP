@@ -2,7 +2,11 @@
 
 namespace Controllers\HTTP;
 
+use App\Application;
 use App\Upload\Upload;
+use App\Session\Auth;
+use App\Content\ArticleModel;
+use App\Content\CategoryModel;
 
 class AdminController extends MainController
 {
@@ -19,51 +23,14 @@ class AdminController extends MainController
 
     public function loginPostAction ()
     {
-        // TODO: vérification CSRF
-        if(!empty($_POST['username']) && !empty($_POST['password']))
-        {
-            $username = $_POST['username'];
-            $pw = $_POST['password'];
-
-            $this->getDB()->query('SELECT * FROM d_users WHERE username = :name');
-            $this->getDB()->bind(':name', $username);
-            $this->getDB()->execute();
-
-            $target = $this->getDB()->single();
-
-            if($target && $this->getModule('Secure\Secure')->verifyHash($pw, $target['password']))
-            {
-                $this->getModule('Session\Session')->w('auth', true);
-                $this->getModule('Session\Session')->w('id', $target['id']);
-                $this->getModule('Session\Session')->w('hash_id', $target['hash_id']);
-                $this->getModule('Session\Session')->w('username', $target['username']);
-                $this->getModule('Session\Session')->w('email', $target['email']);
-                $this->getModule('Session\Session')->setCSRF();
-
-                if(!empty($_GET['redirect']))
-                {
-                    $this->redirect($_GET['redirect']);
-                }else{
-                    $this->redirect($this->config['paths']['admin'].'/dashboard');
-                }
-            }else{
-                $this->getModule('Session\Advert')->setAdvert('error', 'Bad username or password');
-            }
-        }
+        Auth::login($_POST['username'], $_POST['password'], $this);
 
         $this->redirect($this->config['paths']['admin']);
     }
 
     public function logoutAction ($csrf)
     {
-        if($this->getModule('Session\Session')->r('auth') === true && $csrf == $this->getModule('Session\Session')->getCSRF())
-        {
-            $this->getModule('Session\Session')->w('auth', false);
-            $this->getModule('Session\Session')->destroy();
-            $this->redirect($this->config['paths']['admin']);
-        } else {
-            $this->ErrorAction();
-        }
+        Auth::logout($csrf, $this);
     }
 
     public function DashboardAction ()
@@ -78,25 +45,7 @@ class AdminController extends MainController
      */
     public function ManageArticlesAction ()
     {
-        $this->getDB()->query('SELECT hash_id, title, author, category_id, publishDate, content FROM d_articles ORDER BY id DESC');
-
-        $this->getDB()->execute();
-        $articles = $this->getDB()->resultset();
-
-        foreach ($articles as $key => $article) {
-            $this->getDB()->query('SELECT id, username FROM d_users WHERE id = :id');
-            $this->getDB()->bind('id', $articles[$key]['author']);
-            $this->getDB()->execute();
-            $username = $this->getDB()->resultset();
-            $articles[$key]['author'] = $username[0]['username'];
-
-            $this->getDB()->query('SELECT id, hash_id, name FROM d_category WHERE id = :id');
-            $this->getDB()->bind('id', $articles[$key]['category_id']);
-            $this->getDB()->execute();
-            $category = $this->getDB()->single();
-            $articles[$key]['category_hash_id'] = $category['hash_id'];
-            $articles[$key]['category'] = $category['name'];
-        }
+        $articles = ArticleModel::getAllArticles(null, $this);
 
         $this->getTwig()->addGlobal('articles', $articles);
         
@@ -117,7 +66,7 @@ class AdminController extends MainController
     public function CreateArticlePostAction ()
     {
         if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
-            $this->getDB()->query('INSERT INTO d_articles (hash_id, title, author, category_id, publishDate, editedDate, content) VALUES(:hash_id, :title, :author, :category_id, NOW(), NOW(), :content)');
+            $this->getDB()->query('INSERT INTO d_articles (hash_id, title, author, category_id, publishDate, editedDate, content, slug) VALUES(:hash_id, :title, :author, :category_id, NOW(), NOW(), :content, :slug)');
 
             $hash_id = md5(uniqid());
 
@@ -126,6 +75,7 @@ class AdminController extends MainController
             $this->getDB()->bind(':author', $this->getModule('Session\Session')->r('id'));
             $this->getDB()->bind(':category_id', $_POST['category']);
             $this->getDB()->bind(':content', $_POST['content']);
+            $this->getDB()->bind(':slug', 'www');
 
             $this->getDB()->execute();
 
@@ -186,12 +136,13 @@ class AdminController extends MainController
     public function EditArticlePostAction ($id)
     {
         if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
-            $this->getDB()->query('UPDATE d_articles SET title = :title, category_id = :cat, content = :content, editedDate = NOW() WHERE hash_id = :id');
+            $this->getDB()->query('UPDATE d_articles SET title = :title, category_id = :cat, content = :content, editedDate = NOW(), slug = :slug WHERE hash_id = :id');
 
             $this->getDB()->bind(':id', $id);
             $this->getDB()->bind(':title', $_POST['title']);
             $this->getDB()->bind(':cat', $_POST['category']);
             $this->getDB()->bind(':content', $_POST['content']);
+            $this->getDB()->bind(':slug', 'www');
 
             $this->getDB()->execute();
 
@@ -398,7 +349,7 @@ class AdminController extends MainController
 
     public function ConfigurationPostAction ()
     {
-        if(isset($_POST['saveConfig']))
+        if(!empty($_POST['saveConfig']))
         {
             //
         }

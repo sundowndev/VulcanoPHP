@@ -18,7 +18,7 @@ class Application
 	/**
      * @var bool
      */
-	private $debug;
+	public $debug;
     
     /**
      * @var string The Server Base Path for Router Execution
@@ -33,7 +33,7 @@ class Application
 	/**
      * @var instance
      */
-	private $db;
+	public $db;
 
 	/**
      * @var instance
