@@ -1,7 +1,7 @@
 <p align="center"><img src="./docs/logo.png" alt=""></p>
 
 # DaimyoCMS
-[![Build Status](https://img.shields.io/travis/SundownDEV/DaimyoCMS.svg?style=flat)](http://travis-ci.org/SundownDEV/DaimyoCMS) ![Source](http://img.shields.io/badge/source-SundownDEV/DaimyoCMS-blue.svg?style=flat) ![Version](https://img.shields.io/badge/version-0.2.1-lightgrey.svg?style=flat) ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+[![Build Status](https://img.shields.io/travis/SundownDEV/DaimyoCMS.svg?style=flat)](http://travis-ci.org/SundownDEV/DaimyoCMS) ![Source](http://img.shields.io/badge/source-SundownDEV/DaimyoCMS-brightgreen.svg?style=flat) ![Version](https://img.shields.io/badge/version-0.2.1-lightgrey.svg?style=flat) ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 DaimyoCMS is an open-source PHP CMS based on the micro framework [Daimyo](https://github.com/SundownDEV/Daimyo) using PHP 7.
 
