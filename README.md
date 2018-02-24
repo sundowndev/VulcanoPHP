@@ -1,4 +1,4 @@
-<p class="center"><img src="./docs/logo.jpg" alt=""></p>
+<p class="center"><img src="./docs/logo.png" alt=""></p>
 
 # DaimyoCMS
 [![Build Status](https://img.shields.io/travis/SundownDEV/DaimyoCMS.svg?style=flat-square)](http://travis-ci.org/SundownDEV/DaimyoCMS) ![Source](http://img.shields.io/badge/source-SundownDEV/DaimyoCMS-blue.svg?style=flat-square) ![License](https://img.shields.io/packagist/l/SundownDEV/DaimyoCMS.svg?style=flat-square)
