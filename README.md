@@ -48,6 +48,7 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
   - [ ] Sign up/in as simple user
   - [ ] Search feature
 - [ ] Unit tests
+- [ ] Documentation
 
 ![screenshot dashboard](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/dashboard.jpg)
 
