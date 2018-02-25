@@ -52,9 +52,9 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
 ![screenshot dashboard](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/dashboard.jpg)
 
 ## Requirement
-* PHP >= 7.*
+* PHP >= 7.1
   * php7.*-gd
-* MySQL >= 5.6
+* MySQL >= 5.7
 * Composer
 
 **You need to install (or enable in php.ini) PHP "file info" extension.**
