@@ -7,7 +7,26 @@ use App\Validator\Validator;
 
 class Auth extends Application
 {
-
+    public static function isLogged ()
+    {
+        if (empty($app->getModule('Session\Session')->r('auth')) || $app->getModule('Session\Session')->r('auth') === false)
+        {
+            return false;
+        }else{
+            return true;
+        }
+    }
+    
+    public static function getCSRF ()
+    {
+        if (!empty($app->getModule('Session\Session')->getCSRF()))
+        {
+            return $app->getModule('Session\Session')->getCSRF();
+        }else{
+            return null;
+        }
+    }
+    
     public static function login (string $username, string $password, Application $app)
     {
         if(!empty($username) && !empty($password))
@@ -46,7 +65,7 @@ class Auth extends Application
 
     public static function logout (string $csrf, Application $app)
     {
-        if($app->getModule('Session\Session')->r('auth') === true && $csrf == $app->getModule('Session\Session')->getCSRF())
+        if(self::isLogged() && $csrf == self::getCSRF())
         {
             $app->getModule('Session\Session')->w('auth', false);
             $app->getModule('Session\Session')->destroy();
