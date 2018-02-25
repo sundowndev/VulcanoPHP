@@ -15,8 +15,10 @@ $app->mount( $app->config['paths']['admin'] , function () use ($app) {
     $app->router('admin'); // include admin routes
 });
 
+/* Home page */
 $app->get( $app->config['paths']['home'] , 'MainController@HomeAction');
 
+/* Search page */
 $app->get( $app->config['paths']['search'] , 'MainController@SearchAction');
 
 /* Blog page */
