@@ -16,7 +16,7 @@
 * Markdown editor
 * Local file management or with an external API
 * Easy to customize, add pages, navigation, templates and more
-* Make templating easily using Twig
+* Templating using Twig
 * Lightweight and secure
 
 ## Why DaimyoCMS ?
