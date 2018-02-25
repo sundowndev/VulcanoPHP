@@ -6,12 +6,12 @@ use App\Application;
 
 Class UploadModel extends Upload
 {
-    public static function fileExist (Application $app)
+    public static function fileExist ($file, Application $app)
     {
-        if(file_exists($app->webroot . $app->config['paths']['uploads'] . '/' . $file)){
-            $cover = $app->config['paths']['uploads'].'/' . $file;
-
-            return $cover;
+        $path = $app->webroot . $app->config['paths']['uploads'] . '/' . $file;
+        
+        if(file_exists($cover)){
+            return $path;
         }else{
             return false;
         }
