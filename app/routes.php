@@ -1,8 +1,8 @@
 <?php
 
 /*
- * dev route
- * return the hash of "test"
+ * Dev route
+ * return the password hash of "test"
 */
 /*$app->get('/install', function () use ($app) {
 	echo $app->getModule('Secure\Secure')->hash_pass('test');
@@ -10,7 +10,9 @@
 
 $app->setNamespace('\Controllers\HTTP');
 
-/* Including admin routes */
+/*
+ * Including admin routes
+ */
 $app->mount( $app->config['paths']['admin'] , function () use ($app) {
     $app->router('admin'); // include admin routes
 });
