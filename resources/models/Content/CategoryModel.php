@@ -22,7 +22,7 @@ class CategoryModel
     
     public static function editCategory ($id, array $category, Application $app)
     {
-        $app->getDB()->query('UPDATE d_category SET name = :name, description = :desc, slug = :slug WHERE slug = :id');
+        $app->getDB()->query('UPDATE d_category SET name = :name, description = :desc, slug = :slug WHERE hash_id = :id');
         $app->getDB()->bind(':id', $id);
         $app->getDB()->bind(':name', $category['name']);
         $app->getDB()->bind(':desc', $category['description']);
@@ -39,7 +39,7 @@ class CategoryModel
     
     public static function getCategory ($id, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, name, slug, createdDate, description FROM d_category WHERE hash_id = :id');
+        $app->getDB()->query('SELECT id, hash_id, name, slug, createdDate, description FROM d_category WHERE slug = :id');
         $app->getDB()->bind(':id', $id);
         $app->getDB()->execute();
         $category = $app->getDB()->single();
