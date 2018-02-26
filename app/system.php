@@ -352,6 +352,7 @@ class Application
         }
 
 		echo $this->twig->render($template . '.html.twig', $args);
+        exit();
 	}
 
 	/**

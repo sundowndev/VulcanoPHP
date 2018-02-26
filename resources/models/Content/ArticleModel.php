@@ -20,7 +20,7 @@ class ArticleModel
         $app->getDB()->bind(':author', $app->getModule('Session\Session')->r('id'));
         $app->getDB()->bind(':category_id', $article['category']);
         $app->getDB()->bind(':content', $article['content']);
-        $app->getDB()->bind(':slug', 'www');
+        $app->getDB()->bind(':slug', self::esc_url($article['title']));
         
         $app->getDB()->execute();
     }
@@ -32,7 +32,7 @@ class ArticleModel
         $app->getDB()->bind(':title', $article['title']);
         $app->getDB()->bind(':cat', $article['category']);
         $app->getDB()->bind(':content', $article['content']);
-        $app->getDB()->bind(':slug', 'www');
+        $app->getDB()->bind(':slug', self::esc_url($article['title']));
         $app->getDB()->execute();
     }
 
@@ -45,7 +45,7 @@ class ArticleModel
 
     public static function getArticle ($id, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, title, author, category_id, publishDate, editedDate, content, slug FROM d_articles WHERE hash_id = :id');
+        $app->getDB()->query('SELECT id, hash_id, title, author, category_id, publishDate, editedDate, content, slug FROM d_articles WHERE slug = :id');
 
         $app->getDB()->bind(':id', $id);
 
@@ -58,7 +58,7 @@ class ArticleModel
 
     public static function getAllArticles ($limit = null, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, title, author, category_id, publishDate, content FROM d_articles ORDER BY id DESC');
+        $app->getDB()->query('SELECT id, hash_id, slug, title, author, category_id, publishDate, content FROM d_articles ORDER BY id DESC');
         $app->getDB()->execute();
         $articles = $app->getDB()->resultset();
 
@@ -85,4 +85,40 @@ class ArticleModel
 
     public static function decreaseArticle ($id)
     {}
+
+    /**
+     * Checks and cleans a URL.
+     *
+     * A number of characters are removed from the URL. The filter
+     * is applied to the returned cleaned URL.
+     *
+     * @param string $text       The STRING to be cleaned.
+     * @return string The cleaned $text after the filter is applied.
+     */
+    public static function esc_url ($text)
+    {
+        // replace non letter or digits by -
+        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+
+        // transliterate
+        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+
+        // remove unwanted characters
+        $text = preg_replace('~[^-\w]+~', '', $text);
+
+        // trim
+        $text = trim($text, '-');
+
+        // remove duplicate -
+        $text = preg_replace('~-+~', '-', $text);
+
+        // lowercase
+        $text = strtolower($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
+    }
 }

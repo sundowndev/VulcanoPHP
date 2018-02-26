@@ -2,29 +2,14 @@
 
 namespace Controllers\HTTP;
 
+use App\Content\ArticleModel;
+
 class MainController extends \App\Application
 {
 
     public function HomeAction ()
     {
-        $this->getDB()->query('SELECT * FROM d_articles ORDER BY id DESC LIMIT 0, 6');
-        $this->getDB()->execute();
-
-        $articles = $this->getDB()->resultset();
-
-        foreach ($articles as $key => $article) {
-            $this->getDB()->query('SELECT id,username FROM d_users WHERE id = :id');
-            $this->getDB()->bind('id', $articles[$key]['author']);
-            $this->getDB()->execute();
-            $username = $this->getDB()->resultset();
-            $articles[$key]['author'] = $username[0]['username'];
-
-            $this->getDB()->query('SELECT id,name FROM d_category WHERE id = :id');
-            $this->getDB()->bind('id', $articles[$key]['category_id']);
-            $this->getDB()->execute();
-            $category = $this->getDB()->resultset();
-            $articles[$key]['category'] = $category[0]['name'];
-        }
+        $articles = ArticleModel::getAllArticles(null, $this);
 
         $this->getTwig()->addGlobal('articles', $articles);
 
@@ -53,22 +38,7 @@ class MainController extends \App\Application
 
     public function SingleArticleAction ($id)
     {
-        $this->getDB()->query('SELECT id, hash_id, title, author, category_id, publishDate, editedDate, content FROM d_articles WHERE hash_id = :id');
-        $this->getDB()->bind('id', $id);
-        $this->getDB()->execute();
-        $article = $this->getDB()->single();
-
-        $this->getDB()->query('SELECT id,username FROM d_users WHERE id = :id');
-        $this->getDB()->bind('id', $article['author']);
-        $this->getDB()->execute();
-        $username = $this->getDB()->resultset();
-        $article['author'] = $username[0]['username'];
-
-        $this->getDB()->query('SELECT id,name FROM d_category WHERE id = :id');
-        $this->getDB()->bind('id', $article['category_id']);
-        $this->getDB()->execute();
-        $category = $this->getDB()->resultset();
-        $article['category'] = $category[0]['name'];
+        $article = ArticleModel::getArticle($id, $this);
 
         $this->getTwig()->addGlobal('article', $article);
 
@@ -80,7 +50,7 @@ class MainController extends \App\Application
         $this->render('categories/categories', ['title' => 'Categories']);
     }
 
-    public function SingleCategoryAction ()
+    public function SingleCategoryAction ($id)
     {
         $this->render('categories/single_category', ['title' => '']);
     }

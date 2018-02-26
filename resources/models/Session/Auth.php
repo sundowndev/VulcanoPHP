@@ -4,27 +4,33 @@ namespace App\Session;
 
 use App\Application;
 use App\Validator\Validator;
+use App\Session\Session;
 
 class Auth extends Application
 {
     public static function isLogged ()
     {
-        if (empty($app->getModule('Session\Session')->r('auth')) || $app->getModule('Session\Session')->r('auth') === false)
+        if (empty(Session::r('auth')) || Session::r('auth') === false)
         {
             return false;
         }else{
             return true;
         }
     }
-    
+
+    public static function isAdmin ()
+    {
+        if (!self::isLogged() || Session::r('access') !== 1)
+        {
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     public static function getCSRF ()
     {
-        if (!empty($app->getModule('Session\Session')->getCSRF()))
-        {
-            return $app->getModule('Session\Session')->getCSRF();
-        }else{
-            return null;
-        }
+        return Session::getCSRF();
     }
     
     public static function login (string $username, string $password, Application $app)
@@ -55,20 +61,21 @@ class Auth extends Application
 
     public static function createSession (array $session, Application $app)
     {
-        $app->getModule('Session\Session')->w('auth', true);
-        $app->getModule('Session\Session')->w('id', $session['id']);
-        $app->getModule('Session\Session')->w('hash_id', $session['hash_id']);
-        $app->getModule('Session\Session')->w('username', $session['username']);
-        $app->getModule('Session\Session')->w('email', $session['email']);
-        $app->getModule('Session\Session')->setCSRF();
+        Session::w('auth', true);
+        Session::w('id', $session['id']);
+        Session::w('hash_id', $session['hash_id']);
+        Session::w('username', $session['username']);
+        Session::w('email', $session['email']);
+        Session::w('access', $session['access']);
+        Session::setCSRF();
     }
 
     public static function logout (string $csrf, Application $app)
     {
         if(self::isLogged() && $csrf == self::getCSRF())
         {
-            $app->getModule('Session\Session')->w('auth', false);
-            $app->getModule('Session\Session')->destroy();
+            Session::w('auth', false);
+            Session::destroy();
             $app->redirect($app->config['paths']['admin']);
         } else {
             $app->ErrorAction();

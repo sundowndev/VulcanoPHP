@@ -6,6 +6,9 @@ use App\Session\Auth;
 use App\Content\ArticleModel;
 use App\Content\CategoryModel;
 use App\Upload\UploadModel;
+use App\User\UserModel;
+//
+use App\Upload\Upload;
 
 class AdminController extends MainController
 {
@@ -89,38 +92,42 @@ class AdminController extends MainController
             $this->getModule('Session\Advert')->setAdvert('danger', "You didn't complete all fields");
         }
 
-        $this->getTwig()->addGlobal('POST', $_POST);
-
         $this->redirect($this->config['paths']['admin'] . '/create/article');
     }
 
     public function EditArticleAction ($id)
     {
-        $article = ArticleModel::getArticle($id);
-        $categories = CategoryModel::getAllCategories(null, $this);
+        if ($article = ArticleModel::getArticle($id, $this)) {
+            $categories = CategoryModel::getAllCategories(null, $this);
 
-        if($cover = UploadModel::fileExist($article['hash_id'].'.jpg', $this)){
-            $this->getTwig()->addGlobal('cover', $cover);
+            if ($cover = UploadModel::fileExist($article['hash_id'] . '.jpg', $this)) {
+                $this->getTwig()->addGlobal('cover', $cover);
+            }
+
+            $this->getTwig()->addGlobal('article', $article);
+            $this->getTwig()->addGlobal('categories', $categories);
+
+            $this->render('@admin/edit_article', ['title' => 'Edit an article', 'id' => $id, 'page' => 'articles']);
+        }else{
+            $this->AdminErrorAction();
         }
-
-        $this->getTwig()->addGlobal('article', $article);
-        $this->getTwig()->addGlobal('categories', $categories);
-        
-        $this->render('@admin/edit_article', ['title' => 'Edit an article', 'id' => $id, 'page' => 'articles']);
     }
 
     public function EditArticlePostAction ($id)
     {
-        $article = ArticleModel::getArticle($id);
+        $article = ArticleModel::getArticle($id, $this);
 
-        if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
-            ArticleModel::editArticle($id, [
+        if(!empty($_POST['id']) && !empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
+            ArticleModel::editArticle($_POST['id'], [
                 'title' => $_POST['title'],
                 'category' => $_POST['category'],
                 'content' => $_POST['content']
             ], $this);
 
-            if (!empty($_FILES['cover'])) {
+            $newSlug = ArticleModel::esc_url($_POST['title']);
+
+            if (!empty($_FILES['cover']))
+            {
                 //set max. file size (2 in mb)
                 $upload = Upload::factory('content/uploads');
 
@@ -135,9 +142,7 @@ class AdminController extends MainController
             $this->getModule('Session\Advert')->setAdvert('success', 'You successfully edited your article!');
         }
 
-        $this->getTwig()->addGlobal('POST', $_POST);
-
-        $this->redirect($this->config['paths']['admin'] . '/manage/article/' . $id);
+        $this->redirect($this->config['paths']['admin'] . '/manage/article/' . $newSlug);
     }
 
     public function DeleteArticleAction ($id, $csrf)
@@ -192,8 +197,8 @@ class AdminController extends MainController
 
     public function EditCategoryAction ($id)
     {
-        if(!$category = CategoryModel::getCategory($id, $this)){
-            $this->ErrorAction();
+        if(!$category = CategoryModel::getCategory($id, $this)) {
+            $this->AdminErrorAction();
         }
 
         $this->getTwig()->addGlobal('category', $category);
@@ -211,24 +216,20 @@ class AdminController extends MainController
                 'description' => $description
             ], $this);
 
+            $newSlug = ArticleModel::esc_url($_POST['title']);
+
             $this->getModule('Session\Advert')->setAdvert('success', 'You successfully edited your category!');
         }
 
-        $this->getTwig()->addGlobal('POST', $_POST);
-
-        $this->redirect($this->config['paths']['admin'] . '/manage/category/' . $id);
+        $this->redirect($this->config['paths']['admin'] . '/manage/category/' . $newSlug);
     }
 
     public function DeleteCategoryAction ($id, $csrf)
     {
         if(!empty($id) && !empty($csrf) && $csrf === $this->getModule('Session\Session')->r('csrf')){
-            $this->getDB()->query('DELETE FROM d_category WHERE hash_id = :id');
-            $this->getDB()->bind(':id', $id);
-            $this->getDB()->execute();
+            CategoryModel::deleteCategory($id, $this);
 
             $this->getModule('Session\Advert')->setAdvert('success', 'You successfully deleted a category');
-
-            $this->redirect($this->config['paths']['admin'].'/manage/categories');
         }else{
             $this->AdminErrorAction();
         }
@@ -242,20 +243,29 @@ class AdminController extends MainController
      * Users management
      */
     public function ManageUsersAction ()
-    {}
+    {
+        UserModel::getAllUsers(null, $this);
+
+        $this->render('@admin/manage_users');
+    }
 
     public function CreateUserAction ()
     {
-        $this->render('@admin/create_category', ['title' => 'Create a category', 'page' => 'categories']);
+        $this->render('@admin/create_user', ['title' => 'Create a category', 'page' => 'categories']);
     }
 
     public function CreateUserPostAction ()
     {
-        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
+        //validator
+
+        $this->redirect($this->config['paths']['admin'] . '/manage/users');
     }
 
     public function EditUserAction ($id)
     {
+        $user = UserModel::getUser($id, $this);
+        //$user to twig
+
         $this->render('@admin/edit_user', ['title' => 'Edit an user', 'id' => $id, 'page' => 'users']);
     }
 
@@ -300,7 +310,11 @@ class AdminController extends MainController
         UploadModel::deleteUpload($id, $csrf, $this);
     }
 
-    /* Configuration */
+    /*
+     * Configuration
+     *
+     * Modify the general configuration
+     */
     public function ConfigurationAction ()
     {
         $this->render('@admin/configuration', ['title' => 'Configuration', 'page' => 'configuration']);
@@ -326,7 +340,11 @@ class AdminController extends MainController
         $this->render('@admin/plugins', ['title' => 'Plugins', 'page' => 'configuration']);
     }
 
-    /* Settings */
+    /*
+     * Settings
+     *
+     * User settings
+     */
     public function SettingsAction ()
     {
         $this->render('@admin/settings', ['title' => 'Mes paramètres', 'page' => 'settings']);
@@ -360,8 +378,6 @@ class AdminController extends MainController
         }else{
             $this->getModule('Session\Advert')->setAdvert('danger', 'Please enter a valid username that respect the format : a-Z0-9-_');
         }
-
-        $this->getTwig()->addGlobal('POST', $_POST);
 
         $this->redirect($this->config['paths']['admin'] . '/settings');
     }
@@ -401,8 +417,6 @@ class AdminController extends MainController
         }else{
             $this->getModule('Session\Advert')->setAdvert('danger', 'Please fill all the fields');
         }
-
-        $this->getTwig()->addGlobal('POST', $_POST);
 
         $this->redirect($this->config['paths']['admin'] . '/settings');
     }
@@ -447,11 +461,5 @@ class AdminController extends MainController
     public function AdminErrorAction ()
     {
         $this->render('@admin/404', ['title' => 'Page not found']);
-    }
-    
-    /* extra methods */
-    public function deleteUpload ($file)
-    {
-        UploadModel::deleteUpload($file, $this);
     }
 }

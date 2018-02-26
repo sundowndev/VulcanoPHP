@@ -32,7 +32,8 @@ CREATE TABLE `d_articles` (
   `editedDate` datetime NOT NULL,
   `content` text NOT NULL,
   `slug` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `d_articles_slug_uindex` (`slug`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -42,7 +43,7 @@ CREATE TABLE `d_articles` (
 
 LOCK TABLES `d_articles` WRITE;
 /*!40000 ALTER TABLE `d_articles` DISABLE KEYS */;
-INSERT INTO `d_articles` VALUES (2,'849a58e8178b7779b8182de1ee09f364','allo',2,14,'2018-02-23 04:08:05','2018-02-23 04:08:05','xDD',NULL),(4,'7b6943050c1e48f7de975f8657443084','lorem',2,9,'2018-02-23 04:29:31','2018-02-23 04:51:40','Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum.',NULL),(5,'dad4faa56851118f7a6b1cf102187341','Kaaaa',2,14,'2018-02-23 04:51:25','2018-02-23 04:51:25','dzadaz',NULL),(6,'d75bd1a5c6512eb3fedff868d8ac6ac9','kek haha',2,14,'2018-02-23 04:51:56','2018-02-23 05:11:34','mdzfezfgez\r\n','www');
+INSERT INTO `d_articles` VALUES (2,'849a58e8178b7779b8182de1ee09f364','allo oui',2,14,'2018-02-23 04:08:05','2018-02-26 10:23:13','xDD','allo-oui'),(4,'7b6943050c1e48f7de975f8657443084','lorem',2,9,'2018-02-23 04:29:31','2018-02-26 10:05:07','Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum.','lorem'),(5,'dad4faa56851118f7a6b1cf102187341','Kaaaa',2,14,'2018-02-23 04:51:25','2018-02-26 10:22:11','dzadaz','kaaaa'),(6,'d75bd1a5c6512eb3fedff868d8ac6ac9','kkkkkkkkkk',2,14,'2018-02-23 04:51:56','2018-02-26 10:22:06','mdzfezfgez\r\n','kkkkkkkkkk');
 /*!40000 ALTER TABLE `d_articles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +62,8 @@ CREATE TABLE `d_category` (
   `createdDate` datetime NOT NULL,
   `description` text NOT NULL,
   `image_url` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `d_category_slug_uindex` (`slug`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -71,8 +73,33 @@ CREATE TABLE `d_category` (
 
 LOCK TABLES `d_category` WRITE;
 /*!40000 ALTER TABLE `d_category` DISABLE KEYS */;
-INSERT INTO `d_category` VALUES (9,'90c2b47f2864719b5aa9c1dc91384320','CS:GO','classarticles','2018-02-22 03:42:54','',NULL),(14,'36f16ce6975f34c7f793e16beb1b9f68','Dev','www','2018-02-23 02:54:07','',NULL);
+INSERT INTO `d_category` VALUES (9,'90c2b47f2864719b5aa9c1dc91384320','CS:GO','cs-go','2018-02-22 03:42:54','',NULL),(14,'36f16ce6975f34c7f793e16beb1b9f68','DÃ©veloppement','developpement','2018-02-23 02:54:07','',NULL);
 /*!40000 ALTER TABLE `d_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `d_pages`
+--
+
+DROP TABLE IF EXISTS `d_pages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `d_pages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `controller` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `d_pages`
+--
+
+LOCK TABLES `d_pages` WRITE;
+/*!40000 ALTER TABLE `d_pages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `d_pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -113,4 +140,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-23 12:26:04
+-- Dump completed on 2018-02-26 11:11:01

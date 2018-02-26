@@ -42,6 +42,8 @@
               <!-- /.box-body -->
 
               <div class="box-footer">
+                  <input type="hidden" name="id" value="{{ article.hash_id }}">
+                  <input type="hidden" name="csrf" value="{{ session.csrf }}">
                 <button type="submit" name="editArticle" class="btn btn-primary">Edit an article</button>
               </div>
             </form>

@@ -24,6 +24,8 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <link rel="icon" type="image/png" href="{{ paths.root }}favicon.png" />
 </head>
 <body class="hold-transition skin-red sidebar-mini fixed">
 <div class="wrapper">
@@ -114,9 +116,21 @@
             <li><a href="{{ paths.admin }}/manage/categories">Gérer les categories</a></li>
           </ul>
         </li>
-        
+
+        <li class="treeview {% if page == 'pages' %}active{% endif %}">
+          <a href="#"><i class="fa fa-file"></i> <span>Pages</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{{ paths.admin }}/create/page">Ajouter une page</a></li>
+            <li><a href="{{ paths.admin }}/manage/pages">Gérer les pages</a></li>
+          </ul>
+        </li>
+
         <li {% if page == 'uploads' %}class="active"{% endif %}><a href="{{ paths.admin }}/manage/uploads"><i class="fa fa-upload"></i> <span>Fichiers</span></a></li>
-        
+
         <li class="treeview {% if page == 'users' %}active{% endif %}">
           <a href="#"><i class="fa fa-users"></i> <span>Utilisateurs</span>
             <span class="pull-right-container">

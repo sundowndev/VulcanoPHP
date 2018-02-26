@@ -1,7 +1,9 @@
 <?php
 
+use App\Session\Auth;
+
 $app->before('GET|POST', '/.*', function() use ($app) {
-    if($app->getModule('Session\Session')->r('auth') === false){
+    if(!Auth::isLogged()){
         $app->getModule('Session\Advert')->setAdvert('error', 'Connectez vous pour accèder à cette page');
 
         $url = $app->getURI();
@@ -12,10 +14,20 @@ $app->before('GET|POST', '/.*', function() use ($app) {
     $app->set404('AdminController@AdminErrorAction');
 });
 
+/*
+ * If the user is logged, redirect him to dashboard
+ */
 $app->before('GET|POST', '/', function() use ($app) {
-    if($app->getModule('Session\Session')->r('auth') === true){
+    if(Auth::isLogged()){
         $app->redirect($app->config['paths']['admin'].'/dashboard');
     }
+});
+
+/*
+ * Pass $_POST superglobal to twig when submitting a form
+ */
+$app->before('POST', '/.*', function() use ($app) {
+    $app->getTwig()->addGlobal('POST', $_POST);
 });
 
 /* Login page */
@@ -41,24 +53,24 @@ $app->mount('/manage', function () use ($app) {
      */
     $app->get('/articles', 'AdminController@ManageArticlesAction');
 
-    $app->get('/article/([\w+]+)', 'AdminController@EditArticleAction');
-    $app->post('/article/([\w+]+)', 'AdminController@EditArticlePostAction');
+    $app->get('/article/([a-z0-9_-]+)', 'AdminController@EditArticleAction');
+    $app->post('/article/([a-z0-9_-]+)', 'AdminController@EditArticlePostAction');
 
     /*
      * Categories
      */
     $app->get('/categories', 'AdminController@ManageCategoriesAction');
 
-    $app->get('/category/([\w+]+)', 'AdminController@EditCategoryAction');
-    $app->post('/category/([\w+]+)', 'AdminController@EditCategoryPostAction');
+    $app->get('/category/([a-z0-9_-]+)', 'AdminController@EditCategoryAction');
+    $app->post('/category/([a-z0-9_-]+)', 'AdminController@EditCategoryPostAction');
 
     /*
      * Users
      */
-    $app->get('/user', 'AdminController@ManageUsersAction');
+    $app->get('/users', 'AdminController@ManageUsersAction');
 
-    $app->get('/user/([\w+]+)', 'AdminController@EditUserAction');
-    $app->post('/user/([\w+]+)', 'AdminController@EditUserPostAction');
+    $app->get('/user/([a-z0-9_-]+)', 'AdminController@EditUserAction');
+    $app->post('/user/([a-z0-9_-]+)', 'AdminController@EditUserPostAction');
 
     /*
      * Uploads
@@ -106,7 +118,7 @@ $app->mount('/delete', function () use ($app) {
 	/*
 	 * Categories
 	 */
-	$app->get('/category/([a-z0-9_-]+)/([\w+]+)', 'AdminController@DeleteCategoryAction');
+	$app->get('/category/([\w+]+)/([\w+]+)', 'AdminController@DeleteCategoryAction');
 
 	/*
 	 * Users
@@ -131,9 +143,4 @@ $app->mount('/configuration', function () use ($app) {
      * Appearance
      */
 	$app->get('/appearance', 'AdminController@AppearanceAction');
-
-    /*
-     * Plugins
-     */
-	$app->get('/plugins', 'AdminController@PluginsAction');
 });
