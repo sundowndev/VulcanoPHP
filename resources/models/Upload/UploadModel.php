@@ -6,6 +6,8 @@ use App\Application;
 
 Class UploadModel extends Upload
 {
+    private $path;
+
     public static function fileExist ($file, Application $app)
     {
         $path = $app->WEBROOT . $app->config['paths']['uploads'] . '/' . $file;
@@ -17,10 +19,10 @@ Class UploadModel extends Upload
         }
     }
     
-    public static function deleteUpload (Application $app)
+    public static function deleteUpload ($file, Application $app)
     {
-        if(self::fileExist($file)){
-            \unlink($app->WEBROOT . $app->config['paths']['uploads'].'/' . $file);
+        if(self::fileExist($file, $app)){
+            \unlink($app->WEBROOT . $app->config['paths']['uploads'] . '/' . $file);
         }else{
             return false;
         }

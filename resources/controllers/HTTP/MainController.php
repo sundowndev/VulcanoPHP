@@ -38,7 +38,9 @@ class MainController extends \App\Application
 
     public function SingleArticleAction ($id)
     {
-        $article = ArticleModel::getArticle($id, $this);
+        if(!$article = ArticleModel::getArticle($id, $this)){
+            $this->ErrorAction();
+        }
 
         $this->getTwig()->addGlobal('article', $article);
 

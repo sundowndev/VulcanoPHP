@@ -7,6 +7,9 @@ use App\Content\ArticleModel;
 use App\Content\CategoryModel;
 use App\Upload\UploadModel;
 use App\User\UserModel;
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\ValidationException;
+use Respect\Validation\Exceptions\NestedValidationException;
 //
 use App\Upload\Upload;
 
@@ -65,15 +68,21 @@ class AdminController extends MainController
 
     public function CreateArticlePostAction ()
     {
-        if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
+        $validator = v::attribute('title', v::stringType()->length(4,32))
+            ->attribute('category', v::intType())
+            ->attribute('content', v::stringType()->length(8));
+
+        if($validator->validate($_POST)) {
+            $hash_id = ArticleModel::genHashID();
+
             ArticleModel::createArticle([
+                'hash_id' => $hash_id,
                 'title' => $_POST['title'],
                 'category' => $_POST['category'],
                 'content' => $_POST['content']
             ], $this);
 
             if (!empty($_FILES['cover'])) {
-                //set max. file size (2 in mb)
                 $upload = Upload::factory('content/uploads');
 
                 $upload->set_max_file_size(10);
@@ -89,7 +98,7 @@ class AdminController extends MainController
 
             $this->redirect($this->config['paths']['admin'].'/manage/articles');
         }else{
-            $this->getModule('Session\Advert')->setAdvert('danger', "You didn't complete all fields");
+            $this->getModule('Session\Advert')->setAdverts('danger', []);
         }
 
         $this->redirect($this->config['paths']['admin'] . '/create/article');
@@ -128,7 +137,6 @@ class AdminController extends MainController
 
             if (!empty($_FILES['cover']))
             {
-                //set max. file size (2 in mb)
                 $upload = Upload::factory('content/uploads');
 
                 $upload->set_max_file_size(10);
@@ -149,8 +157,6 @@ class AdminController extends MainController
     {
         if(!empty($id) && !empty($csrf) && $csrf === $this->getModule('Session\Session')->r('csrf')){
             ArticleModel::deleteArticle($id, $this);
-
-            $this->deleteUpload($id . '.jpg');
 
             $this->getModule('Session\Advert')->setAdvert('success', 'Article deleted');
 
@@ -363,7 +369,6 @@ class AdminController extends MainController
             $this->getModule('Session\Session')->w('username', $_POST['username']);
 
             if (!empty($_FILES['avatar'])) {
-                //set max. file size (2 in mb)
                 $upload = Upload::factory('content/uploads/avatars');
 
                 $upload->set_max_file_size(10);

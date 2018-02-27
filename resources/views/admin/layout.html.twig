@@ -173,13 +173,15 @@
     <!-- Main content -->
     <section class="content container-fluid">
     {% if advert %}
-    <div class="callout callout-{{ advert.type }}">
-        <p>{{ advert.message }}</p>
-    </div>
+      {% for ad in advert %}
+      <div class="callout callout-{{ ad.type }}">
+          <p>{{ ad.message }}</p>
+      </div>
+      {% endfor %}
     {% endif %}
-     
-      {% block body %}
-      {% endblock %}
+
+    {% block body %}
+    {% endblock %}
 
     </section>
     <!-- /.content -->

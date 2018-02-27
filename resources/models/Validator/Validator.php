@@ -2,7 +2,7 @@
 
 namespace App\Validator;
 
-class Validator{
+class Validator {
 
     protected $rules = [];
     protected $errors = [];

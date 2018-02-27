@@ -19,7 +19,7 @@
                 {% for article in articles %}
                 <tr role="row" class="even">
                   <td><a href="{{ paths.admin }}/manage/article/{{ article.slug }}">{{ article.title }}</a></td>
-                  <td><a href="{{ paths.admin }}/manage/category/{{ article.category_hash_id }}">{{ article.category }}</a></td>
+                  <td><a href="{{ paths.admin }}/manage/category/{{ article.category_slug }}">{{ article.category }}</a></td>
                   <td><a href="{{ paths.admin }}/manage/user/{{ article.author }}">{{ article.author }}</a></td>
                   <td>{{ article.content|slice(0,80) }}</td>
                   <td>{{ article.publishDate|date('d/m/Y') }} at {{ article.publishDate|date('h:m') }}</td>

@@ -3,7 +3,8 @@
 use App\Session\Auth;
 
 $app->before('GET|POST', '/.*', function() use ($app) {
-    if(!Auth::isLogged()){
+    if(!Auth::isLogged())
+    {
         $app->getModule('Session\Advert')->setAdvert('error', 'Connectez vous pour accèder à cette page');
 
         $url = $app->getURI();
@@ -18,7 +19,8 @@ $app->before('GET|POST', '/.*', function() use ($app) {
  * If the user is logged, redirect him to dashboard
  */
 $app->before('GET|POST', '/', function() use ($app) {
-    if(Auth::isLogged()){
+    if(Auth::isLogged())
+    {
         $app->redirect($app->config['paths']['admin'].'/dashboard');
     }
 });

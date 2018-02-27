@@ -39,8 +39,10 @@ class CategoryModel
     
     public static function getCategory ($id, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, name, slug, createdDate, description FROM d_category WHERE slug = :id');
+        $app->getDB()->query('SELECT id, hash_id, name, slug, createdDate, description FROM d_category WHERE id = :id || hash_id = :hash_id || slug = :slug');
         $app->getDB()->bind(':id', $id);
+        $app->getDB()->bind(':hash_id', $id);
+        $app->getDB()->bind(':slug', $id);
         $app->getDB()->execute();
         $category = $app->getDB()->single();
 

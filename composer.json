@@ -1,7 +1,8 @@
 {
     "require": {
         "bramus/router": "~1.0",
-        "twig/twig": "~1.0"
+        "twig/twig": "~1.0",
+        "respect/validation": "^1.1"
     },
     "autoload": {
         "psr-4": {
