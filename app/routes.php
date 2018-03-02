@@ -1,5 +1,7 @@
 <?php
 
+use App\Content\CategoryModel;
+
 /*
  * Dev route
  * return the password hash of "test"
@@ -22,9 +24,6 @@ $app->get( $app->config['paths']['home'] , 'MainController@HomeAction');
 
 /* Search page */
 $app->get( $app->config['paths']['search'] , 'MainController@SearchAction');
-
-/* Blog page */
-$app->get( $app->config['paths']['blog'] , 'MainController@BlogAction');
 
 /* About page */
 $app->get( $app->config['paths']['about'] , 'MainController@AboutAction');

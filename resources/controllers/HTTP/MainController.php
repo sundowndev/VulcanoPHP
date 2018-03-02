@@ -3,12 +3,16 @@
 namespace Controllers\HTTP;
 
 use App\Content\ArticleModel;
+use App\Content\CategoryModel;
 
 class MainController extends \App\Application
 {
 
     public function HomeAction ()
     {
+        $categories = CategoryModel::getAllCategories(null, $this);
+        $this->getTwig()->addGlobal('categories', $categories);
+
         $articles = ArticleModel::getAllArticles(null, $this);
 
         $this->getTwig()->addGlobal('articles', $articles);

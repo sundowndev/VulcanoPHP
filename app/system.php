@@ -107,25 +107,15 @@ class Application
         /* Adding admin twig views path */
         $this->getTwigLoader()->addPath($this->DIR_VIEWS.'admin/', 'admin');
 
-        $this->getTwig()->addGlobal('site', [
-            'name' => $this->config['general']['site_name'],
-            'description' => $this->config['general']['description'],
-            'tags' => $this->config['general']['tags']
-        ]);
 
-        $this->getTwig()->addGlobal('paths', [
-            'root' => $this->WEBROOT,
-            'home' => $this->removeRegex($this->config['paths']['home']),
-            'blog' => $this->removeRegex($this->config['paths']['blog']),
-            'about' => $this->removeRegex($this->config['paths']['about']),
-            'contact' => $this->removeRegex($this->config['paths']['contact']),
-            'user' => $this->removeRegex($this->config['paths']['user']),
-            'category' => $this->removeRegex($this->config['paths']['category']),
-            'content' => $this->removeRegex($this->config['paths']['content']),
-            'themes' => $this->removeRegex($this->config['paths']['themes']),
-            'uploads' => $this->removeRegex($this->config['paths']['uploads']),
-            'admin' => $this->removeRegex($this->config['paths']['admin'])
-        ]);
+        $config = $this->config;
+        $config['paths']['root'] = $this->WEBROOT;
+        foreach ($this->config['paths'] as $key => $path) {
+            $config['paths'][$key] = $this->removeRegex($path);
+        }
+
+        $this->getTwig()->addGlobal('site', $config['general']);
+        $this->getTwig()->addGlobal('paths', $config['paths']);
 
         /* init session auth value if it doesn't exist */
         if(empty($this->getModule('Session\Session')->r('auth'))) {
