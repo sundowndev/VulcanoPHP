@@ -25,9 +25,6 @@ $app->get( $app->config['paths']['home'] , 'MainController@HomeAction');
 /* Search page */
 $app->get( $app->config['paths']['search'] , 'MainController@SearchAction');
 
-/* About page */
-$app->get( $app->config['paths']['about'] , 'MainController@AboutAction');
-
 /* Single article */
 $app->get( $app->config['paths']['article'] , 'MainController@SingleArticleAction');
 
@@ -39,9 +36,6 @@ $app->get( $app->config['paths']['category'] , 'MainController@SingleCategoryAct
 
 /* Single user */
 $app->get( $app->config['paths']['user'] , 'MainController@SingleUserAction');
-
-/* Contact page */
-$app->match('GET|POST', $app->config['paths']['contact'] , 'MainController@ContactAction');
 
 /* 404 error page */
 $app->set404('MainController@ErrorAction');
