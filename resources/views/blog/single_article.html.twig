@@ -8,7 +8,7 @@
                     <div class="blog-post">
                         <img src="{{ paths.uploads }}/{{ article.image_url }}" alt="">
                         <h2 class="blog-post-title">{{ article.title }}</h2>
-                        <p class="blog-post-meta">On {{ article.date|date("F jS \\a\\t g:i a") }} by <a href="{{ paths.user }}/{{ article.author.username }}">{{ article.author.username }}</a></p>
+                        <p class="blog-post-meta">On {{ article.publishDate|date("F jS \\a\\t g:i a") }} by <a href="{{ paths.user }}/{{ article.author.username }}">{{ article.author.username }}</a></p>
 
                         <p>{{ article.content|nl2br }}</p>
                     </div><!-- /.blog-post -->
