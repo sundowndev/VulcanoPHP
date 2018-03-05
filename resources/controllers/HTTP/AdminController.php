@@ -271,37 +271,6 @@ class AdminController extends MainController
     }
 
     /*
-     * Uploads
-     *
-     * File uploads management
-     */
-    public function ManageUploadsAction ()
-    {}
-
-    public function CreateUploadAction ()
-    {
-        $this->render('@admin/create_upload', ['title' => 'Upload a file', 'page' => 'uploads']);
-    }
-
-    public function CreateUploadPostAction ()
-    {
-        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
-    }
-
-    public function EditUploadAction ($id)
-    {}
-
-    public function EditUploadPostAction ($id)
-    {
-        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
-    }
-
-    public function DeleteUploadAction ($id, $csrf)
-    {
-        UploadModel::deleteUpload($id, $csrf, $this);
-    }
-
-    /*
      * Configuration
      *
      * Modify the general configuration
@@ -319,16 +288,6 @@ class AdminController extends MainController
         }
 
         $this->redirect($this->config['paths']['admin'] . '/configuration');
-    }
-
-    public function AppearanceAction ()
-    {
-        $this->render('@admin/appearance', ['title' => 'Appearance', 'page' => 'configuration']);
-    }
-
-    public function PluginsAction ()
-    {
-        $this->render('@admin/plugins', ['title' => 'Plugins', 'page' => 'configuration']);
     }
 
     /*
