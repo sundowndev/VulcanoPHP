@@ -1,0 +1,28 @@
+{% extends "layout.html.twig" %}
+{% set page = 'single_category' %}
+
+{% block body %}
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8 blog-main">
+                {% for article in articles %}
+                    <div class="blog-post">
+                        <h2 class="blog-post-title"><a href="{{ paths.article }}/{{ article.slug }}">{{ article.title }}</a></h2>
+                        <p class="blog-post-meta">On {{ article.date|date('d M Y') }} by <a href="{{ paths.user }}/{{ article.author }}">{{ article.author }}</a></p>
+
+                        <p>{{ article.content|slice(0, 140) }}{% if article.content|length >= 140 %} [...]{% endif %}</p>
+                    </div><!-- /.blog-post -->
+                {% endfor %}
+
+                <nav class="blog-pagination text-center">
+                    <a class="btn btn-outline-primary" href="#">Load more</a>
+                </nav>
+
+            </div><!-- /.blog-main -->
+
+            {% include 'sidebar.html.twig' %}
+
+        </div><!-- /.row -->
+
+    </main><!-- /.container -->
+{% endblock %}

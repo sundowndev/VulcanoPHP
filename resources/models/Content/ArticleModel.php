@@ -106,6 +106,32 @@ class ArticleModel
         return $articles;
     }
 
+    public static function getArticlesFromCategory ($cat_id, Application $app)
+    {
+        $app->getDB()->query('SELECT id, hash_id, slug, title, author, category_id, publishDate, content FROM d_articles WHERE category_id = :cat_id ORDER BY id DESC');
+        $app->getDB()->bind(':cat_id', $cat_id);
+        $app->getDB()->execute();
+        $articles = $app->getDB()->resultset();
+
+        foreach ($articles as $key => $article) {
+            $app->getDB()->query('SELECT id, username FROM d_users WHERE id = :id');
+            $app->getDB()->bind('id', $articles[$key]['author']);
+            $app->getDB()->execute();
+            $username = $app->getDB()->resultset();
+            $articles[$key]['author'] = $username[0]['username'];
+
+            $app->getDB()->query('SELECT id, hash_id, name, slug FROM d_category WHERE id = :id');
+            $app->getDB()->bind('id', $articles[$key]['category_id']);
+            $app->getDB()->execute();
+            $category = $app->getDB()->single();
+            $articles[$key]['category_hash_id'] = $category['hash_id'];
+            $articles[$key]['category_slug'] = $category['slug'];
+            $articles[$key]['category'] = $category['name'];
+        }
+
+        return $articles;
+    }
+
     public static function increaseArticle ($id, Application $app)
     {}
 

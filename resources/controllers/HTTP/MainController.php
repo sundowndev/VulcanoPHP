@@ -42,7 +42,7 @@ class MainController extends \App\Application
 
     public function SingleArticleAction ($id)
     {
-        if(!$article = ArticleModel::getArticle($id, $this)){
+        if (!$article = ArticleModel::getArticle($id, $this)) {
             $this->ErrorAction();
         }
 
@@ -61,7 +61,19 @@ class MainController extends \App\Application
 
     public function SingleCategoryAction ($id)
     {
-        $this->render('blog/single_category', ['title' => '']);
+        if (!$category = CategoryModel::getCategory($id, $this)) {
+            $this->ErrorAction();
+        }
+
+        $categories = CategoryModel::getAllCategories(null, $this);
+        $this->getTwig()->addGlobal('categories', $categories);
+
+        $articles = ArticleModel::getArticlesFromCategory($category['id'], $this);
+
+        $this->getTwig()->addGlobal('categorie', $category);
+        $this->getTwig()->addGlobal('articles', $articles);
+
+        $this->render('blog/single_category', ['title' => $category['name']]);
     }
 
     public function SingleUserAction ()
