@@ -23,7 +23,7 @@
                   <td><a href="{{ paths.admin }}/manage/user/{{ article.author }}">{{ article.author }}</a></td>
                   <td>{{ article.content|slice(0,80) }}</td>
                   <td>{{ article.publishDate|date('d/m/Y') }} at {{ article.publishDate|date('h:m') }}</td>
-                  <td><a href="{{ paths.admin }}/manage/article/{{ article.hash_id }}" class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o"></i> Edit</a> <a href="{{ paths.admin }}/delete/article/{{ article.hash_id }}/{{ session.csrf }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a></td>
+                  <td><a href="{{ paths.admin }}/delete/article/{{ article.hash_id }}/{{ session.csrf }}" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Delete</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>
