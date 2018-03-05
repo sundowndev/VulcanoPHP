@@ -35,21 +35,6 @@ class MainController extends \App\Application
         $this->render('blog/search', ['title' => $request]);
     }
 
-    public function BlogAction ()
-    {
-        $this->render('blog/blog', ['title' => 'Blog']);
-    }
-
-    public function AboutAction ()
-    {
-        $this->render('about/about', ['title' => 'About']);
-    }
-
-    public function ContactAction ()
-    {
-        $this->render('contact/contact', ['title' => 'Me contacter']);
-    }
-
     public function SingleArticleAction ($id)
     {
         if (!$article = ArticleModel::getArticle($id, $this)) {
