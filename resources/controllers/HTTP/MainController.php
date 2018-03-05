@@ -22,7 +22,16 @@ class MainController extends \App\Application
 
     public function SearchAction ()
     {
-        $this->render('search', ['title' => 'Search']);
+        // Handle search request
+        $request = $_GET['q'];
+
+        $categories = CategoryModel::getAllCategories(null, $this);
+        $this->getTwig()->addGlobal('categories', $categories);
+
+        $articles = ArticleModel::getArticlesByRequest($request, $this);
+        $this->getTwig()->addGlobal('articles', $articles);
+
+        $this->render('blog/search', ['title' => $request]);
     }
 
     public function BlogAction ()
@@ -70,7 +79,7 @@ class MainController extends \App\Application
 
         $articles = ArticleModel::getArticlesFromCategory($category['id'], $this);
 
-        $this->getTwig()->addGlobal('categorie', $category);
+        $this->getTwig()->addGlobal('category', $category);
         $this->getTwig()->addGlobal('articles', $articles);
 
         $this->render('blog/single_category', ['title' => $category['name']]);

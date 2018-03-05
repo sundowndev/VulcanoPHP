@@ -30,8 +30,8 @@
 
   <div class="nav-scroller py-1 mb-2">
       <nav class="nav d-flex">
-      {% for category in categories %}
-          <a class="p-2 text-muted" href="{{ paths.category }}/{{ category.slug }}">{{ category.name }}</a>
+      {% for cat in categories %}
+          <a class="p-2 text-muted" href="{{ paths.category }}/{{ cat.slug }}">{% if category.name == cat.name or article.category == cat.name %}<strong>{% endif %}{{ cat.name }}{% if category.name == cat.name or article.category == cat.name %}</strong>{% endif %}</a>
       {% endfor %}
     </nav>
   </div>

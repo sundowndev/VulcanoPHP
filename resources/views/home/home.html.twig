@@ -24,9 +24,11 @@
                 </div><!-- /.blog-post -->
                 {% endfor %}
 
+                {% if articles|length > 10 %}
                 <nav class="blog-pagination text-center">
                     <a class="btn btn-outline-primary" href="#">Load more</a>
                 </nav>
+                {% endif %}
 
             </div><!-- /.blog-main -->
 
