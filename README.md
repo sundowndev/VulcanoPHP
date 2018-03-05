@@ -14,7 +14,6 @@
 ## Features
 * Manage content such as users, articles and categories...
 * Markdown editor
-* Local file management or with an external API
 * Easy to customize, add pages, navigation, templates and more
 * Templating using Twig
 * Lightweight and secure
@@ -35,18 +34,14 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
   - [ ] Manage users
   - [ ] User role feature (Admin, Writer, Member)
   - [ ] Markdown editor
-  - [ ] Manage local files
   - [ ] Image conversion & compression
   - [ ] General configuration settings
   - [x] User settings
-  - [ ] Navigation management
-  - [ ] Pages management
-  - [ ] Templates management
 - [ ] Blog
   - [x] Read articles
   - [ ] Comments
   - [ ] Sign up/in as simple user
-  - [ ] Search feature
+  - [x] Search feature
 - [ ] Unit tests
 - [ ] Documentation
 
