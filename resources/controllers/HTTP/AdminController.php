@@ -27,7 +27,11 @@ class AdminController extends MainController
     {
         Auth::login($_POST['username'], $_POST['password'], $this);
 
-        $this->redirect($this->config['paths']['admin']);
+        if (!Auth::isLogged() || Auth::isAdmin()){
+            $this->redirect($this->config['paths']['admin']);
+        }elseif (Auth::isLogged() && !Auth::isAdmin()) {
+            $this->redirect($this->config['paths']['home']);
+        }
     }
 
     public function logoutAction ($csrf)

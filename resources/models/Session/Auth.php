@@ -20,7 +20,7 @@ class Auth extends Application
 
     public static function isAdmin ()
     {
-        if (!self::isLogged() || Session::r('access') !== 1)
+        if (!self::isLogged() || Session::r('access') != 1)
         {
             return false;
         }else{
