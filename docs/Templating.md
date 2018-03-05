@@ -6,7 +6,7 @@ Templates are in `./resources/views` folder.
 
 Twig instance is accessible from Application class
 
-~~~
+~~~php
 $app = new \App\Application();
 
 $twig = $app->getTwig();
@@ -18,7 +18,7 @@ $twig->render();
 
 Twig has a very concise syntax, which make templates more readable
 
-~~~
+~~~twig
 {{ var }}
 {{ var|escape }}
 {{ var|e }}         {# shortcut to escape a variable #}
@@ -26,7 +26,7 @@ Twig has a very concise syntax, which make templates more readable
 
 Twig has shortcuts for common patterns, like having a default text displayed when you iterate over an empty array
 
-~~~
+~~~twig
 {% for user in users %}
     * {{ user.name }}
 {% else %}
@@ -36,7 +36,7 @@ Twig has shortcuts for common patterns, like having a default text displayed whe
 
 Twig supports everything you need to build powerful templates with ease: multiple inheritance, blocks, automatic output-escaping, and much more
 
-~~~
+~~~twig
 {% extends "layout.html" %}
 
 {% block content %}
