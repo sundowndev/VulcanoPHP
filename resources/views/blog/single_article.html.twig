@@ -2,13 +2,22 @@
 {% set page = 'single_article' %}
 
 {% block body %}
-    <div class="col-sm-8 blog-main">
-            <div class="blog-post">
-                <img src="{{ paths.uploads }}/{{ article.image_url }}" alt="">
-                <h2 class="blog-post-title">{{ article.title }}</h2>
-                <p class="blog-post-meta">On {{ article.date|date("d/m/Y") }} at {{ article.date|date("h:m") }} by <a href="{{ paths.user }}/{{ article.author }}">{{ article.author }}</a> in <a href="{{ paths.category }}/{{ article.category }}">{{ article.category }}</a></p>
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8 blog-main">
+                    <div class="blog-post">
+                        <img src="{{ paths.uploads }}/{{ article.image_url }}" alt="">
+                        <h2 class="blog-post-title">{{ article.title }}</h2>
+                        <p class="blog-post-meta">On {{ article.date|date('d M Y') }} by <a href="{{ paths.user }}/{{ article.author }}">{{ article.author }}</a></p>
 
-                {{ article.content }}
-            </div>
-    </div>
+                        <p>{{ article.content }}</p>
+                    </div><!-- /.blog-post -->
+
+            </div><!-- /.blog-main -->
+
+            {% include 'sidebar.html.twig' %}
+
+        </div><!-- /.row -->
+
+    </main><!-- /.container -->
 {% endblock %}

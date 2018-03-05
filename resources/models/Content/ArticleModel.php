@@ -64,6 +64,20 @@ class ArticleModel
 
         $article = $app->getDB()->single();
 
+        $app->getDB()->query('SELECT id, username FROM d_users WHERE id = :id');
+        $app->getDB()->bind('id', $article['author']);
+        $app->getDB()->execute();
+        $username = $app->getDB()->resultset();
+        $article['author'] = $username[0]['username'];
+
+        $app->getDB()->query('SELECT id, hash_id, name, slug FROM d_category WHERE id = :id');
+        $app->getDB()->bind('id', $article['category_id']);
+        $app->getDB()->execute();
+        $category = $app->getDB()->single();
+        $article['category_hash_id'] = $category['hash_id'];
+        $article['category_slug'] = $category['slug'];
+        $article['category'] = $category['name'];
+
         return $article;
     }
 

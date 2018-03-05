@@ -17,7 +17,7 @@ class MainController extends \App\Application
 
         $this->getTwig()->addGlobal('articles', $articles);
 
-        $this->render('home/home', ['title' => 'Welcome']);
+        $this->render('home/home');
     }
 
     public function SearchAction ()
@@ -46,6 +46,9 @@ class MainController extends \App\Application
             $this->ErrorAction();
         }
 
+        $categories = CategoryModel::getAllCategories(null, $this);
+        $this->getTwig()->addGlobal('categories', $categories);
+
         $this->getTwig()->addGlobal('article', $article);
 
         $this->render('blog/single_article', ['title' => $article['title']]);
@@ -58,7 +61,7 @@ class MainController extends \App\Application
 
     public function SingleCategoryAction ($id)
     {
-        $this->render('categories/single_category', ['title' => '']);
+        $this->render('blog/single_category', ['title' => '']);
     }
 
     public function SingleUserAction ()
