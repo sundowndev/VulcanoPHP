@@ -117,20 +117,6 @@
           </ul>
         </li>
 
-        <li class="treeview {% if page == 'pages' %}active{% endif %}">
-          <a href="#"><i class="fa fa-file"></i> <span>Pages</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ paths.admin }}/create/page">Ajouter une page</a></li>
-            <li><a href="{{ paths.admin }}/manage/pages">Gérer les pages</a></li>
-          </ul>
-        </li>
-
-        <li {% if page == 'uploads' %}class="active"{% endif %}><a href="{{ paths.admin }}/manage/uploads"><i class="fa fa-upload"></i> <span>Fichiers</span></a></li>
-
         <li class="treeview {% if page == 'users' %}active{% endif %}">
           <a href="#"><i class="fa fa-users"></i> <span>Utilisateurs</span>
             <span class="pull-right-container">
@@ -142,19 +128,8 @@
             <li><a href="{{ paths.admin }}/manage/users">Gérer les utilisateurs</a></li>
           </ul>
         </li>
-        
-        <li class="treeview {% if page == 'configuration' %}active{% endif %}">
-          <a href="#"><i class="fa fa-cog"></i> <span>Configuration</span>
-            <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="{{ paths.admin }}/configuration">Configuration générale</a></li>
-            <li><a href="{{ paths.admin }}/configuration/appearance">Apparence</a></li>
-            <li><a href="{{ paths.admin }}/configuration/plugins">Plugins</a></li>
-          </ul>
-        </li>
+
+        <li {% if page == 'configuration' %}class="active"{% endif %}><a href="{{ paths.admin }}/configuration"><i class="fa fa-cog"></i> <span>General configuration</span></a></li>
         
         <li><a href="{{ paths.home }}" target="_blank"><i class="fa fa-desktop"></i> <span>Voir le site</span></a></li>
       </ul>
@@ -173,11 +148,9 @@
     <!-- Main content -->
     <section class="content container-fluid">
     {% if advert %}
-      {% for ad in advert %}
-      <div class="callout callout-{{ ad.type }}">
-          <p>{{ ad.message }}</p>
+      <div class="callout callout-{{ advert.type }}">
+          <p>{{ advert.message }}</p>
       </div>
-      {% endfor %}
     {% endif %}
 
     {% block body %}

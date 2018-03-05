@@ -3,22 +3,35 @@
 namespace Controllers\HTTP;
 
 use App\Content\ArticleModel;
+use App\Content\CategoryModel;
 
 class MainController extends \App\Application
 {
 
     public function HomeAction ()
     {
+        $categories = CategoryModel::getAllCategories(null, $this);
+        $this->getTwig()->addGlobal('categories', $categories);
+
         $articles = ArticleModel::getAllArticles(null, $this);
 
         $this->getTwig()->addGlobal('articles', $articles);
 
-        $this->render('home/home', ['title' => 'Welcome']);
+        $this->render('home/home');
     }
 
     public function SearchAction ()
     {
-        $this->render('search', ['title' => 'Search']);
+        // Handle search request
+        $request = $_GET['q'];
+
+        $categories = CategoryModel::getAllCategories(null, $this);
+        $this->getTwig()->addGlobal('categories', $categories);
+
+        $articles = ArticleModel::getArticlesByRequest($request, $this);
+        $this->getTwig()->addGlobal('articles', $articles);
+
+        $this->render('blog/search', ['title' => $request]);
     }
 
     public function BlogAction ()
@@ -38,9 +51,12 @@ class MainController extends \App\Application
 
     public function SingleArticleAction ($id)
     {
-        if(!$article = ArticleModel::getArticle($id, $this)){
+        if (!$article = ArticleModel::getArticle($id, $this)) {
             $this->ErrorAction();
         }
+
+        $categories = CategoryModel::getAllCategories(null, $this);
+        $this->getTwig()->addGlobal('categories', $categories);
 
         $this->getTwig()->addGlobal('article', $article);
 
@@ -54,7 +70,19 @@ class MainController extends \App\Application
 
     public function SingleCategoryAction ($id)
     {
-        $this->render('categories/single_category', ['title' => '']);
+        if (!$category = CategoryModel::getCategory($id, $this)) {
+            $this->ErrorAction();
+        }
+
+        $categories = CategoryModel::getAllCategories(null, $this);
+        $this->getTwig()->addGlobal('categories', $categories);
+
+        $articles = ArticleModel::getArticlesFromCategory($category['id'], $this);
+
+        $this->getTwig()->addGlobal('category', $category);
+        $this->getTwig()->addGlobal('articles', $articles);
+
+        $this->render('blog/single_category', ['title' => $category['name']]);
     }
 
     public function SingleUserAction ()

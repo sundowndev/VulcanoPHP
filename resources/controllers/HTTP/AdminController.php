@@ -7,10 +7,7 @@ use App\Content\ArticleModel;
 use App\Content\CategoryModel;
 use App\Upload\UploadModel;
 use App\User\UserModel;
-use Respect\Validation\Validator as v;
-use Respect\Validation\Exceptions\ValidationException;
-use Respect\Validation\Exceptions\NestedValidationException;
-//
+//TODO delete pure upload methods
 use App\Upload\Upload;
 
 class AdminController extends MainController
@@ -68,39 +65,27 @@ class AdminController extends MainController
 
     public function CreateArticlePostAction ()
     {
-        $validator = v::attribute('title', v::stringType()->length(4,32))
-            ->attribute('category', v::intType())
-            ->attribute('content', v::stringType()->length(8));
-
-        if($validator->validate($_POST)) {
-            $hash_id = ArticleModel::genHashID();
-
+        if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
             ArticleModel::createArticle([
-                'hash_id' => $hash_id,
                 'title' => $_POST['title'],
                 'category' => $_POST['category'],
                 'content' => $_POST['content']
             ], $this);
-
             if (!empty($_FILES['cover'])) {
+                //set max. file size (2 in mb)
                 $upload = Upload::factory('content/uploads');
-
                 $upload->set_max_file_size(10);
                 //set allowed mime types
                 $upload->set_allowed_mime_types(array('image/jpeg','image/png'));
-
                 $upload->file($_FILES['cover']);
                 $results = $upload->upload($filename = $hash_id);
                 // TODO: stocker l'extension dans la colonne image_url
             }
-
             $this->getModule('Session\Advert')->setAdvert('success', 'You successfully published your article!');
-
             $this->redirect($this->config['paths']['admin'].'/manage/articles');
         }else{
-            $this->getModule('Session\Advert')->setAdverts('danger', []);
+            $this->getModule('Session\Advert')->setAdvert('danger', "You didn't complete all fields");
         }
-
         $this->redirect($this->config['paths']['admin'] . '/create/article');
     }
 

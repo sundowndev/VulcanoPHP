@@ -140,9 +140,4 @@ $app->mount('/configuration', function () use ($app) {
 	 */
 	$app->get('/', 'AdminController@ConfigurationAction');
 	$app->post('/', 'AdminController@ConfigurationPostAction');
-
-    /*
-     * Appearance
-     */
-	$app->get('/appearance', 'AdminController@AppearanceAction');
 });

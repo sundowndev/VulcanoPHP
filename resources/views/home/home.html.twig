@@ -2,23 +2,39 @@
 {% set page = 'home' %}
 
 {% block body %}
-	<div class="col-sm-8 blog-main">
-          
-          {% for article in articles|slice(0, 5) %}
-              <div class="blog-post">
-                  <a href="{{ paths.root }}article/{{ article.slug }}"><img src="{{ paths.uploads }}/{{ article.hash_id }}.jpg" width="100%" alt=""></a>
-                <h2 class="blog-post-title"><a href="{{ paths.root }}article/{{ article.slug }}">{{ article.title }}</a></h2>
-                <p class="blog-post-meta">On {{ article.date|date("d/m/Y") }} at {{ article.date|date("h:m") }} by <a href="{{ paths.user }}/{{ article.author }}">{{ article.author }}</a> in <a href="{{ paths.category }}/{{ article.category }}">{{ article.category }}</a></p>
-
-                {{ article.content|slice(0, 400) }}{% if article.content|length > 400 %}... <a href="{{ paths.root }}article/{{ article.hash_id }}">Learn more</a>{% endif %}
-              </div>
-          {% endfor %}
-          
-          {% if articles|length > 5 %}
-            <nav class="blog-pagination text-center">
-                <a class="btn btn-outline-primary btn-show-more" href="#">Show more</a>
-            </nav>
-        {% endif %}
-
+    {% for article in articles|slice(0, 1) %}
+    <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark" style="background:url('{{ paths.uploads }}/{{ article.image_url }}');">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4 font-italic"><a href="{{ paths.article }}/{{ article.slug }}">{{ article.title }}</a></h1>
+            <p class="lead my-3">{{ article.content|slice(0, 140) }}{% if article.content|length >= 140 %} [...]{% endif %}</p>
+            <p class="lead mb-0"><a href="{{ paths.article }}/{{ article.slug }}" class="text-white font-weight-bold">Continue reading...</a></p>
         </div>
+    </div>
+    {% endfor %}
+
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-8 blog-main">
+                {% for article in articles|slice(1, articles|length) %}
+                <div class="blog-post">
+                    <h2 class="blog-post-title"><a href="{{ paths.article }}/{{ article.slug }}">{{ article.title }}</a></h2>
+                    <p class="blog-post-meta">On {{ article.date|date('d M Y') }} by <a href="{{ paths.user }}/{{ article.author }}">{{ article.author }}</a></p>
+
+                    <p>{{ article.content|slice(0, 140) }}{% if article.content|length >= 140 %} [...]{% endif %}</p>
+                </div><!-- /.blog-post -->
+                {% endfor %}
+
+                {% if articles|length > 10 %}
+                <nav class="blog-pagination text-center">
+                    <a class="btn btn-outline-primary" href="#">Load more</a>
+                </nav>
+                {% endif %}
+
+            </div><!-- /.blog-main -->
+
+            {% include 'sidebar.html.twig' %}
+
+        </div><!-- /.row -->
+
+    </main><!-- /.container -->
 {% endblock %}
