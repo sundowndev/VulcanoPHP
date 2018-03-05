@@ -24,6 +24,7 @@ class MainController extends \App\Application
     {
         // Handle search request
         $request = $_GET['q'];
+        $this->getTwig()->addGlobal('request', $request);
 
         $categories = CategoryModel::getAllCategories(null, $this);
         $this->getTwig()->addGlobal('categories', $categories);
@@ -32,21 +33,6 @@ class MainController extends \App\Application
         $this->getTwig()->addGlobal('articles', $articles);
 
         $this->render('blog/search', ['title' => $request]);
-    }
-
-    public function BlogAction ()
-    {
-        $this->render('blog/blog', ['title' => 'Blog']);
-    }
-
-    public function AboutAction ()
-    {
-        $this->render('about/about', ['title' => 'About']);
-    }
-
-    public function ContactAction ()
-    {
-        $this->render('contact/contact', ['title' => 'Me contacter']);
     }
 
     public function SingleArticleAction ($id)

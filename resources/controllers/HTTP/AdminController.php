@@ -271,37 +271,6 @@ class AdminController extends MainController
     }
 
     /*
-     * Uploads
-     *
-     * File uploads management
-     */
-    public function ManageUploadsAction ()
-    {}
-
-    public function CreateUploadAction ()
-    {
-        $this->render('@admin/create_upload', ['title' => 'Upload a file', 'page' => 'uploads']);
-    }
-
-    public function CreateUploadPostAction ()
-    {
-        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
-    }
-
-    public function EditUploadAction ($id)
-    {}
-
-    public function EditUploadPostAction ($id)
-    {
-        $this->redirect($this->config['paths']['admin'] . '/manage/categories');
-    }
-
-    public function DeleteUploadAction ($id, $csrf)
-    {
-        UploadModel::deleteUpload($id, $csrf, $this);
-    }
-
-    /*
      * Configuration
      *
      * Modify the general configuration
@@ -321,16 +290,6 @@ class AdminController extends MainController
         $this->redirect($this->config['paths']['admin'] . '/configuration');
     }
 
-    public function AppearanceAction ()
-    {
-        $this->render('@admin/appearance', ['title' => 'Appearance', 'page' => 'configuration']);
-    }
-
-    public function PluginsAction ()
-    {
-        $this->render('@admin/plugins', ['title' => 'Plugins', 'page' => 'configuration']);
-    }
-
     /*
      * Settings
      *
@@ -338,16 +297,20 @@ class AdminController extends MainController
      */
     public function SettingsAction ()
     {
+        $user = UserModel::getUser($this->getModule('Session\Session')->r('id'), $this);
+        $this->getTwig()->addGlobal('user', $user);
+
         $this->render('@admin/settings', ['title' => 'Mes paramètres', 'page' => 'settings']);
     }
 
     public function SettingsGeneralPostAction ()
     {
         if(!empty($_POST['username'])){
-            $this->getDB()->query('UPDATE d_users SET username = :username WHERE id = :id');
+            $this->getDB()->query('UPDATE d_users SET username = :username, description = :desc WHERE id = :id');
 
             $this->getDB()->bind(':id', $this->getModule('Session\Session')->r('id'));
             $this->getDB()->bind(':username', $_POST['username']);
+            $this->getDB()->bind(':desc', $_POST['desc']);
 
             $this->getDB()->execute();
 

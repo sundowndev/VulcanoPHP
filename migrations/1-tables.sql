@@ -44,7 +44,7 @@ CREATE TABLE `d_articles` (
 
 LOCK TABLES `d_articles` WRITE;
 /*!40000 ALTER TABLE `d_articles` DISABLE KEYS */;
-INSERT INTO `d_articles` VALUES (4,'7b6943050c1e48f7de975f8657443084','lorem',2,9,'2018-02-23 04:29:31','2018-02-26 10:05:07','Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum.','lorem',NULL),(5,'dad4faa56851118f7a6b1cf102187341','Kaaaa',2,14,'2018-02-23 04:51:25','2018-02-26 10:22:11','dzadaz','kaaaa',NULL),(6,'d75bd1a5c6512eb3fedff868d8ac6ac9','lol oui',2,14,'2018-02-23 04:51:56','2018-02-27 09:10:07','mdzfezfgez\r\n','lol-oui',NULL),(7,'0f1e5d5f51be7a3373373286bf3a6f64','le last',2,14,'2018-03-02 19:27:07','2018-03-02 21:29:18','This blog post shows a few different types of content that\'s supported and styled with Bootstrap. Basic typography, images, and code are all supported.\r\n\r\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.\r\n\r\nEtiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.','le-last',NULL);
+INSERT INTO `d_articles` VALUES (4,'7b6943050c1e48f7de975f8657443084','lorem',2,9,'2018-02-23 04:29:31','2018-02-26 10:05:07','Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum.','lorem',NULL),(5,'dad4faa56851118f7a6b1cf102187341','Kaaaa',2,14,'2018-02-23 04:51:25','2018-02-26 10:22:11','dzadaz','kaaaa',NULL),(6,'d75bd1a5c6512eb3fedff868d8ac6ac9','lol oui',2,14,'2018-02-23 04:51:56','2018-02-27 09:10:07','mdzfezfgez\r\n','lol-oui',NULL),(7,'0f1e5d5f51be7a3373373286bf3a6f64','le last',2,14,'2018-03-02 19:27:07','2018-03-05 11:41:39','# test\r\n<h1>test</h1>\r\nThis blog post shows a few different types of content that\'s supported and styled with Bootstrap. Basic typography, images, and code are all supported.\r\n\r\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.\r\n\r\nEtiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.\r\n\r\n<script>alert(\'allo!\');</script>','le-last',NULL);
 /*!40000 ALTER TABLE `d_articles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,31 +78,6 @@ INSERT INTO `d_category` VALUES (9,'90c2b47f2864719b5aa9c1dc91384320','CS:GO','c
 UNLOCK TABLES;
 
 --
--- Table structure for table `d_pages`
---
-
-DROP TABLE IF EXISTS `d_pages`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `d_pages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `controller` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `d_pages`
---
-
-LOCK TABLES `d_pages` WRITE;
-/*!40000 ALTER TABLE `d_pages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `d_pages` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `d_users`
 --
 
@@ -117,6 +92,7 @@ CREATE TABLE `d_users` (
   `password` varchar(255) NOT NULL,
   `registerDate` datetime NOT NULL,
   `access` int(11) NOT NULL,
+  `description` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -127,7 +103,7 @@ CREATE TABLE `d_users` (
 
 LOCK TABLES `d_users` WRITE;
 /*!40000 ALTER TABLE `d_users` DISABLE KEYS */;
-INSERT INTO `d_users` VALUES (2,'o90ccaHWhdnXIs54ZbXb7OgEvsX2NPRFFiLt','admin','daimyo@devbreak.fr','$2y$10$1DrA71.COOnqx1sMvYrRLeakZ4UYP0tMz4Et9VFpJe7cA69ZgI0sC','2018-02-21 00:00:00',1);
+INSERT INTO `d_users` VALUES (2,'o90ccaHWhdnXIs54ZbXb7OgEvsX2NPRFFiLt','Admin','daimyo@devbreak.fr','$2y$10$1DrA71.COOnqx1sMvYrRLeakZ4UYP0tMz4Et9VFpJe7cA69ZgI0sC','2018-02-21 00:00:00',1,NULL);
 /*!40000 ALTER TABLE `d_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -140,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-03  3:47:29
+-- Dump completed on 2018-03-05 13:38:10

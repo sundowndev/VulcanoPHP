@@ -91,7 +91,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Navigation</li>
         <!-- Optionally, you can add icons to the links -->
-        <li {% if page == 'dashboard' %}class="active"{% endif %}><a href="{{ paths.admin }}"><i class="fa fa-dashboard"></i> <span>Tableau de bord</span></a></li>
+        <li {% if page == 'dashboard' %}class="active"{% endif %}><a href="{{ paths.admin }}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         
         <li class="treeview {% if page == 'articles' %}active{% endif %}">
           <a href="#"><i class="fa fa-file-text"></i> <span>Articles</span>
@@ -100,8 +100,8 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ paths.admin }}/create/article">Ajouter un article</a></li>
-            <li><a href="{{ paths.admin }}/manage/articles">Gérer les articles</a></li>
+            <li><a href="{{ paths.admin }}/create/article">Create an article</a></li>
+            <li><a href="{{ paths.admin }}/manage/articles">Manage articles</a></li>
           </ul>
         </li>
         
@@ -112,8 +112,8 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ paths.admin }}/create/category">Ajouter une categorie</a></li>
-            <li><a href="{{ paths.admin }}/manage/categories">Gérer les categories</a></li>
+            <li><a href="{{ paths.admin }}/create/category">Create a category</a></li>
+            <li><a href="{{ paths.admin }}/manage/categories">Manage categories</a></li>
           </ul>
         </li>
 
@@ -124,14 +124,14 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ paths.admin }}/create/user">Ajouter un utilisateur</a></li>
-            <li><a href="{{ paths.admin }}/manage/users">Gérer les utilisateurs</a></li>
+            <li><a href="{{ paths.admin }}/create/user">Add an user</a></li>
+            <li><a href="{{ paths.admin }}/manage/users">Manage users</a></li>
           </ul>
         </li>
 
         <li {% if page == 'configuration' %}class="active"{% endif %}><a href="{{ paths.admin }}/configuration"><i class="fa fa-cog"></i> <span>General configuration</span></a></li>
         
-        <li><a href="{{ paths.home }}" target="_blank"><i class="fa fa-desktop"></i> <span>Voir le site</span></a></li>
+        <li><a href="{{ paths.home }}" target="_blank"><i class="fa fa-desktop"></i> <span>Go to site</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -168,7 +168,7 @@
       Created with <a href="https://github.com/SundownDEV/DaimyoCMS">DaimyoCMS</a>
     </div>
     <!-- Default to the left -->
-    All rights reserved.
+    {{ site.name }}, {{ date|date('Y') }}
   </footer>
 </div>
 <!-- ./wrapper -->

@@ -16,20 +16,20 @@ $app->before('GET|POST', '/.*', function() use ($app) {
 });
 
 /*
- * If the user is logged, redirect him to dashboard
- */
-$app->before('GET|POST', '/', function() use ($app) {
-    if(Auth::isLogged())
-    {
-        $app->redirect($app->config['paths']['admin'].'/dashboard');
-    }
-});
-
-/*
- * Pass $_POST superglobal to twig when submitting a form
+ * Pass $_POST superglobal to twig everytime submitting a form
  */
 $app->before('POST', '/.*', function() use ($app) {
     $app->getTwig()->addGlobal('POST', $_POST);
+});
+
+/*
+ * If the user is logged, redirect him to dashboard
+ */
+$app->before('GET|POST', '/', function() use ($app) {
+    if(Auth::isAdmin())
+    {
+        $app->redirect($app->config['paths']['admin'].'/dashboard');
+    }
 });
 
 /* Login page */
@@ -73,14 +73,6 @@ $app->mount('/manage', function () use ($app) {
 
     $app->get('/user/([a-z0-9_-]+)', 'AdminController@EditUserAction');
     $app->post('/user/([a-z0-9_-]+)', 'AdminController@EditUserPostAction');
-
-    /*
-     * Uploads
-     */
-    $app->get('/uploads', 'AdminController@ManageUploadsAction');
-
-    $app->get('/upload/([\w+]+)', 'AdminController@EditUploadAction');
-    $app->post('/upload/([\w+]+)', 'AdminController@EditUploadPostAction');
 });
 
 /* Create content */
@@ -102,12 +94,6 @@ $app->mount('/create', function () use ($app) {
 	 */
 	$app->get('/user', 'AdminController@CreateUserAction');
 	$app->post('/user', 'AdminController@CreateUserPostAction');
-
-	/*
-	 * Uploads
-	 */
-	$app->get('/upload', 'AdminController@CreateUploadAction');
-	$app->post('/upload', 'AdminController@CreateUploadPostAction');
 });
 
 /* Delete content */
@@ -126,11 +112,6 @@ $app->mount('/delete', function () use ($app) {
 	 * Users
 	 */
 	$app->get('/user/([\w+]+)/([\w+]+)', 'AdminController@DeleteUsersAction');
-
-	/*
-	 * Uploads
-	 */
-	$app->get('/upload/([\w+]+)/([\w+]+)', 'AdminController@DeleteUploadsAction');
 });
 
 /* Configuration */
