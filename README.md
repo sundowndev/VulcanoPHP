@@ -55,9 +55,9 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
 
 ![screenshot dashboard](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/dashboard.jpg)
 
-![screenshot editor](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/screen2.jpg)
+![screenshot editor](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/screen2.png)
 
-![screenshot editor2](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/screen3.jpg)
+![screenshot editor2](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/screen3.png)
 
 ## Requirement
 * PHP >= 7.1
