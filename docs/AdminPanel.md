@@ -3,8 +3,8 @@
 ## Content management
 ...
 
-## Pages management
+## Users
 ...
 
-## Templates
+## Configuration
 ...

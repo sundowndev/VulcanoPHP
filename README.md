@@ -5,7 +5,7 @@
 <p align="center">
   <a href="http://travis-ci.org/SundownDEV/DaimyoCMS"><img src="https://img.shields.io/travis/SundownDEV/DaimyoCMS.svg?style=flat" alt="Build Status"></a>
   <a href="#"><img src="http://img.shields.io/badge/source-SundownDEV/DaimyoCMS-brightgreen.svg?style=flat" alt="Source"></a>
-  <a href="#"><img src="https://img.shields.io/badge/version-0.2.1-lightgrey.svg?style=flat" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-0.2.4-lightgrey.svg?style=flat" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License"></a>
 </p>
 
@@ -55,12 +55,11 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
 
 **You need to install (or enable in php.ini) PHP "file info" extension.**
 
-# Documentations
-* [Getting started](docs/GetStarted.md)
-* [Administration panel](docs/AdminPanel.md)
+# Documentation
+* [Get started](docs/GetStarted.md)
+* [Admin dashboard](docs/AdminPanel.md)
 
 #### Developers
-
 * [Overview](docs/Overview.md)
 * [Routing](docs/Routing.md)
 * [Templating](docs/Templating.md)

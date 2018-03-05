@@ -1,5 +1,4 @@
-PDO Class for db connect and manipulation
-===========================================
+# PDO Class for db connect and manipulation
 
 **Below is a description on how to use the class**
 

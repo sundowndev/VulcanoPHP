@@ -3,43 +3,59 @@
 ## Step 1
 ~~~ bash
 $ git clone https://github.com/SundownDEV/DaimyoCMS.git
+$ cd DaimyoCMS
 $ composer install
 ~~~
 
 ## Step 2
-edit the file ```app/config/config.ini```
+edit the file ```app/config/config.json```
 
 ~~~ json
 {
     "general": {
-        "site_name": "daimyocms",
-        "description": "blabla",
-        "tags": "",
+        "name": "DaimyoCMS",
+        "description": "CMS based on the micro PHP framework Daimyo.",
+        "tags": "daimyo, cms, php",
         "thumbnail": ""
     },
-    "framework": {
-        "URL": "http:\/\/localhost:8000",
-        "path": "",
-        "private_key": "8f096599520b9c46f10387aa6752a8f9d51ec23d5d9d6e6358a573a0154b4989"
-    },
     "dbDns": {
-        "host": "127.0.0.1",
+        "host": "localhost",
         "dbname": "daimyocms",
         "user": "root",
         "pass": "",
         "charset": "utf8"
-    },
-    "paths": {
-        ...
     }
 }
+
 ~~~
 
 ## Step 3
-Import the database ```app/config/database.sql```
+
+Create the database manually
+
+~~~
+mysql -u root -p
+CREATE DATABASE daimyocms;
+~~~
+
+Edit the make file with your database name and password if you want to (not recommended).
+
+~~~
+dev:
+	php -S localhost:8000 -t ./public;
+
+migration-run:
+	mysql -u root -p < migrations/0-init.sql;
+	mysql -u root -p daimyocms < migrations/1-tables.sql;
+
+migration-commit:
+	mysqldump -u root -p -h 127.0.0.1 daimyocms > migrations/1-tables.sql;
+~~~
+
+Import the database
 
 ~~~ mysql
-mysql -u username -p database_name < database.sql
+make migration-run
 ~~~
 
 ## Step 4
@@ -51,18 +67,18 @@ $ find ./content -type d -exec chmod 755 {} \;
 
 # DaimyoCMS is now installed and ready!
 
-You can now launch your localhost dev server
+You can test it on your dev server
 ~~~
 php -S localhost:8000 -t ./public
 ~~~
 
-Go to ```localhost:8000/admin``` and sign in with the default login:
+Go to ```localhost:8000/manager``` and sign in with the default login:
 
 ~~~
 login: admin
-pass: sW5Yd1aPlmN
+pass: d41my0
 ~~~
 
-then go to ```settings``` and change the default password.
+then go to ```/manager/settings``` and change the default password.
 
-See the [admin documentation](/docs/AdminPanel.md) to get started with the dashboard.
+Check the [admin documentation](/docs/AdminPanel.md) to get started with the dashboard.
