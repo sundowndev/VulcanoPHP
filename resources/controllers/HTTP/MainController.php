@@ -24,6 +24,7 @@ class MainController extends \App\Application
     {
         // Handle search request
         $request = $_GET['q'];
+        $this->getTwig()->addGlobal('request', $request);
 
         $categories = CategoryModel::getAllCategories(null, $this);
         $this->getTwig()->addGlobal('categories', $categories);
