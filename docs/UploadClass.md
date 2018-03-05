@@ -1,11 +1,10 @@
-Simple php upload class with file validation.
-=============================================
+# Simple php upload class with file validation.
 
 You need to install (or enable in php.ini) PHP "file info" extension.
 
 Link: http://us2.php.net/manual/en/fileinfo.installation.php
 
-### **Quick start**
+### Quick start
 
 ```php
 <?php
