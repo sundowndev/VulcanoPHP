@@ -124,7 +124,7 @@ class Session
             
             if (false == $child)
             {
-                return $_SESSION[$key];
+                return $_SESSION[$key] ?? '';
             }
             else
             {
