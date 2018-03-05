@@ -120,7 +120,7 @@ class Application
         /* init session auth value if it doesn't exist */
         if(empty($this->getModule('Session\Session')->r('auth'))) {
             $this->getModule('Session\Session')->w('auth', false);
-            /* if the user is connected, pass session data to twig */
+        /* if the user is connected, pass session data to twig */
         }elseif($this->getModule('Session\Session')->r('auth') === true){
             $this->getTwig()->addGlobal('session', array(
                 'auth' => $this->getModule('Session\Session')->r('auth'),

@@ -33,7 +33,7 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
   - [x] Manage categories
   - [ ] Manage users
   - [ ] User role feature (Admin, Writer, Member)
-  - [ ] Markdown editor
+  - [x] Markdown editor
   - [ ] Image conversion & compression
   - [ ] General configuration settings
   - [x] User settings
@@ -42,8 +42,16 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
   - [ ] Comments
   - [ ] Sign up/in as simple user
   - [x] Search feature
-- [ ] Unit tests
 - [ ] Documentation
+  - [x] Get started
+  - [ ] Admin dashboard
+  - [x] Overview
+  - [x] Routing
+  - [x] Templating
+  - [x] Exploited PDO class
+  - [x] File upload
+  - [ ] Data validation
+- [ ] Unit tests
 
 ![screenshot dashboard](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/dashboard.jpg)
 
@@ -65,4 +73,4 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
 * [Templating](docs/Templating.md)
 * [Exploited PDO Class](docs/PDOClass.md)
 * [File upload](docs/UploadClass.md)
-* [Validator class](docs/ValidatorClass.md)
+* [Validation](docs/ValidatorClass.md)

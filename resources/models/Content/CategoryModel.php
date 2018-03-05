@@ -13,7 +13,7 @@ class CategoryModel
     public static function createCategory (array $category, Application $app)
     {
         $app->getDB()->query('INSERT INTO d_category (hash_id, name, slug, createdDate, description) VALUES(:hash_id, :name, :slug, NOW(), :description)');
-        $app->getDB()->bind(':id', md5(uniqid()));
+        $app->getDB()->bind(':hash_id', md5(uniqid()));
         $app->getDB()->bind(':name', $category['name']);
         $app->getDB()->bind(':slug', ArticleModel::esc_url($category['name']));
         $app->getDB()->bind(':description', $category['description']);

@@ -8,7 +8,7 @@ $ composer install
 ~~~
 
 ## Step 2
-edit the file ```app/config/config.json```
+Create and edit the file ```app/config/config.json```
 
 ~~~ json
 {
@@ -69,7 +69,7 @@ $ find ./content -type d -exec chmod 755 {} \;
 
 You can test it on your dev server
 ~~~
-php -S localhost:8000 -t ./public
+make dev
 ~~~
 
 Go to ```localhost:8000/manager``` and sign in with the default login:

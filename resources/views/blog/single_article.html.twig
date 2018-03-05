@@ -10,11 +10,9 @@
                         <h2 class="blog-post-title">{{ article.title }}</h2>
                         <p class="blog-post-meta">On {{ article.publishDate|date("F jS \\a\\t g:i a") }} by <a href="{{ paths.user }}/{{ article.author.username }}">{{ article.author.username }}</a></p>
 
-                        <p>{{ article.content|nl2br }}</p>
+                        <p id="article-content">{{ article.content|nl2br }}</p>
                     </div><!-- /.blog-post -->
-
-                    <hr>
-
+                
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="card">
