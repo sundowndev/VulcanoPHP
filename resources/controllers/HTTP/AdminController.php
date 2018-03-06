@@ -36,7 +36,12 @@ class AdminController extends MainController
 
     public function logoutAction ($csrf)
     {
-        Auth::logout($csrf, $this);
+        if (Auth::logout($csrf, $this))
+        {
+            $this->redirect($app->config['paths']['admin']);
+        } else {
+            $this->ErrorAction();
+        }
     }
 
     public function DashboardAction ()
@@ -286,7 +291,7 @@ class AdminController extends MainController
 
     public function ConfigurationPostAction ()
     {
-        if(!empty($_POST['saveConfig']))
+        if (!empty($_POST['saveConfig']))
         {
             //
         }
