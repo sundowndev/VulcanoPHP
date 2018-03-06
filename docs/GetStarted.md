@@ -55,10 +55,11 @@ make migration-run
 
 ## Step 4
 
-Allow DaiymoCMS to write in ```uploads``` folder
+Allow DaiymoCMS to write in ```uploads``` folder and reset default files/folders permissions
 ~~~ bash
-$ find ./content -type f -exec chmod 644 {} \;
-$ find ./content -type d -exec chmod 755 {} \;
+$ chmod 755 ./app/config/config.json
+$ find ./public/content -type f -exec chmod 644 {} \;
+$ find ./public/content -type d -exec chmod 755 {} \;
 ~~~
 
 # DaimyoCMS is now installed and ready!
