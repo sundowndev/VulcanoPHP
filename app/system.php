@@ -80,7 +80,11 @@ class Application
         // Router instance
         $this->ROOT = dirname(dirname($_SERVER['SCRIPT_FILENAME']));
 
-        $this->WEBROOT = (dirname($_SERVER['SCRIPT_NAME']) != '/') ? dirname($_SERVER['SCRIPT_NAME']).'/' : dirname($_SERVER['SCRIPT_NAME']);
+        $this->WEBROOT = dirname($_SERVER['SCRIPT_NAME']);
+
+        if (substr($this->WEBROOT, -1) == '/') {
+            $this->WEBROOT = substr($this->WEBROOT, 0, -1);
+        }
 
         $this->DIR_APP = $this->ROOT.'/app/';
 		$this->DIR_CONFIG = $this->DIR_APP.'config/';
