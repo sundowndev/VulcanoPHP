@@ -5,7 +5,7 @@
 <p align="center">
   <a href="http://travis-ci.org/SundownDEV/DaimyoCMS"><img src="https://img.shields.io/travis/SundownDEV/DaimyoCMS.svg?style=flat" alt="Build Status"></a>
   <a href="#"><img src="http://img.shields.io/badge/source-SundownDEV/DaimyoCMS-brightgreen.svg?style=flat" alt="Source"></a>
-  <a href="#"><img src="https://img.shields.io/badge/version-0.2.5-lightgrey.svg?style=flat" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-0.2.6-lightgrey.svg?style=flat" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License"></a>
 </p>
 
@@ -14,12 +14,12 @@
 ## Features
 * Manage content such as users, articles and categories...
 * Markdown editor
-* Easy to customize, add pages, navigation, templates and more
+* Easy to customize
 * Templating using Twig
 * Lightweight and secure
 
 ## Why DaimyoCMS ?
-You may ask why should you use this CMS while there's a lot of other popular ones, what makes this CMS better than another one ? Well, nothing. I created DaimyoCMS to handle tiny personal projects and code in my way as a junior developer. If you are looking for a lightweight and micro php framework based content management system you're on the right way, DaimyoCMS is just part of my personal R&D. Feel free to give it a review or contribute!
+You may ask why should you use this CMS while there's a lot of other popular ones, what makes this CMS better than another one ? Well, nothing. I created DaimyoCMS to handle tiny personal projects and code in my way as a junior developer. If you are looking for a minimal and micro php framework based CMS, you're on the right way. DaimyoCMS is just part of my personal R&D. Feel free to give it a review or contribute!
 
 DaimyoCMS is fast, secure and lightweight, but also basic in features.
 
@@ -32,7 +32,7 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
   - [x] Manage articles
   - [x] Manage categories
   - [ ] Manage users
-  - [ ] User role feature (Admin, Writer, Member)
+  - [ ] User role feature (Admin, Writer)
   - [x] Markdown editor
   - [ ] Image conversion & compression
   - [x] General configuration settings
@@ -43,7 +43,7 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
 - [ ] Documentation
   - [x] Get started
   - [ ] Admin dashboard
-  - [x] Overview
+  - [ ] Overview
   - [x] Routing
   - [x] Templating
   - [x] Exploited PDO class
@@ -51,7 +51,7 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
   - [ ] Data validation
 - [ ] Unit tests
 
-![screenshot dashboard](docs/screenshots/dashboard.jpg)
+![screenshot dashboard](docs/screenshots/screen1.png)
 
 ![screenshot editor](docs/screenshots/screen2.png)
 
