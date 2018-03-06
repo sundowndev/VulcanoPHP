@@ -29,45 +29,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <hr>
-
-                    <div class="row comment-section">
-                        <div class="col-sm-12">
-                            <h3>Comments</h3>
-
-                            <div class="alert alert-light text-center" role="alert">
-                                You need to <a href="{{ paths.root }}signin" class="alert-link">sign in</a> to comment this post.
-                            </div>
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <div>
-                                        <img src="{{ paths.uploads }}/avatars/{{ article.author.hash_id }}.jpg" width="10%" style="margin-right:30px;" class="float-left rounded-circle" alt="">
-                                    </div>
-
-                                    <div>
-                                        <h5 class="card-title"><a href="{{ paths.user }}/{{ article.author.username }}">{{ article.author.username }}</a> <small>on March 5th</small></h5>
-                                        <p class="card-text">nice article!</p>
-                                        <a href="#">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <div>
-                                        <img src="{{ paths.uploads }}/avatars/{{ article.author.hash_id }}.jpg" width="10%" style="margin-right:30px;" class="float-left rounded-circle" alt="">
-                                    </div>
-
-                                    <div>
-                                        <h5 class="card-title"><a href="{{ paths.user }}/{{ article.author.username }}">{{ article.author.username }}</a> <small>on March 5th</small></h5>
-                                        <p class="card-text">nice article!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
             </div><!-- /.blog-main -->
 
             {% include 'sidebar.html.twig' %}
