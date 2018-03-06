@@ -8,19 +8,19 @@
             <form role="form" method="post" action="">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="sitename">Nom du site</label>
-                  <input type="text" name="sitename" class="form-control" id="sitename" placeholder="Nom de votre site" value="{% if POST.name %}{{ POST.name }}{% else %}{{ site.name }}{% endif %}">
+                  <label for="sitename">Website name</label>
+                  <input type="text" name="sitename" class="form-control" id="sitename" placeholder="Your website name" value="{% if POST.name %}{{ POST.name }}{% else %}{{ site.name }}{% endif %}">
                 </div>
                 <div class="form-group">
                   <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" placeholder="Description de votre site">{% if POST.description %}{{ POST.description }}{% else %}{{ site.description }}{% endif %}</textarea>
+                    <textarea class="form-control" name="description" id="description" placeholder="Description of your site">{% if POST.description %}{{ POST.description }}{% else %}{{ site.description }}{% endif %}</textarea>
                 </div>
                 <div class="form-group">
-                  <label for="tags">Tags</label>
-                  <input type="text" class="form-control" name="tags" id="tags" placeholder="Entrez des tags séparés par des virgules" value="{% if POST.tags %}{{ POST.tags }}{% else %}{{ site.tags }}{% endif %}">
+                  <label for="tags">Meta tags</label>
+                  <input type="text" class="form-control" name="tags" id="tags" placeholder="Enter tags separated by commas" value="{% if POST.tags %}{{ POST.tags }}{% else %}{{ site.tags }}{% endif %}">
                 </div>
                 <div class="form-group">
-                  <label for="thumbnail">Image du site</label>
+                  <label for="thumbnail">Meta thumbnail</label>
                   <input type="file" class="form-control" name="thumbnail" id="thumbnail">
                 </div>
               </div>

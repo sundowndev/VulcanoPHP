@@ -64,21 +64,25 @@ class ArticleModel
 
         $article = $app->getDB()->single();
 
-        $app->getDB()->query('SELECT id, hash_id, username, description FROM d_users WHERE id = :id');
-        $app->getDB()->bind('id', $article['author']);
-        $app->getDB()->execute();
-        $author = $app->getDB()->single();
-        $article['author'] = $author;
+        if ($article) {
+            $app->getDB()->query('SELECT id, hash_id, username, description FROM d_users WHERE id = :id');
+            $app->getDB()->bind('id', $article['author']);
+            $app->getDB()->execute();
+            $author = $app->getDB()->single();
+            $article['author'] = $author;
 
-        $app->getDB()->query('SELECT id, hash_id, name, slug FROM d_category WHERE id = :id');
-        $app->getDB()->bind('id', $article['category_id']);
-        $app->getDB()->execute();
-        $category = $app->getDB()->single();
-        $article['category_hash_id'] = $category['hash_id'];
-        $article['category_slug'] = $category['slug'];
-        $article['category'] = $category['name'];
+            $app->getDB()->query('SELECT id, hash_id, name, slug FROM d_category WHERE id = :id');
+            $app->getDB()->bind('id', $article['category_id']);
+            $app->getDB()->execute();
+            $category = $app->getDB()->single();
+            $article['category_hash_id'] = $category['hash_id'];
+            $article['category_slug'] = $category['slug'];
+            $article['category'] = $category['name'];
 
-        return $article;
+            return $article;
+        }else{
+            return false;
+        }
     }
 
     public static function getAllArticles ($limit = null, Application $app)
@@ -140,7 +144,7 @@ class ArticleModel
 
     public static function getArticlesByRequest ($req, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, slug, title, author, category_id, publishDate, content FROM d_articles WHERE title LIKE :search ORDER BY id DESC');
+        $app->getDB()->query('SELECT id, hash_id, slug, title, author, category_id, publishDate, content FROM d_articles WHERE title LIKE :search || content LIKE :search ORDER BY id DESC');
         $app->getDB()->bind(':search', "%" . $req . "%");
         $app->getDB()->execute();
         $articles = $app->getDB()->resultset();
