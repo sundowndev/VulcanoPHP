@@ -9,7 +9,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License"></a>
 </p>
 
-<p align="center">DaimyoCMS is an open-source PHP CMS based on the micro framework <a href="https://github.com/SundownDEV/Daimyo">Daimyo</a> using PHP 7.</p>
+<p align="center">DaimyoCMS is an open-source Micro CMS based on the micro framework <a href="https://github.com/SundownDEV/Daimyo">Daimyo</a> using PHP 7.</p>
 
 ## Features
 * Manage content such as users, articles and categories...
@@ -35,12 +35,10 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
   - [ ] User role feature (Admin, Writer, Member)
   - [x] Markdown editor
   - [ ] Image conversion & compression
-  - [ ] General configuration settings
+  - [x] General configuration settings
   - [x] User settings
-- [ ] Blog
+- [x] Blog
   - [x] Read articles
-  - [ ] Comments
-  - [ ] Sign up/in as simple user
   - [x] Search feature
 - [ ] Documentation
   - [x] Get started
