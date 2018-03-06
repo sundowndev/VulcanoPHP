@@ -35,7 +35,7 @@ CREATE TABLE `d_articles` (
   `image_url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `d_articles_slug_uindex` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `d_articles` (
 
 LOCK TABLES `d_articles` WRITE;
 /*!40000 ALTER TABLE `d_articles` DISABLE KEYS */;
-INSERT INTO `d_articles` VALUES (4,'7b6943050c1e48f7de975f8657443084','lorem',2,9,'2018-02-23 04:29:31','2018-02-26 10:05:07','Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum.','lorem',NULL),(5,'dad4faa56851118f7a6b1cf102187341','Kaaaa',2,14,'2018-02-23 04:51:25','2018-02-26 10:22:11','dzadaz','kaaaa',NULL),(6,'d75bd1a5c6512eb3fedff868d8ac6ac9','lol oui',2,14,'2018-02-23 04:51:56','2018-02-27 09:10:07','mdzfezfgez\r\n','lol-oui',NULL),(7,'0f1e5d5f51be7a3373373286bf3a6f64','le last',2,14,'2018-03-02 19:27:07','2018-03-05 11:41:39','# test\r\n<h1>test</h1>\r\nThis blog post shows a few different types of content that\'s supported and styled with Bootstrap. Basic typography, images, and code are all supported.\r\n\r\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.\r\n\r\nEtiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.\r\n\r\n<script>alert(\'allo!\');</script>','le-last',NULL);
+INSERT INTO `d_articles` VALUES (4,'7b6943050c1e48f7de975f8657443084','lorem',2,9,'2018-02-23 04:29:31','2018-03-05 17:21:18','**allo ?**\r\n\r\n*lorem ipsum*\r\n\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut.\r\n\r\n### Subtitle\r\nBlanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquid cumque distinctio eos facere, incidunt labore mollitia nam nobis non perferendis quaerat quam quidem recusandae temporibus tenetur ut. Blanditiis, harum.','lorem',NULL),(5,'dad4faa56851118f7a6b1cf102187341','Kaaaa',2,14,'2018-02-23 04:51:25','2018-02-26 10:22:11','dzadaz','kaaaa',NULL),(6,'d75bd1a5c6512eb3fedff868d8ac6ac9','lol oui',2,14,'2018-02-23 04:51:56','2018-02-27 09:10:07','mdzfezfgez\r\n','lol-oui',NULL),(7,'0f1e5d5f51be7a3373373286bf3a6f64','le last',2,14,'2018-03-02 19:27:07','2018-03-05 11:41:39','# test\r\n<h1>test</h1>\r\nThis blog post shows a few different types of content that\'s supported and styled with Bootstrap. Basic typography, images, and code are all supported.\r\n\r\nCum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.\r\n\r\nEtiam porta sem malesuada magna mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.\r\n\r\n<script>alert(\'allo!\');</script>','le-last',NULL),(9,'fba73914322c076c78632fcffee47e53','LE MARKDOWN ALLO?',2,15,'2018-03-05 16:40:55','2018-03-06 14:25:39','###### Extending Twig\r\n\r\nTwig can be extended in many ways; you can add extra tags, filters, tests,\r\noperators, global variables, and functions. You can even extend the parser\r\nitself with node visitors.\r\n\r\n.. note::\r\n\r\n    The first section of this chapter describes how to extend Twig easily. If\r\n    you want to reuse your changes in different projects or if you want to\r\n    share them with others, you should then create an extension as described\r\n    in the following section.\r\n\r\n.. caution::\r\n\r\n    When extending Twig without creating an extension, Twig won\'t be able to\r\n    recompile your templates when the PHP code is updated. To see your changes\r\n    in real-time, either disable template caching or package your code into an\r\n    extension (see the next section of this chapter).\r\n\r\nBefore extending Twig, you must understand the differences between all the\r\ndifferent possible extension points and when to use them.\r\n\r\nFirst, remember that Twig has two main language constructs:\r\n\r\n* ``{{ }}``: used to print the result of an expression evaluation;\r\n\r\n* ``{% %}``: used to execute statements.\r\n\r\nTo understand why Twig exposes so many extension points, let\'s see how to\r\nimplement a *Lorem ipsum* generator (it needs to know the number of words to\r\ngenerate).\r\n\r\nYou can use a ``lipsum`` *tag*:\r\n\r\n.. code-block:: jinja\r\n\r\n    {% lipsum 40 %}\r\n\r\nThat works, but using a tag for ``lipsum`` is not a good idea for at least\r\nthree main reasons:\r\n\r\n* ``lipsum`` is not a language construct;\r\n* The tag outputs something;\r\n* The tag is not flexible as you cannot use it in an expression:\r\n\r\n  .. code-block:: jinja\r\n\r\n      {{ \'some text\' ~ {% lipsum 40 %} ~ \'some more text\' }}\r\n\r\nIn fact, you rarely need to create tags; and that\'s good news because tags are\r\nthe most complex extension point of Twig.','le-markdown-allo',NULL);
 /*!40000 ALTER TABLE `d_articles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `d_category` (
   `description` text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `d_category_slug_uindex` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,7 @@ CREATE TABLE `d_category` (
 
 LOCK TABLES `d_category` WRITE;
 /*!40000 ALTER TABLE `d_category` DISABLE KEYS */;
-INSERT INTO `d_category` VALUES (9,'90c2b47f2864719b5aa9c1dc91384320','CS:GO','cs-go','2018-02-22 03:42:54',''),(14,'36f16ce6975f34c7f793e16beb1b9f68','DÃ©veloppement','developpement','2018-02-23 02:54:07','');
+INSERT INTO `d_category` VALUES (9,'90c2b47f2864719b5aa9c1dc91384320','CS:GO','cs-go','2018-02-22 03:42:54',''),(14,'36f16ce6975f34c7f793e16beb1b9f68','DÃ©veloppement','developpement','2018-02-23 02:54:07',''),(15,'652e4c4a75714ee12662594a460f1481','PHP','php','2018-03-05 17:09:17','');
 /*!40000 ALTER TABLE `d_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,7 +103,7 @@ CREATE TABLE `d_users` (
 
 LOCK TABLES `d_users` WRITE;
 /*!40000 ALTER TABLE `d_users` DISABLE KEYS */;
-INSERT INTO `d_users` VALUES (2,'o90ccaHWhdnXIs54ZbXb7OgEvsX2NPRFFiLt','Admin','daimyo@devbreak.fr','$2y$10$1DrA71.COOnqx1sMvYrRLeakZ4UYP0tMz4Et9VFpJe7cA69ZgI0sC','2018-02-21 00:00:00',1,NULL);
+INSERT INTO `d_users` VALUES (2,'o90ccaHWhdnXIs54ZbXb7OgEvsX2NPRFFiLt','Admin','daimyo@devbreak.fr','$2y$10$1DrA71.COOnqx1sMvYrRLeakZ4UYP0tMz4Et9VFpJe7cA69ZgI0sC','2018-02-21 00:00:00',1,'I got the power.');
 /*!40000 ALTER TABLE `d_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -116,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-05 13:38:10
+-- Dump completed on 2018-03-06 14:31:21
