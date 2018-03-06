@@ -18,6 +18,12 @@ Class UploadModel extends Upload
             return false;
         }
     }
+
+    public static function ConvertImageToJPG ($file, Application $app)
+    {}
+
+    public static function CompressImage ($file, Application $app)
+    {}
     
     public static function deleteUpload ($file, Application $app)
     {
