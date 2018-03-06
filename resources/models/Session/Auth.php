@@ -76,9 +76,10 @@ class Auth extends Application
         {
             Session::w('auth', false);
             Session::destroy();
-            $app->redirect($app->config['paths']['admin']);
+
+            return true;
         } else {
-            $app->ErrorAction();
+            return false;
         }
     }
 }
