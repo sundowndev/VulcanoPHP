@@ -37,7 +37,7 @@ class UserModel
 
     public static function getUser ($id, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, username, email, registerDate, access, description FROM d_users WHERE id = :id || hash_id = :id');
+        $app->getDB()->query('SELECT id, hash_id, username, description, email, registerDate, access, description FROM d_users WHERE id = :id || hash_id = :id');
         $app->getDB()->bind(':id', $id);
         $app->getDB()->execute();
         $user = $app->getDB()->single();
@@ -47,7 +47,7 @@ class UserModel
 
     public static function getAllUsers ($limit = null, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, username, email, registerDate, access FROM d_users ORDER BY id DESC');
+        $app->getDB()->query('SELECT id, hash_id, username, description, email, registerDate, access FROM d_users ORDER BY id DESC');
         $app->getDB()->execute();
         $users = $app->getDB()->resultset();
 

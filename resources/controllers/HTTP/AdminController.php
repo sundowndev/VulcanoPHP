@@ -27,12 +27,21 @@ class AdminController extends MainController
     {
         Auth::login($_POST['username'], $_POST['password'], $this);
 
-        $this->redirect($this->config['paths']['admin']);
+        if (!Auth::isLogged() || Auth::isAdmin()){
+            $this->redirect($this->config['paths']['admin']);
+        }elseif (Auth::isLogged() && !Auth::isAdmin()) {
+            $this->redirect($this->config['paths']['home']);
+        }
     }
 
     public function logoutAction ($csrf)
     {
-        Auth::logout($csrf, $this);
+        if (Auth::logout($csrf, $this))
+        {
+            $this->redirect($this->config['paths']['admin']);
+        } else {
+            $this->ErrorAction();
+        }
     }
 
     public function DashboardAction ()
@@ -235,9 +244,10 @@ class AdminController extends MainController
      */
     public function ManageUsersAction ()
     {
-        UserModel::getAllUsers(null, $this);
+        $users = UserModel::getAllUsers(null, $this);
+        $this->getTwig()->addGlobal('users', $users);
 
-        $this->render('@admin/manage_users');
+        $this->render('@admin/manage_users', ['title' => 'Manage users']);
     }
 
     public function CreateUserAction ()
@@ -282,9 +292,31 @@ class AdminController extends MainController
 
     public function ConfigurationPostAction ()
     {
-        if(!empty($_POST['saveConfig']))
-        {
-            //
+        if(isset($_POST['saveConfig'])){
+            $filepath = $this->DIR_CONFIG . '/config.json';
+
+            //TODO: thumbnail upload
+            $thumbnail = '';
+            if(!empty($_FILES['thumbnail'])){}
+
+            if(!empty($_POST['sitename'])){
+                $config = $this->config;
+
+                $config['general']['name'] = $_POST['sitename'];
+
+                $config['general']['description'] = $_POST['description'];
+
+                $config['general']['tags'] = $_POST['tags'];
+
+                $config['general']['thumbnail'] = $thumbnail;
+
+                $json = json_encode($config, JSON_PRETTY_PRINT);
+                file_put_contents($filepath, $json);
+
+                $this->getModule('Session\Advert')->setAdvert('success', 'General configuration has been saved');
+            }else{
+                $this->getModule('Session\Advert')->setAdvert('danger', 'Site name field must be filled');
+            }
         }
 
         $this->redirect($this->config['paths']['admin'] . '/configuration');

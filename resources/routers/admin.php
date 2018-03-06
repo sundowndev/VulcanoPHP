@@ -3,7 +3,7 @@
 use App\Session\Auth;
 
 $app->before('GET|POST', '/.*', function() use ($app) {
-    if(!Auth::isLogged())
+    if(!Auth::isAdmin())
     {
         $app->getModule('Session\Advert')->setAdvert('error', 'Connectez vous pour accèder à cette page');
 

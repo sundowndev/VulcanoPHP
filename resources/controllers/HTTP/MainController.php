@@ -32,7 +32,7 @@ class MainController extends \App\Application
         $articles = ArticleModel::getArticlesByRequest($request, $this);
         $this->getTwig()->addGlobal('articles', $articles);
 
-        $this->render('blog/search', ['title' => $request]);
+        $this->render('blog/search', ['title' => '"' . $request . '"']);
     }
 
     public function SingleArticleAction ($id)
@@ -78,6 +78,9 @@ class MainController extends \App\Application
 
     public function ErrorAction ()
     {
+        $categories = CategoryModel::getAllCategories(null, $this);
+        $this->getTwig()->addGlobal('categories', $categories);
+
         $this->render('404/404', ['title' => 'Page not found']);
     }
 }

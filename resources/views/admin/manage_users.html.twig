@@ -1,5 +1,34 @@
 {% extends 'admin/layout.html.twig' %}
 
 {% block body %}
-    <p>manage users</p>
+    <div class="box">
+        <div class="box-body">
+            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap"><div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row"><div class="col-sm-12">
+                        <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                            <thead>
+                            <tr role="row">
+                                <th>Username</th>
+                                <th>Description</th>
+                                <th>Email</th>
+                                <th>Created on</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in users %}
+                                <tr role="row" class="even">
+                                    <td><a href="{{ paths.admin }}/manage/user/{{ user.username }}">{{ user.username }}</a></td>
+                                    <td>{{ user.description|slice(0,80) }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.registerDate|date('d/m/Y') }} at {{ user.registerDate|date('h:m') }}</td>
+                                    <td><a href="{{ paths.admin }}/delete/user/{{ user.hash_id }}/{{ session.csrf }}" class="btn btn-danger btn-xs" {% if user.id == session.id %}disabled=""{% endif %}><i class="fa fa-trash-o"></i> Delete</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
 {% endblock %}

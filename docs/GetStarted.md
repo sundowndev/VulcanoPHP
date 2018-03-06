@@ -1,6 +1,7 @@
 # Getting started
 
 ## Step 1
+
 ~~~ bash
 $ git clone https://github.com/SundownDEV/DaimyoCMS.git
 $ cd DaimyoCMS
@@ -8,6 +9,7 @@ $ composer install
 ~~~
 
 ## Step 2
+
 Create and edit the file ```app/config/config.json```
 
 ~~~ json
@@ -31,13 +33,6 @@ Create and edit the file ```app/config/config.json```
 
 ## Step 3
 
-Create the database manually
-
-~~~
-mysql -u root -p
-CREATE DATABASE daimyocms;
-~~~
-
 Edit the make file with your database name and password if you want to (not recommended).
 
 ~~~
@@ -52,17 +47,19 @@ migration-commit:
 	mysqldump -u root -p -h 127.0.0.1 daimyocms > migrations/1-tables.sql;
 ~~~
 
-Import the database
+Create and import the database
 
 ~~~ mysql
 make migration-run
 ~~~
 
 ## Step 4
-Allow DaiymoCMS to write in ```uploads``` folder
+
+Allow DaiymoCMS to write in ```uploads``` folder and reset default files/folders permissions
 ~~~ bash
-$ find ./content -type f -exec chmod 644 {} \;
-$ find ./content -type d -exec chmod 755 {} \;
+$ chmod 755 ./app/config/config.json
+$ find ./public/content -type f -exec chmod 644 {} \;
+$ find ./public/content -type d -exec chmod 755 {} \;
 ~~~
 
 # DaimyoCMS is now installed and ready!
