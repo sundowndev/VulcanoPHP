@@ -244,9 +244,10 @@ class AdminController extends MainController
      */
     public function ManageUsersAction ()
     {
-        UserModel::getAllUsers(null, $this);
+        $users = UserModel::getAllUsers(null, $this);
+        $this->getTwig()->addGlobal('users', $users);
 
-        $this->render('@admin/manage_users');
+        $this->render('@admin/manage_users', ['title' => 'Manage users']);
     }
 
     public function CreateUserAction ()
