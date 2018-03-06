@@ -38,7 +38,7 @@ class AdminController extends MainController
     {
         if (Auth::logout($csrf, $this))
         {
-            $this->redirect($app->config['paths']['admin']);
+            $this->redirect($this->config['paths']['admin']);
         } else {
             $this->ErrorAction();
         }
@@ -291,9 +291,31 @@ class AdminController extends MainController
 
     public function ConfigurationPostAction ()
     {
-        if (!empty($_POST['saveConfig']))
-        {
-            //
+        if(isset($_POST['saveConfig'])){
+            $filepath = $this->DIR_CONFIG . '/config.json';
+
+            //TODO: thumbnail upload
+            $thumbnail = '';
+            if(!empty($_FILES['thumbnail'])){}
+
+            if(!empty($_POST['sitename'])){
+                $config = $this->config;
+
+                $config['general']['name'] = $_POST['sitename'];
+
+                $config['general']['description'] = $_POST['description'];
+
+                $config['general']['tags'] = $_POST['tags'];
+
+                $config['general']['thumbnail'] = $thumbnail;
+
+                $json = json_encode($config, JSON_PRETTY_PRINT);
+                file_put_contents($filepath, $json);
+
+                $this->getModule('Session\Advert')->setAdvert('success', 'General configuration has been saved');
+            }else{
+                $this->getModule('Session\Advert')->setAdvert('danger', 'Site name field must be filled');
+            }
         }
 
         $this->redirect($this->config['paths']['admin'] . '/configuration');
