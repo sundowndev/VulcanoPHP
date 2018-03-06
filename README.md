@@ -5,7 +5,7 @@
 <p align="center">
   <a href="http://travis-ci.org/SundownDEV/DaimyoCMS"><img src="https://img.shields.io/travis/SundownDEV/DaimyoCMS.svg?style=flat" alt="Build Status"></a>
   <a href="#"><img src="http://img.shields.io/badge/source-SundownDEV/DaimyoCMS-brightgreen.svg?style=flat" alt="Source"></a>
-  <a href="#"><img src="https://img.shields.io/badge/version-0.2.4-lightgrey.svg?style=flat" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-0.2.5-lightgrey.svg?style=flat" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License"></a>
 </p>
 
@@ -53,11 +53,11 @@ DaimyoCMS is fast, secure and lightweight, but also basic in features.
   - [ ] Data validation
 - [ ] Unit tests
 
-![screenshot dashboard](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/dashboard.jpg)
+![screenshot dashboard](docs/screenshots/dashboard.jpg)
 
-![screenshot editor](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/screen2.png)
+![screenshot editor](docs/screenshots/screen2.png)
 
-![screenshot editor2](https://raw.githubusercontent.com/SundownDEV/DaimyoCMS/master/docs/screenshots/screen3.png)
+![screenshot editor2](docs/screenshots/screen3.png)
 
 ## Requirement
 * PHP >= 7.1
