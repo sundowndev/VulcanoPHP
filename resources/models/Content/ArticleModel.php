@@ -6,38 +6,53 @@ use App\Application;
 use App\Upload\UploadModel;
 
 class ArticleModel
-{ 
-    public function __construct ()
-    {}
-
+{
     public static function genHashID ()
     {
         return md5(uniqid());
     }
 
+    public function __construct ()
+    {}
+
     public static function createArticle (array $article, Application $app)
     {
-        $app->getDB()->query('INSERT INTO d_articles (hash_id, title, author, category_id, publishDate, editedDate, content, slug, image_url) VALUES(:hash_id, :title, :author, :category_id, NOW(), NOW(), :content, :slug, :image_url)');
+        $article['slug'] = $article['slug'] ?? self::esc_url($article['title']);
 
-        $app->getDB()->bind(':hash_id', $article['hash_id'] ?? self::genHashID());
-        $app->getDB()->bind(':title', $article['title']);
-        $app->getDB()->bind(':author', $app->getModule('Session\Session')->r('id'));
-        $app->getDB()->bind(':category_id', $article['category']);
-        $app->getDB()->bind(':content', $article['content']);
-        $app->getDB()->bind(':slug', self::esc_url($article['title']));
-        $app->getDB()->bind(':image_url', $hash_id);
+        if (!self::getArticle($article['slug'], $app)) {
+            $article['hash_id'] = $article['hash_id'] ?? self::genHashID();
+            $article['image_url'] = $article['image_url'] ?? '';
 
-        $app->getDB()->execute();
+            $app->getDB()->query('INSERT INTO d_articles (hash_id, title, author, category_id, publishDate, editedDate, content, slug, image_url) VALUES(:hash_id, :title, :author, :category_id, NOW(), NOW(), :content, :slug, :image_url)');
+
+            $app->getDB()->bind(':hash_id', $article['hash_id']);
+            $app->getDB()->bind(':title', $article['title']);
+            $app->getDB()->bind(':author', $app->getModule('Session\Session')->r('id'));
+            $app->getDB()->bind(':category_id', $article['category']);
+            $app->getDB()->bind(':content', $article['content']);
+            $app->getDB()->bind(':slug', $article['slug']);
+            $app->getDB()->bind(':image_url', $article['image_url']);
+
+            $app->getDB()->execute();
+
+            return $article;
+        }else{
+            return false;
+        }
     }
 
     public static function editArticle ($id, $article, Application $app)
     {
-        $app->getDB()->query('UPDATE d_articles SET title = :title, category_id = :cat, content = :content, editedDate = NOW(), slug = :slug WHERE hash_id = :id');
+        $targetArticle = self::getArticle($id, $app);
+
+        $app->getDB()->query('UPDATE d_articles SET title = :title, category_id = :cat, content = :content, editedDate = NOW(), slug = :slug, image_url = :image_url WHERE hash_id = :id');
         $app->getDB()->bind(':id', $id);
-        $app->getDB()->bind(':title', $article['title']);
-        $app->getDB()->bind(':cat', $article['category']);
-        $app->getDB()->bind(':content', $article['content']);
-        $app->getDB()->bind(':slug', self::esc_url($article['title']));
+        $app->getDB()->bind(':title', $article['title'] ?? $targetArticle['title']);
+        $app->getDB()->bind(':cat', $article['category'] ?? $targetArticle['category']);
+        $app->getDB()->bind(':content', $article['content'] ?? $targetArticle['content']);
+        $app->getDB()->bind(':slug', self::esc_url($article['title']) ?? $targetArticle['slug']);
+        $app->getDB()->bind(':image_url', $article['image_url'] ?? $targetArticle['image_url']);
+
         $app->getDB()->execute();
     }
 
@@ -54,7 +69,7 @@ class ArticleModel
 
     public static function getArticle ($id, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, title, author, category_id, publishDate, editedDate, content, slug FROM d_articles WHERE id = :id || hash_id = :hash_id || slug = :slug');
+        $app->getDB()->query('SELECT id, hash_id, title, author, category_id, publishDate, editedDate, content, slug, image_url FROM d_articles WHERE id = :id || hash_id = :hash_id || slug = :slug');
 
         $app->getDB()->bind(':id', $id);
         $app->getDB()->bind(':hash_id', $id);
@@ -65,7 +80,7 @@ class ArticleModel
         $article = $app->getDB()->single();
 
         if ($article) {
-            $app->getDB()->query('SELECT id, hash_id, username, description FROM d_users WHERE id = :id');
+            $app->getDB()->query('SELECT id, hash_id, username, description, avatar FROM d_users WHERE id = :id');
             $app->getDB()->bind('id', $article['author']);
             $app->getDB()->execute();
             $author = $app->getDB()->single();
@@ -87,7 +102,7 @@ class ArticleModel
 
     public static function getAllArticles ($limit = null, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, slug, title, author, category_id, publishDate, content FROM d_articles ORDER BY id DESC');
+        $app->getDB()->query('SELECT id, hash_id, slug, title, author, category_id, publishDate, content, image_url FROM d_articles ORDER BY id DESC');
         $app->getDB()->execute();
         $articles = $app->getDB()->resultset();
 
@@ -112,7 +127,7 @@ class ArticleModel
 
     public static function getArticlesFromCategory ($cat_id, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, slug, title, author, category_id, publishDate, content FROM d_articles WHERE category_id = :cat_id ORDER BY id DESC');
+        $app->getDB()->query('SELECT id, hash_id, slug, title, author, category_id, publishDate, content, image_url FROM d_articles WHERE category_id = :cat_id ORDER BY id DESC');
         $app->getDB()->bind(':cat_id', $cat_id);
         $app->getDB()->execute();
         $articles = $app->getDB()->resultset();
@@ -136,15 +151,21 @@ class ArticleModel
         return $articles;
     }
 
+    /*
+     * Increase the order of the article
+     */
     public static function increaseArticle ($id, Application $app)
     {}
 
-    public static function decreaseArticle ($id)
+    /*
+     * Decrease the order of the article
+     */
+    public static function decreaseArticle ($id, Application $app)
     {}
 
     public static function getArticlesByRequest ($req, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, slug, title, author, category_id, publishDate, content FROM d_articles WHERE title LIKE :search || content LIKE :search ORDER BY id DESC');
+        $app->getDB()->query('SELECT id, hash_id, slug, title, author, category_id, publishDate, content, image_url FROM d_articles WHERE title LIKE :search || content LIKE :search ORDER BY id DESC');
         $app->getDB()->bind(':search', "%" . $req . "%");
         $app->getDB()->execute();
         $articles = $app->getDB()->resultset();

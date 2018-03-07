@@ -42,6 +42,7 @@ class MainController extends \App\Application
         }
 
         $categories = CategoryModel::getAllCategories(null, $this);
+
         $this->getTwig()->addGlobal('categories', $categories);
 
         $this->getTwig()->addGlobal('article', $article);

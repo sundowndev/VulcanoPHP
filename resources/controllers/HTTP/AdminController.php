@@ -27,7 +27,7 @@ class AdminController extends MainController
     {
         Auth::login($_POST['username'], $_POST['password'], $this);
 
-        if (!Auth::isLogged() || Auth::isAdmin()){
+        if (!Auth::isLogged() || Auth::isAdmin()) {
             $this->redirect($this->config['paths']['admin']);
         }elseif (Auth::isLogged() && !Auth::isAdmin()) {
             $this->redirect($this->config['paths']['home']);
@@ -75,32 +75,52 @@ class AdminController extends MainController
     public function CreateArticlePostAction ()
     {
         if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
-            ArticleModel::createArticle([
-                'title' => $_POST['title'],
-                'category' => $_POST['category'],
-                'content' => $_POST['content']
-            ], $this);
-            if (!empty($_FILES['cover'])) {
-                //set max. file size (2 in mb)
-                $upload = Upload::factory('content/uploads');
+            $hash_id = ArticleModel::genHashID();
+
+            $upload = Upload::factory('content/uploads');
+
+            if (!empty($_FILES['cover']['name'])) {
                 $upload->set_max_file_size(10);
                 //set allowed mime types
                 $upload->set_allowed_mime_types(array('image/jpeg','image/png'));
+
                 $upload->file($_FILES['cover']);
-                $results = $upload->upload($filename = $hash_id);
-                // TODO: stocker l'extension dans la colonne image_url
+
+                $file_ext = $upload->getExtension($_FILES['cover']['name']);
+
+                $upload->upload($filename = $hash_id, $file_ext);
+
+                $imageUrl = $hash_id . '.' . $file_ext;
             }
-            $this->getModule('Session\Advert')->setAdvert('success', 'You successfully published your article!');
-            $this->redirect($this->config['paths']['admin'].'/manage/articles');
+
+            if (!empty($upload->get_errors()[0])) {
+                $this->getModule('Session\Advert')->setAdvert('danger', $upload->get_errors()[0]);
+            }else{
+                if (ArticleModel::createArticle([
+                    'title' => $_POST['title'],
+                    'category' => $_POST['category'],
+                    'content' => $_POST['content'],
+                    'hash_id' => $hash_id,
+                    'image_url' => $imageUrl
+                ], $this)) {
+                    $this->getModule('Session\Advert')->setAdvert('success', 'You successfully published your article!');
+
+                    $this->redirect($this->config['paths']['admin'].'/manage/articles');
+                }else{
+                    $this->getModule('Session\Advert')->setAdvert('danger', 'Duplicate entry for the title');
+                }
+            }
         }else{
             $this->getModule('Session\Advert')->setAdvert('danger', "You didn't complete all fields");
         }
+
         $this->redirect($this->config['paths']['admin'] . '/create/article');
     }
 
     public function EditArticleAction ($id)
     {
         if ($article = ArticleModel::getArticle($id, $this)) {
+
             $categories = CategoryModel::getAllCategories(null, $this);
 
             if ($cover = UploadModel::fileExist($article['hash_id'] . '.jpg', $this)) {
@@ -121,30 +141,41 @@ class AdminController extends MainController
         $article = ArticleModel::getArticle($id, $this);
 
         if(!empty($_POST['id']) && !empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
-            ArticleModel::editArticle($_POST['id'], [
-                'title' => $_POST['title'],
-                'category' => $_POST['category'],
-                'content' => $_POST['content']
-            ], $this);
+            $upload = Upload::factory('content/uploads');
 
-            $newSlug = ArticleModel::esc_url($_POST['title']);
-
-            if (!empty($_FILES['cover']))
-            {
-                $upload = Upload::factory('content/uploads');
-
+            if (!empty($_FILES['cover']['name'])) {
                 $upload->set_max_file_size(10);
                 //set allowed mime types
                 $upload->set_allowed_mime_types(array('image/jpeg','image/png'));
 
                 $upload->file($_FILES['cover']);
-                $results = $upload->upload($filename = $article['hash_id']);
+
+                $file_ext = $upload->getExtension($_FILES['cover']['name']);
+
+                $upload->upload($filename = $article['hash_id'], $file_ext);
+
+                $imageUrl = $article['hash_id'] . '.' . $file_ext;
             }
 
-            $this->getModule('Session\Advert')->setAdvert('success', 'You successfully edited your article!');
+            if (!empty($upload->get_errors()[0])) {
+                $this->getModule('Session\Advert')->setAdvert('danger', $upload->get_errors()[0]);
+            }else{
+                ArticleModel::editArticle($_POST['id'], [
+                    'title' => $_POST['title'],
+                    'category' => $_POST['category'],
+                    'content' => $_POST['content'],
+                    'image_url' => $imageUrl ?? ''
+                ], $this);
+
+                $this->getModule('Session\Advert')->setAdvert('success', 'You successfully edited your article!');
+
+                $this->redirect($this->config['paths']['admin'].'/manage/articles');
+            }
+        }else{
+            $this->getModule('Session\Advert')->setAdvert('danger', "You didn't complete all fields");
         }
 
-        $this->redirect($this->config['paths']['admin'] . '/manage/article/' . $newSlug);
+        $this->redirect($this->config['paths']['admin'] . '/create/article');
     }
 
     public function DeleteArticleAction ($id, $csrf)
@@ -338,28 +369,44 @@ class AdminController extends MainController
     public function SettingsGeneralPostAction ()
     {
         if(!empty($_POST['username'])){
-            $this->getDB()->query('UPDATE d_users SET username = :username, description = :desc WHERE id = :id');
+            $id = $this->getModule('Session\Session')->r('id');
+            $user = UserModel::getUser($id, $this);
 
-            $this->getDB()->bind(':id', $this->getModule('Session\Session')->r('id'));
-            $this->getDB()->bind(':username', $_POST['username']);
-            $this->getDB()->bind(':desc', $_POST['desc']);
+            $avatar = $user['avatar'];
+            $hash_id = $this->getModule('Session\Session')->r('hash_id');
 
-            $this->getDB()->execute();
+            $upload = Upload::factory('content/uploads/avatars');
 
-            $this->getModule('Session\Session')->w('username', $_POST['username']);
-
-            if (!empty($_FILES['avatar'])) {
-                $upload = Upload::factory('content/uploads/avatars');
-
+            if (!empty($_FILES['avatar']['name'])) {
                 $upload->set_max_file_size(10);
                 //set allowed mime types
                 $upload->set_allowed_mime_types(array('image/jpeg','image/png'));
 
                 $upload->file($_FILES['avatar']);
-                $results = $upload->upload($filename = $this->getModule('Session\Session')->r('hash_id'));
+
+                $file_ext = $upload->getExtension($_FILES['avatar']['name']);
+
+                $upload->upload($filename = $hash_id, $file_ext);
+
+                $avatar = $hash_id . '.' . $file_ext;
             }
 
-            $this->getModule('Session\Advert')->setAdvert('success', 'Changes has been saved');
+            if (!empty($upload->get_errors()[0])) {
+                $this->getModule('Session\Advert')->setAdvert('danger', $upload->get_errors()[0]);
+            }else{
+                UserModel::editUser($id, [
+                    'username' => $_POST['username'],
+                    'email' => $user['email'],
+                    'password' => $user['password'],
+                    'access' => $user['access'],
+                    'description' => $_POST['desc'],
+                    'avatar' => $avatar
+                ], $this);
+
+                $this->getModule('Session\Session')->w('username', $_POST['username']);
+
+                $this->getModule('Session\Advert')->setAdvert('success', 'Changes has been saved');
+            }
         }else{
             $this->getModule('Session\Advert')->setAdvert('danger', 'Please enter a valid username that respect the format : a-Z0-9-_');
         }
@@ -370,35 +417,29 @@ class AdminController extends MainController
     public function SettingsEmailPostAction ()
     {
         if(!empty($_POST['newemail']) && !empty($_POST['password'])){
-            $this->getDB()->query('SELECT * FROM d_users WHERE id = :id');
-
-            $this->getDB()->bind(':id', $this->getModule('Session\Session')->r('id'));
-
-            $this->getDB()->execute();
-
-            $user = $this->getDB()->single();
+            $id = $this->getModule('Session\Session')->r('id');
+            $user = UserModel::getUser($id, $this);
 
             if($this->getModule('Secure\Secure')->verifyHash($_POST['password'], $user['password'])){
 
                 if (filter_var($_POST['newemail'], FILTER_VALIDATE_EMAIL)){
-                    $this->getDB()->query('UPDATE d_users SET email = :email WHERE id = :id');
-
-                    $this->getDB()->bind(':id', $this->getModule('Session\Session')->r('id'));
-
-                    $this->getDB()->bind(':email', $_POST['newemail']);
-
-                    $this->getDB()->execute();
-
-                    $this->getModule('Session\Advert')->setAdvert('success', 'Changes has been saved');
+                    UserModel::editUser($id, [
+                        'username' => $user['username'],
+                        'email' => $_POST['newemail'],
+                        'password' => $user['password'],
+                        'access' => $user['access'],
+                        'description' => $user['description']
+                    ], $this);
 
                     $this->getModule('Session\Session')->w('email', $_POST['newemail']);
+
+                    $this->getModule('Session\Advert')->setAdvert('success', 'Changes has been saved');
                 }else{
                     $this->getModule('Session\Advert')->setAdvert('danger', 'Invalid email address');
                 }
             }else{
                 $this->getModule('Session\Advert')->setAdvert('danger', 'Incorrect password');
             }
-
         }else{
             $this->getModule('Session\Advert')->setAdvert('danger', 'Please fill all the fields');
         }
@@ -409,24 +450,19 @@ class AdminController extends MainController
     public function SettingsPasswordPostAction ()
     {
         if(!empty($_POST['actualpassword']) && !empty($_POST['newpassword']) && !empty($_POST['repeatpassword'])){
-            $this->getDB()->query('SELECT * FROM d_users WHERE id = :id');
-
-            $this->getDB()->bind(':id', $this->getModule('Session\Session')->r('id'));
-
-            $this->getDB()->execute();
-
-            $user = $this->getDB()->single();
+            $id = $this->getModule('Session\Session')->r('id');
+            $user = UserModel::getUser($id, $this);
 
             if($this->getModule('Secure\Secure')->verifyHash($_POST['actualpassword'], $user['password'])){
 
                 if ($_POST['newpassword'] === $_POST['repeatpassword']){
-                    $this->getDB()->query('UPDATE d_users SET password = :pwd WHERE id = :id');
-
-                    $this->getDB()->bind(':id', $this->getModule('Session\Session')->r('id'));
-
-                    $this->getDB()->bind(':pwd', $this->getModule('Secure\Secure')->hash_pass($_POST['newpassword']));
-
-                    $this->getDB()->execute();
+                    UserModel::editUser($id, [
+                        'username' => $user['username'],
+                        'email' => $user['email'],
+                        'password' => $this->getModule('Secure\Secure')->hash_pass($_POST['newpassword']),
+                        'access' => $user['access'],
+                        'description' => $user['description']
+                    ], $this);
 
                     $this->getModule('Session\Advert')->setAdvert('success', 'New password has been saved');
                 }else{
@@ -435,7 +471,6 @@ class AdminController extends MainController
             }else{
                 $this->getModule('Session\Advert')->setAdvert('danger', 'Incorrect password');
             }
-
         }else{
             $this->getModule('Session\Advert')->setAdvert('danger', 'Please fill all the fields');
         }

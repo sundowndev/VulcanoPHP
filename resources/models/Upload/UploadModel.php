@@ -10,13 +10,7 @@ Class UploadModel extends Upload
 
     public static function fileExist ($file, Application $app)
     {
-        $path = $app->WEBROOT . $app->config['paths']['uploads'] . '/' . $file;
-        
-        if(file_exists($path)){
-            return $path;
-        }else{
-            return false;
-        }
+        return file_exists($file);
     }
 
     public static function ConvertImageToJPG ($file, Application $app)
@@ -27,8 +21,8 @@ Class UploadModel extends Upload
     
     public static function deleteUpload ($file, Application $app)
     {
-        if(self::fileExist($file, $app)){
-            \unlink($app->WEBROOT . $app->config['paths']['uploads'] . '/' . $file);
+        if(self::fileExist($target = $app->ROOT . '/public/' . $app->config['paths']['uploads'] . '/' . $file, $app)){
+            \unlink($target);
         }else{
             return false;
         }
