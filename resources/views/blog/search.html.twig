@@ -9,6 +9,7 @@
 
                 {% for article in articles %}
                     <div class="blog-post">
+                        <a href="{{ paths.article }}/{{ article.slug }}"><img src="{{ paths.uploads }}/{{ article.image_url }}" alt=""></a>
                         <h2 class="blog-post-title"><a href="{{ paths.article }}/{{ article.slug }}">{{ article.title }}</a></h2>
                         <p class="blog-post-meta">On {{ article.publishDate|date("F jS \\a\\t g:i a") }} by <a href="{{ paths.user }}/{{ article.author }}">{{ article.author }}</a></p>
 

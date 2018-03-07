@@ -77,36 +77,50 @@ class AdminController extends MainController
         if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
             $hash_id = ArticleModel::genHashID();
 
-            if (!empty($_FILES['cover'])) {
-                //set max. file size (2 in mb)
-                $upload = Upload::factory('content/uploads');
+            $upload = Upload::factory('content/uploads');
+
+            if (!empty($_FILES['cover']['name'])) {
                 $upload->set_max_file_size(10);
                 //set allowed mime types
                 $upload->set_allowed_mime_types(array('image/jpeg','image/png'));
+
                 $upload->file($_FILES['cover']);
-                $upload->upload($filename = $hash_id);
-                // TODO: stocker l'extension dans la colonne image_url
+
+                $file_ext = $upload->getExtension($_FILES['cover']['name']);
+
+                $upload->upload($filename = $hash_id, $file_ext);
+
+                $imageUrl = $hash_id . '.' . $file_ext;
             }
 
-            ArticleModel::createArticle([
-                'title' => $_POST['title'],
-                'category' => $_POST['category'],
-                'content' => $_POST['content'],
-                'hash_id' => $hash_id
-            ], $this);
+            if (!empty($upload->get_errors()[0])) {
+                $this->getModule('Session\Advert')->setAdvert('danger', $upload->get_errors()[0]);
+            }else{
+                if (ArticleModel::createArticle([
+                    'title' => $_POST['title'],
+                    'category' => $_POST['category'],
+                    'content' => $_POST['content'],
+                    'hash_id' => $hash_id,
+                    'image_url' => $imageUrl
+                ], $this)) {
+                    $this->getModule('Session\Advert')->setAdvert('success', 'You successfully published your article!');
 
-            $this->getModule('Session\Advert')->setAdvert('success', 'You successfully published your article!');
-
-            $this->redirect($this->config['paths']['admin'].'/manage/articles');
+                    $this->redirect($this->config['paths']['admin'].'/manage/articles');
+                }else{
+                    $this->getModule('Session\Advert')->setAdvert('danger', 'Duplicate entry for the title');
+                }
+            }
         }else{
             $this->getModule('Session\Advert')->setAdvert('danger', "You didn't complete all fields");
         }
+
         $this->redirect($this->config['paths']['admin'] . '/create/article');
     }
 
     public function EditArticleAction ($id)
     {
         if ($article = ArticleModel::getArticle($id, $this)) {
+
             $categories = CategoryModel::getAllCategories(null, $this);
 
             if ($cover = UploadModel::fileExist($article['hash_id'] . '.jpg', $this)) {
@@ -127,30 +141,41 @@ class AdminController extends MainController
         $article = ArticleModel::getArticle($id, $this);
 
         if(!empty($_POST['id']) && !empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['category'])){
-            ArticleModel::editArticle($_POST['id'], [
-                'title' => $_POST['title'],
-                'category' => $_POST['category'],
-                'content' => $_POST['content']
-            ], $this);
+            $upload = Upload::factory('content/uploads');
 
-            $newSlug = ArticleModel::esc_url($_POST['title']);
-
-            if (!empty($_FILES['cover']))
-            {
-                $upload = Upload::factory('content/uploads');
-
+            if (!empty($_FILES['cover']['name'])) {
                 $upload->set_max_file_size(10);
                 //set allowed mime types
                 $upload->set_allowed_mime_types(array('image/jpeg','image/png'));
 
                 $upload->file($_FILES['cover']);
-                $results = $upload->upload($filename = $article['hash_id']);
+
+                $file_ext = $upload->getExtension($_FILES['cover']['name']);
+
+                $upload->upload($filename = $article['hash_id'], $file_ext);
+
+                $imageUrl = $article['hash_id'] . '.' . $file_ext;
             }
 
-            $this->getModule('Session\Advert')->setAdvert('success', 'You successfully edited your article!');
+            if (!empty($upload->get_errors()[0])) {
+                $this->getModule('Session\Advert')->setAdvert('danger', $upload->get_errors()[0]);
+            }else{
+                ArticleModel::editArticle($_POST['id'], [
+                    'title' => $_POST['title'],
+                    'category' => $_POST['category'],
+                    'content' => $_POST['content'],
+                    'image_url' => $imageUrl ?? ''
+                ], $this);
+
+                $this->getModule('Session\Advert')->setAdvert('success', 'You successfully edited your article!');
+
+                $this->redirect($this->config['paths']['admin'].'/manage/articles');
+            }
+        }else{
+            $this->getModule('Session\Advert')->setAdvert('danger', "You didn't complete all fields");
         }
 
-        $this->redirect($this->config['paths']['admin'] . '/manage/article/' . $newSlug);
+        $this->redirect($this->config['paths']['admin'] . '/create/article');
     }
 
     public function DeleteArticleAction ($id, $csrf)
@@ -347,34 +372,41 @@ class AdminController extends MainController
             $id = $this->getModule('Session\Session')->r('id');
             $user = UserModel::getUser($id, $this);
 
+            $avatar = $user['avatar'];
             $hash_id = $this->getModule('Session\Session')->r('hash_id');
 
-            if (!empty($_FILES['avatar'])) {
-                $upload = Upload::factory('content/uploads/avatars');
+            $upload = Upload::factory('content/uploads/avatars');
 
+            if (!empty($_FILES['avatar']['name'])) {
                 $upload->set_max_file_size(10);
                 //set allowed mime types
                 $upload->set_allowed_mime_types(array('image/jpeg','image/png'));
 
                 $upload->file($_FILES['avatar']);
 
-                $file_ext = strtolower(end(explode('.',$_FILES['cover']['name'])));
+                $file_ext = $upload->getExtension($_FILES['avatar']['name']);
 
                 $upload->upload($filename = $hash_id, $file_ext);
+
+                $avatar = $hash_id . '.' . $file_ext;
             }
 
-            UserModel::editUser($id, [
-                'username' => $_POST['username'],
-                'email' => $user['email'],
-                'password' => $user['password'],
-                'access' => $user['access'],
-                'description' => $_POST['desc'],
-                'avatar' => $hash_id . $file_ext
-            ], $this);
+            if (!empty($upload->get_errors()[0])) {
+                $this->getModule('Session\Advert')->setAdvert('danger', $upload->get_errors()[0]);
+            }else{
+                UserModel::editUser($id, [
+                    'username' => $_POST['username'],
+                    'email' => $user['email'],
+                    'password' => $user['password'],
+                    'access' => $user['access'],
+                    'description' => $_POST['desc'],
+                    'avatar' => $avatar
+                ], $this);
 
-            $this->getModule('Session\Session')->w('username', $_POST['username']);
+                $this->getModule('Session\Session')->w('username', $_POST['username']);
 
-            $this->getModule('Session\Advert')->setAdvert('success', 'Changes has been saved');
+                $this->getModule('Session\Advert')->setAdvert('success', 'Changes has been saved');
+            }
         }else{
             $this->getModule('Session\Advert')->setAdvert('danger', 'Please enter a valid username that respect the format : a-Z0-9-_');
         }

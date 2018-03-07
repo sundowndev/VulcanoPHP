@@ -182,6 +182,10 @@ class Upload {
 
 	}
 
+	public function getExtension ($fileName) {
+	    return strtolower( end( explode( '.', $fileName ) ) );
+    }
+
 	/**
 	 * Check & Save file
 	 *
@@ -190,7 +194,7 @@ class Upload {
 	 * @return array
 	 */
 	public function upload($filename = '', $ext = '') {
-	    $this->ext = $ext ?? strtolower(end(explode('.', $this->file_post['name'])));
+	    $this->ext = $ext ?? $this->getExtension($this->file_post);
 
 		$this->set_filename($filename);
 		
