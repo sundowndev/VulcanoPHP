@@ -5,6 +5,7 @@ namespace App\Session;
 use App\Application;
 use App\Validator\Validator;
 use App\Session\Session;
+use App\User\UserModel;
 
 class Auth extends Application
 {
@@ -37,11 +38,7 @@ class Auth extends Application
     {
         if(!empty($username) && !empty($password))
         {
-            $app->getDB()->query('SELECT * FROM d_users WHERE username = :name');
-            $app->getDB()->bind(':name', $username);
-            $app->getDB()->execute();
-
-            $target = $app->getDB()->single();
+            $target = UserModel::getUser($username, $app);
 
             if($target && $app->getModule('Secure\Secure')->verifyHash($password, $target['password']))
             {
@@ -64,6 +61,7 @@ class Auth extends Application
         Session::w('auth', true);
         Session::w('id', $session['id']);
         Session::w('hash_id', $session['hash_id']);
+        Session::w('avatar', $session['avatar']);
         Session::w('username', $session['username']);
         Session::w('email', $session['email']);
         Session::w('access', $session['access']);
