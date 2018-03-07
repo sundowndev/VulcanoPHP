@@ -1,4 +1,5 @@
 <?php
+
 namespace App\User;
 
 use App\Application;
@@ -20,11 +21,13 @@ class UserModel
 
     public static function editUser ($id, array $user, Application $app)
     {
-        $app->getDB()->query('UPDATE d_users SET name = :name, description = :desc WHERE id = :id || hash_id = :id');
+        $app->getDB()->query('UPDATE d_users SET username = :username, email = :email, password = :password, access = :access, description = :description WHERE id = :id || hash_id = :id');
         $app->getDB()->bind(':username', $user['username']);
         $app->getDB()->bind(':email', $user['email']);
+        $app->getDB()->bind(':password', $user['password']);
         $app->getDB()->bind(':access', $user['access']);
-        $app->getDB()->bind(':hash_id', $id);
+        $app->getDB()->bind(':description', $user['description']);
+        $app->getDB()->bind(':id', $id);
         $app->getDB()->execute();
     }
 
@@ -37,7 +40,7 @@ class UserModel
 
     public static function getUser ($id, Application $app)
     {
-        $app->getDB()->query('SELECT id, hash_id, username, description, email, registerDate, access, description FROM d_users WHERE id = :id || hash_id = :id');
+        $app->getDB()->query('SELECT id, hash_id, username, password, description, email, registerDate, access, description FROM d_users WHERE id = :id || hash_id = :id');
         $app->getDB()->bind(':id', $id);
         $app->getDB()->execute();
         $user = $app->getDB()->single();

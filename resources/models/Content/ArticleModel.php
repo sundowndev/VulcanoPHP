@@ -17,17 +17,22 @@ class ArticleModel
 
     public static function createArticle (array $article, Application $app)
     {
+        $article['hash_id'] = $article['hash_id'] ?? self::genHashID();
+        $article['slug'] = self::esc_url($article['title']);
+
         $app->getDB()->query('INSERT INTO d_articles (hash_id, title, author, category_id, publishDate, editedDate, content, slug, image_url) VALUES(:hash_id, :title, :author, :category_id, NOW(), NOW(), :content, :slug, :image_url)');
 
-        $app->getDB()->bind(':hash_id', $article['hash_id'] ?? self::genHashID());
+        $app->getDB()->bind(':hash_id', $article['hash_id']);
         $app->getDB()->bind(':title', $article['title']);
         $app->getDB()->bind(':author', $app->getModule('Session\Session')->r('id'));
         $app->getDB()->bind(':category_id', $article['category']);
         $app->getDB()->bind(':content', $article['content']);
-        $app->getDB()->bind(':slug', self::esc_url($article['title']));
-        $app->getDB()->bind(':image_url', $hash_id);
+        $app->getDB()->bind(':slug', $article['slug']);
+        $app->getDB()->bind(':image_url', $article['hash_id']);
 
         $app->getDB()->execute();
+
+        return $article;
     }
 
     public static function editArticle ($id, $article, Application $app)

@@ -189,10 +189,9 @@ class Upload {
 	 *
 	 * @return array
 	 */
-	public function upload($filename = '') {
+	public function upload($filename = '', $ext = '') {
+	    $this->ext = $ext ?? strtolower(end(explode('.', $this->file_post['name'])));
 
-        $i = explode(".", $this->file_post['name']);
-        $this->ext = "jpg"/*end($i)*/;
 		$this->set_filename($filename);
 		
 		if ($this->check()) {
