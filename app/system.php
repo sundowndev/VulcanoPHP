@@ -132,6 +132,7 @@ class Application
                 'hash_id' => $this->getModule('Session\Session')->r('hash_id'),
                 'username' => $this->getModule('Session\Session')->r('username'),
                 'email' => $this->getModule('Session\Session')->r('email'),
+                'avatar' => $this->getModule('Session\Session')->r('avatar'),
                 'csrf' => $this->getModule('Session\Session')->r('csrf')
             ));
         }
