@@ -9,6 +9,8 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License"></a>
 </p>
 
+<p align="center"><strong>Deprecated in production : this project is not maintained anymore.</strong></p>
+
 <p align="center">DaimyoCMS is an open-source Micro CMS based on the micro framework <a href="https://github.com/SundownDEV/Daimyo">Daimyo</a> using PHP 7.</p>
 
 ## Features
