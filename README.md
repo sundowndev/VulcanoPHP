@@ -23,32 +23,6 @@ You may ask why should you use this CMS while there's a lot of other popular one
 
 DaimyoCMS is fast, secure and lightweight. But also basic in features.
 
-## Development
-- [] Templating
-  - [] Default blog template
-  - [] Default admin dashboard template
-- [] Administration
-  - [] Admin login feature
-  - [] Manage articles
-  - [] Manage categories
-  - [] Manage users
-  - [] User role feature (Admin, Writer, Member)
-  - [] WYSIWYG editor
-  - [] General configuration settings
-  - [] User settings
-  - [] Template management
-- [] Blog
-  - [] Read articles
-  - [] Search feature
-- [] Documentation
-  - [] Get started
-  - [] Framework overview
-  - [] Security
-  - [] Routing
-  - [] Templating
-  - [] Data validation
-- [] Unit tests
-
 # Documentation
 * [Get started](docs/GetStarted.md)
 * [Security](docs/Security.md)
@@ -58,6 +32,32 @@ DaimyoCMS is fast, secure and lightweight. But also basic in features.
 * [Routing](docs/Routing.md)
 * [Templating](docs/Templating.md)
 * [Validation](docs/Validator.md)
+
+## Development
+- [ ] Templating
+  - [ ] Default blog template
+  - [ ] Default admin dashboard template
+- [ ] Administration
+  - [ ] Admin login feature
+  - [ ] Manage articles
+  - [ ] Manage categories
+  - [ ] Manage users
+  - [ ] User role feature (Admin, Writer, Member)
+  - [ ] WYSIWYG editor
+  - [ ] General configuration settings
+  - [ ] User settings
+  - [ ] Template management
+- [ ] Blog
+  - [ ] Read articles
+  - [ ] Search feature
+- [ ] Documentation
+  - [ ] Get started
+  - [ ] Framework overview
+  - [ ] Security
+  - [ ] Routing
+  - [ ] Templating
+  - [ ] Data validation
+- [ ] Unit tests
 
 ## Requirement
 * PHP >= 7.1
