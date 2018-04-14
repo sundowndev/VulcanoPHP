@@ -1,5 +1,7 @@
 .idea
 node_modules
+package-lock.json
+public/assets
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
