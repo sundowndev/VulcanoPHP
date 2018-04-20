@@ -18,10 +18,13 @@
 * Create custom templates using Twig
 * Lightweight and secure
 
-## Why DaimyoCMS ?
-You may ask why should you use this CMS while there's a lot of other popular ones, what makes this CMS better than another one ? Well, nothing. I created DaimyoCMS to handle tiny personal projects and code in my way as a junior developer. If you are looking for a minimal, secure and Symfony based CMS, you're on the right way. DaimyoCMS is just part of my personal R&D. Feel free to give it a review or contribute!
+## The Why
 
-DaimyoCMS is fast, secure and lightweight. But also basic in features.
+You may ask why should you use this CMS while there's a lot of other popular ones, what makes this CMS better than another one ? Well, nothing. I created DaimyoCMS to handle tiny personal projects and code in my way as a junior developer. If you are looking for a minimal, secure and Symfony based CMS, you're on the right way. DaimyoCMS is just part of my personal R&D. Feel free to give it a review or contribute! DaimyoCMS is fast, secure and lightweight. But also basic in features.
+
+## The How
+
+...
 
 # Documentation
 * [Get started](docs/GetStarted.md)
@@ -59,7 +62,7 @@ DaimyoCMS is fast, secure and lightweight. But also basic in features.
   - [ ] Data validation
 - [ ] Unit tests
 
-## Requirement
+## Requirements
 * PHP >= 7.1
   * php7.*-gd
 * MySQL >= 5.7
