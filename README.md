@@ -33,23 +33,23 @@ DaimyoCMS is fast, secure and lightweight. But also basic in features.
 * [Templating](docs/Templating.md)
 * [Validation](docs/Validator.md)
 
-## Development
+# Development
 - [ ] Templating
   - [ ] Default blog template
   - [ ] Default admin dashboard template
 - [ ] Administration
-  - [ ] Admin login feature
   - [ ] Manage articles
   - [ ] Manage categories
   - [ ] Manage users
-  - [ ] User role feature (Admin, Writer, Member)
   - [ ] WYSIWYG editor
   - [ ] General configuration settings
   - [ ] User settings
   - [ ] Template management
-- [ ] Blog
-  - [ ] Read articles
-  - [ ] Search feature
+- [ ] Read articles
+- [ ] Search feature
+- [ ] Login feature
+- [ ] User role feature (Admin, Writer, Member)
+- [ ] Comments
 - [ ] Documentation
   - [ ] Get started
   - [ ] Framework overview
@@ -59,7 +59,7 @@ DaimyoCMS is fast, secure and lightweight. But also basic in features.
   - [ ] Data validation
 - [ ] Unit tests
 
-## Requirement
+# Requirement
 * PHP >= 7.1
   * php7.*-gd
 * MySQL >= 5.7
