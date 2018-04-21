@@ -42,7 +42,6 @@ The main goals of DaimyoCMS is to provide a minimal CMS that focus on security, 
   - [ ] Manage articles
   - [ ] Manage categories
   - [ ] Manage users
-  - [ ] WYSIWYG editor
   - [ ] General configuration settings
   - [ ] User settings
   - [ ] Template management
