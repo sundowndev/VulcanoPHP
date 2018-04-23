@@ -1,7 +1,0 @@
-FrontOffice:
-    resource: ../../src/Controller/FrontOffice/
-    type: annotation
-
-BackOffice:
-    resource: ../../src/Controller/BackOffice/
-    type: annotation
