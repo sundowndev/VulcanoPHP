@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app.request.locale }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
 
     <title>{% block title %}{{ siteName }}{% endblock %}</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="/assets/css/app.css" rel="stylesheet">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+    {% endblock %}
 
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-
-    {% block stylesheet %}{% endblock %}
 </head>
 
 <body>
@@ -136,18 +135,20 @@
     </div><!-- /.row -->
 </main><!-- /.container -->
 
+{% block footer %}
         <footer class="blog-footer">
             <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
             <p>
                 <a href="#">Back to top</a>
             </p>
         </footer>
-
+{% endblock %}
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="/assets/js/app.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="/assets/js/app.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        {% endblock %}
     </body>
 </html>
