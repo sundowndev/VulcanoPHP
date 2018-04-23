@@ -2,3 +2,5 @@ twig:
     paths: ['%kernel.project_dir%/src/Templates']
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        siteName: 'Vulcano'
