@@ -1,0 +1,7 @@
+FrontOffice:
+    resource: ../../../src/Components/FrontOffice/Controller/
+    type: annotation
+
+BackOffice:
+    resource: ../../../src/Components/BackOffice/Controller/
+    type: annotation
