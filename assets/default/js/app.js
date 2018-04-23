@@ -1,3 +1,1 @@
-import '../scss/app.scss';
-
-// code
+import 'bootstrap/js/dist/index';
