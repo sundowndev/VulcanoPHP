@@ -3,78 +3,61 @@
 </p>
 
 <p align="center">
-  <a href="http://travis-ci.org/SundownDEV/DaimyoCMS"><img src="https://img.shields.io/travis/SundownDEV/DaimyoCMS.svg?style=flat" alt="Build Status"></a>
-  <a href="#"><img src="http://img.shields.io/badge/source-SundownDEV/DaimyoCMS-brightgreen.svg?style=flat" alt="Source"></a>
-  <a href="#"><img src="https://img.shields.io/badge/version-0.2.6-lightgrey.svg?style=flat" alt="Version"></a>
+  <a href="http://travis-ci.org/SundownDEV/Vulcano"><img src="https://img.shields.io/travis/SundownDEV/Vulcano.svg?style=flat" alt="Build Status"></a>
+  <a href="#"><img src="http://img.shields.io/badge/source-SundownDEV/Vulcano-brightgreen.svg?style=flat" alt="Source"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-1.0.0-brightgreen.svg?style=flat" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License"></a>
 </p>
 
-<p align="center"><strong>Deprecated in production : this project is not maintained anymore.</strong></p>
+<p align="center">An open-source security-first minimal CMS written with <a href="https://symfony.com/4">Symfony 4</a>.</p>
 
-<p align="center">DaimyoCMS is an open-source Micro CMS based on the micro framework <a href="https://github.com/SundownDEV/Daimyo">Daimyo</a> using PHP 7.</p>
+## The Why
 
-## Features
-* Manage content such as users, articles and categories...
-* Markdown editor
-* Easy to customize
-* Templating using Twig
-* Lightweight and secure
+Most of time a developer choose a framework or a CMS to build applications faster. Which is very useful because it provide you a lot of pre-installed tools and components. Also because it's popular, it provides you a large community and many plugins. The most popular framework is Symfony, but the most popular CMS is Wordpress. Wordpress has a really poor and slow framework which create a lot of performance and security issues. There's a lot of alts to Wordpress like Drupal, Voyager which are based on more recent frameworks such as Laravel or Symfony. The main problem of these CMSs is that they have a lot of features and components which can be usually unwanted. Also, these CMSs are very user-friendly and that might result in a security issue. When you have to create an application and want to start from a CMS, you probaly want to start on a good base but not with a lot of unwanted components or features. Also you probaly want the framework to be very flexible in time : add your own components, features, configuration and even a front framework. Symfony is a strong framework that provides you a lot of performance and security features and allows you to code really quickly. We want to use it at his best.
 
-## Why DaimyoCMS ?
-You may ask why should you use this CMS while there's a lot of other popular ones, what makes this CMS better than another one ? Well, nothing. I created DaimyoCMS to handle tiny personal projects and code in my way as a junior developer. If you are looking for a minimal and micro php framework based CMS, you're on the right way. DaimyoCMS is just part of my personal R&D. Feel free to give it a review or contribute!
+## The How
 
-DaimyoCMS is fast, secure and lightweight, but also basic in features.
+The main goal is to provide a minimal Content Management System that focus on security, performances, and flexibility in time. Vulcano is very simple : it is based on components so it's very simple to code features and use a custom template management so you can manage your many assets and templates without change the structure of the framework and its configuration. There's also a security shield that can be used for all your forms and sessions.
 
-## Development
-- [x] Templating
-  - [x] Default blog template
-  - [x] Default admin dashboard template
+# Documentation
+* [Get started](docs/GetStarted.md)
+* [Security](docs/Security.md)
+
+#### Developers
+* [Framework overview](docs/Overview.md)
+* [Routing](docs/Routing.md)
+* [Templating](docs/Templating.md)
+* [Validation](docs/Validator.md)
+
+# Development
+- [ ] Templating
+  - [ ] Default blog template
+  - [ ] Default admin dashboard template
 - [ ] Administration
-  - [x] Admin login feature
-  - [x] Manage articles
-  - [x] Manage categories
+  - [ ] Manage articles
+  - [ ] Manage categories
   - [ ] Manage users
-  - [ ] User role feature (Admin, Writer)
-  - [x] Markdown editor
-  - [ ] Image conversion & compression
-  - [x] General configuration settings
-  - [x] User settings
-- [x] Blog
-  - [x] Read articles
-  - [x] Search feature
+  - [ ] General configuration settings
+  - [ ] User settings
+  - [ ] Template management
+- [ ] Read articles
+- [ ] Search feature
+- [ ] Login feature
+- [ ] User role feature (Admin, Writer, Member)
+- [ ] Comments
 - [ ] Documentation
-  - [x] Get started
-  - [ ] Admin dashboard
-  - [ ] Overview
-  - [x] Routing
-  - [x] Templating
-  - [x] Exploited PDO class
-  - [x] File upload
+  - [ ] Get started
+  - [ ] Framework overview
+  - [ ] Security
+  - [ ] Routing
+  - [ ] Templating
   - [ ] Data validation
 - [ ] Unit tests
 
-![screenshot dashboard](docs/screenshots/screen1.png)
-
-![screenshot editor](docs/screenshots/screen2.png)
-
-![screenshot editor2](docs/screenshots/screen3.png)
-
-## Requirement
+## Requirements
 * PHP >= 7.1
   * php7.*-gd
 * MySQL >= 5.7
 * Composer
 
 **You need to install (or enable in php.ini) PHP "file info" extension.**
-
-# Documentation
-* [Get started](docs/GetStarted.md)
-* [Admin dashboard](docs/AdminPanel.md)
-
-#### Developers
-* [Overview](docs/Overview.md)
-* [Routing](docs/Routing.md)
-* [Templating](docs/Templating.md)
-* [Exploited PDO Class](docs/PDOClass.md)
-* [File upload](docs/UploadClass.md)
-* [Validation](docs/ValidatorClass.md)

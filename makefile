@@ -1,9 +1,18 @@
-dev:
-	php -S localhost:8000 -t ./public;
+install:
+	composer install;
+	npm install;
 
-migration-run:
-	mysql -u root -p < migrations/0-init.sql;
-	mysql -u root -p daimyocms < migrations/1-tables.sql;
+start:
+	bin/console server:start;
 
-migration-commit:
-	mysqldump -u root -p -h 127.0.0.1 daimyocms > migrations/1-tables.sql;
+stop:
+	app/bin/console server:stop;
+
+build:
+	./node_modules/.bin/encore dev
+
+watch:
+	./node_modules/.bin/encore dev --watch
+
+build-prod:
+	./node_modules/.bin/encore production

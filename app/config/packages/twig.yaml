@@ -1,0 +1,10 @@
+twig:
+    paths:
+      '%kernel.project_dir%/src/Templates': __main__
+      # Your custom paths
+      '%kernel.project_dir%/src/Templates/default': default
+      '%kernel.project_dir%/src/Templates/admin': admin
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    globals:
+        siteName: 'Vulcano'

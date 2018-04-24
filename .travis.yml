@@ -1,7 +1,27 @@
 language: php
-php:
-  - "7.2"
-  - "7.1"
+sudo: false
+cache:
+  directories:
+  - "$HOME/.composer/cache/files"
+  - "$HOME/symfony-bridge/.phpunit"
+env:
+  global:
+  - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
+matrix:
+  fast_finish: true
+  include:
+  - php: 7.2
+  - php: 7.1
 before_install:
-  - composer self-update
-  - composer install
+- phpenv config-rm xdebug.ini
+- composer self-update
+install:
+- composer install
+- composer update
+- yarn install
+script:
+- "./vendor/bin/phpunit"
+- "./bin/console lint:yaml config"
+- "./bin/console lint:twig templates"
+- "./bin/console lint:xliff translations"
+- composer validate --strict
