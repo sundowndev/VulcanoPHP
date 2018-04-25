@@ -4,7 +4,13 @@ const OUTPUT_PATH = 'public/themes';
 const PUBLIC_PATH = '/public';
 
 /**
+ *
+ *
+ *
  * Default theme configuration
+ *
+ *
+ *
  */
 Encore
     .setOutputPath(OUTPUT_PATH + '/default/assets')
@@ -23,7 +29,13 @@ const defaultConfig = Encore.getWebpackConfig();
 Encore.reset();
 
 /**
+ *
+ *
+ *
  * Admin theme configuration
+ *
+ *
+ *
  */
 Encore
     .setOutputPath(OUTPUT_PATH + '/admin/assets')
@@ -42,7 +54,13 @@ const adminConfig = Encore.getWebpackConfig();
 Encore.reset();
 
 /**
+ *
+ *
+ *
  * Auth theme configuration
+ *
+ *
+ *
  */
 Encore
     .setOutputPath(OUTPUT_PATH + '/auth/assets')
@@ -58,7 +76,15 @@ const authConfig = Encore.getWebpackConfig();
 // reset Encore to build the second config
 Encore.reset();
 
-// export the final configuration as an array of multiple configurations
+/**
+ *
+ *
+ *
+ * Export the final configuration as an array of multiple configurations
+ *
+ *
+ *
+ */
 module.exports = [
     defaultConfig,
     adminConfig,
