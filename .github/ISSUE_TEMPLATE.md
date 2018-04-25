@@ -1,6 +1,6 @@
 <!-- If you report a bug please fill the form -->
 
-* **DaimyoCMS version or commit:**
+* **Vulcano version or commit:**
 * **PHP version:**
 * **MySQL version:**
 * **Composer version:**
