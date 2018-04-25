@@ -5,6 +5,7 @@ public/assets
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
+public/themes/*/assets
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
