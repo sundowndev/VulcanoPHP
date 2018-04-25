@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * Class DefaultController
  * @package App\Controller
  *
- * @Route("/")
+ * @Route("/", name="default_")
  */
 class DefaultController extends Controller
 {
@@ -22,7 +22,7 @@ class DefaultController extends Controller
      */
     public function index ()
     {
-        return $this->render('default/index.html.twig');
+        return $this->render('@default/index.html.twig');
     }
 
     /**
@@ -31,9 +31,9 @@ class DefaultController extends Controller
      * @Route("/category/{slug}", name="single_category")
      * @Method("GET")
      */
-    public function single_category ($slug)
+    public function single_categoryAction ($slug)
     {
-        return $this->render('default/index.html.twig');
+        return $this->render('@default/index.html.twig');
     }
 
     /**
@@ -42,8 +42,19 @@ class DefaultController extends Controller
      * @Route("/article/{slug}", name="single_article")
      * @Method("GET")
      */
-    public function single_article ($slug)
+    public function single_articleAction ($slug)
     {
-        return $this->render('default/index.html.twig');
+        return $this->render('@default/index.html.twig');
+    }
+
+    /**
+     * Search page
+     *
+     * @Route("/search", name="search")
+     * @Method("GET")
+     */
+    public function searchAction ()
+    {
+        return $this->render('@default/search.html.twig');
     }
 }

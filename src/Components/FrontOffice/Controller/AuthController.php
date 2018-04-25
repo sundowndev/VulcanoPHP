@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
- * @Route("/auth", name="auth")
+ * @Route("/auth", name="auth_")
  */
 class AuthController extends Controller
 {
@@ -19,7 +19,7 @@ class AuthController extends Controller
      */
     public function signinAction ()
     {
-        return $this->render('admin/index.html.twig');
+        return $this->render('auth/signin.html.twig');
     }
 
     /**
