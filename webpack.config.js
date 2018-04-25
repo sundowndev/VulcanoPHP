@@ -1,26 +1,66 @@
 var Encore = require('@symfony/webpack-encore');
 
-const Theme = "default";
+const OUTPUT_PATH = 'public/themes';
+const PUBLIC_PATH = '/public';
 
+/**
+ * Default theme configuration
+ */
 Encore
-    // the project directory where compiled assets will be stored
-    .setOutputPath('public/assets/')
-    // the public path used by the web server to access the previous directory
-    .setPublicPath('/assets')
-    .cleanupOutputBeforeBuild()
-    .enableSourceMaps(!Encore.isProduction())
-    // uncomment to create hashed filenames (e.g. app.abc123.css)
-    // .enableVersioning(Encore.isProduction())
-
-    // uncomment to define the assets of the project
-    .addEntry('js/app', './assets/' + Theme + '/js/app.js')
-    .addStyleEntry('css/app', './assets/' + Theme + '/scss/app.scss')
-
-    // uncomment if you use Sass/SCSS files
+    .setOutputPath(OUTPUT_PATH + '/default/assets')
+    .setPublicPath(PUBLIC_PATH)
+    .addEntry('app', './assets/default/js/main.js')
+    .addStyleEntry('common', './assets/default/scss/common.scss')
     .enableSassLoader()
-
-    // uncomment for legacy applications that require $/jQuery as a global variable
     .autoProvidejQuery()
+    .enableSourceMaps(!Encore.isProduction())
 ;
 
-module.exports = Encore.getWebpackConfig();
+// build the default theme configuration
+const defaultConfig = Encore.getWebpackConfig();
+
+// reset Encore to build the second config
+Encore.reset();
+
+/**
+ * Admin theme configuration
+ */
+Encore
+    .setOutputPath(OUTPUT_PATH + '/admin/assets')
+    .setPublicPath(PUBLIC_PATH)
+    .addEntry('app', './assets/admin/js/main.js')
+    .addStyleEntry('common', './assets/admin/scss/common.scss')
+    .enableSassLoader()
+    .autoProvidejQuery()
+    .enableSourceMaps(!Encore.isProduction())
+;
+
+// build the second configuration
+const adminConfig = Encore.getWebpackConfig();
+
+// reset Encore to build the second config
+Encore.reset();
+
+/**
+ * Auth theme configuration
+ */
+Encore
+    .setOutputPath(OUTPUT_PATH + '/auth/assets')
+    .setPublicPath(PUBLIC_PATH)
+    .addStyleEntry('common', './assets/auth/scss/common.scss')
+    .enableSassLoader()
+    .enableSourceMaps(!Encore.isProduction())
+;
+
+// build the second configuration
+const authConfig = Encore.getWebpackConfig();
+
+// reset Encore to build the second config
+Encore.reset();
+
+// export the final configuration as an array of multiple configurations
+module.exports = [
+    defaultConfig,
+    adminConfig,
+    authConfig
+];
