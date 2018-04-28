@@ -1,80 +1,64 @@
 var Encore = require('@symfony/webpack-encore');
 
-const OUTPUT_PATH = 'public/themes';
+const ASSETS_PATH = './assets';
 const PUBLIC_PATH = '/public';
+const OUTPUT_PATH = 'public/themes';
 
 /**
+ * Templates to load
  *
- *
- *
- * Default theme configuration
- *
- *
- *
+ * @type {*[]}
  */
-Encore
-    .setOutputPath(OUTPUT_PATH + '/default/assets')
-    .setPublicPath(PUBLIC_PATH)
-    .addEntry('app', './assets/default/js/main.js')
-    .addStyleEntry('common', './assets/default/scss/common.scss')
-    .enableSassLoader()
-    .autoProvidejQuery()
-    .enableSourceMaps(!Encore.isProduction())
-;
+let templates = [
+    {
+        folder: 'default',
+        scssEntry: true,
+        jsEntry: true,
+        jquery: true
+    },
+    {
+        folder: 'admin',
+        scssEntry: true,
+        jsEntry: true,
+        jquery: true
+    }
+];
 
-// build the default theme configuration
-const defaultConfig = Encore.getWebpackConfig();
+let configs = [];
 
-// reset Encore to build the second config
-Encore.reset();
+templates.forEach(function (c) {
+    Encore
+        .setOutputPath(OUTPUT_PATH + '/' + c.folder + '/assets')
+        .setPublicPath(PUBLIC_PATH)
+    ;
 
-/**
- *
- *
- *
- * Admin theme configuration
- *
- *
- *
- */
-Encore
-    .setOutputPath(OUTPUT_PATH + '/admin/assets')
-    .setPublicPath(PUBLIC_PATH)
-    .addEntry('app', './assets/admin/js/main.js')
-    .addStyleEntry('common', './assets/admin/scss/common.scss')
-    .enableSassLoader()
-    .autoProvidejQuery()
-    .enableSourceMaps(!Encore.isProduction())
-;
+    if (c.scssEntry) {
+        Encore
+            .addStyleEntry('common', ASSETS_PATH + '/' + c.folder + '/scss/common.scss')
+            .enableSassLoader()
+        ;
+    }
 
-// build the second configuration
-const adminConfig = Encore.getWebpackConfig();
+    if (c.jsEntry) {
+        Encore
+            .addEntry('app', ASSETS_PATH + '/' + c.folder + '/js/main.js')
+        ;
 
-// reset Encore to build the second config
-Encore.reset();
+        if (c.jquery) {
+            Encore
+                .autoProvidejQuery()
+            ;
+        }
+    }
 
-/**
- *
- *
- *
- * Auth theme configuration
- *
- *
- *
- */
-Encore
-    .setOutputPath(OUTPUT_PATH + '/auth/assets')
-    .setPublicPath(PUBLIC_PATH)
-    .addStyleEntry('common', './assets/auth/scss/common.scss')
-    .enableSassLoader()
-    .enableSourceMaps(!Encore.isProduction())
-;
+    Encore.enableSourceMaps(!Encore.isProduction());
 
-// build the second configuration
-const authConfig = Encore.getWebpackConfig();
+    // build the default theme configuration
+    configs.push(Encore.getWebpackConfig());
 
-// reset Encore to build the second config
-Encore.reset();
+    // reset Encore to build another config
+    Encore.reset();
+});
 
 /**
  *
@@ -85,8 +69,4 @@ Encore.reset();
  *
  *
  */
-module.exports = [
-    defaultConfig,
-    adminConfig,
-    authConfig
-];
+module.exports = configs;
