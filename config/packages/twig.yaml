@@ -1,9 +1,9 @@
 twig:
     paths:
-      '%kernel.project_dir%/src/Templates': __main__
+      '%kernel.project_dir%/templates': __main__
       # Your custom paths
-      '%kernel.project_dir%/src/Templates/default': default
-      '%kernel.project_dir%/src/Templates/admin': admin
+      '%kernel.project_dir%/templates/default': default
+      '%kernel.project_dir%/templates/admin': admin
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
