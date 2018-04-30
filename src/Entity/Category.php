@@ -23,6 +23,7 @@ class Category
 
     /**
      * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $userId;
 
