@@ -5,7 +5,7 @@
 <p align="center">
   <a href="http://travis-ci.org/SundownDEV/Vulcano"><img src="https://img.shields.io/travis/SundownDEV/Vulcano.svg?style=flat" alt="Build Status"></a>
   <a href="#"><img src="http://img.shields.io/badge/source-SundownDEV/Vulcano-brightgreen.svg?style=flat" alt="Source"></a>
-  <a href="#"><img src="https://img.shields.io/badge/version-1.0.0-brightgreen.svg?style=flat" alt="Version"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-0.1.6-red.svg?style=flat" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License"></a>
 </p>
 
