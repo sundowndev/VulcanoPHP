@@ -17,7 +17,7 @@ Most of time a developer choose a framework or a CMS to build applications faste
 
 ## The How
 
-The main goal is to provide a minimal Content Management System that focus on security, performances, and flexibility in time. Vulcano is very simple : it is based on components so it's very simple to code features and use a custom template management so you can manage your many assets and templates without change the structure of the framework and its configuration. There's also a security shield that can be used for all your forms and sessions.
+The main goal is to provide a minimal Content Management System that focus on security, performances, and flexibility in time. Vulcano is very simple : it is based on components so it's very simple to code features and it use a custom template management so you can manage your many assets and templates without change the structure of the framework and its configuration. There's also a security shield provided by Symfony that can be used for all your forms and sessions.
 
 # Documentation
 * [Get started](docs/GetStarted.md)
