@@ -20,3 +20,8 @@ public/themes/*/assets
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-pack ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
