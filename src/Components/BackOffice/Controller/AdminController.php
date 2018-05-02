@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
- * @Route("/admin", name="admin")
+ * @Route("/", name="admin_")
  */
 class AdminController extends Controller
 {
