@@ -23,7 +23,8 @@ class Category
 
     /**
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToMany(targetEntity="User")
+     * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $userId;
 
