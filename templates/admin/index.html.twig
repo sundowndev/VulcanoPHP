@@ -1,16 +1,23 @@
 {% extends '@admin/base.html.twig' %}
 
-{% block title %}Hello !{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block body %}
 
-<div class="example-wrapper">
-    <h1>Hello ! ✅</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>src/Controller/AdminController.php</code></li>
-        <li>Your template at <code>templates/admin/index.html.twig</code></li>
-    </ul>
-</div>
+    <div class="jumbotron">
+        <h1 class="display-4">Hello, world!</h1>
+        <p class="lead">Welcome on your dashboard, you can now start editing your own settings and add features.</p>
+        <hr class="my-4">
+        <p>By default, Vulcano provides you 4 entities.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/admin/manage/page" role="button">Manage pages</a>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Manage articles</a>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Manage categories</a>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Manage users</a>
+        </p>
+    </div>
 {% endblock %}
