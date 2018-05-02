@@ -21,27 +21,36 @@ let templates = [
         scssEntry: true,
         jsEntry: true,
         jquery: true
+    },
+    {
+        folder: 'auth',
+        scssEntry: true,
+        jsEntry: false,
+        jquery: false
     }
 ];
 
 let configs = [];
 
-templates.forEach(function (c) {
+templates.forEach((c) => {
+    let outputPath = OUTPUT_PATH + '/' + c.folder + '/assets';
+    let assetPath = ASSETS_PATH + '/' + c.folder;
+
     Encore
-        .setOutputPath(OUTPUT_PATH + '/' + c.folder + '/assets')
+        .setOutputPath(outputPath)
         .setPublicPath(PUBLIC_PATH)
     ;
 
     if (c.scssEntry) {
         Encore
-            .addStyleEntry('common', ASSETS_PATH + '/' + c.folder + '/scss/common.scss')
+            .addStyleEntry('common', assetPath + '/scss/common.scss')
             .enableSassLoader()
         ;
     }
 
     if (c.jsEntry) {
         Encore
-            .addEntry('app', ASSETS_PATH + '/' + c.folder + '/js/main.js')
+            .addEntry('app', assetPath + '/js/main.js')
         ;
 
         if (c.jquery) {
@@ -51,10 +60,14 @@ templates.forEach(function (c) {
         }
     }
 
-    Encore.enableSourceMaps(!Encore.isProduction());
+    Encore.enableSourceMaps(
+        !Encore.isProduction()
+    );
 
     // build the default theme configuration
-    configs.push(Encore.getWebpackConfig());
+    configs.push(
+        Encore.getWebpackConfig()
+    );
 
     // reset Encore to build another config
     Encore.reset();
