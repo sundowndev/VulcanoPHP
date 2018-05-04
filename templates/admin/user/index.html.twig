@@ -12,7 +12,7 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,10 +21,10 @@
                 <td>{{ user.fullName }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
-                <td></td>
+                <td>{{ user.roles[0] }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-xs btn-primary">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-xs btn-primary">edit</a>
+                    <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-xs btn-primary">Show</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-xs btn-primary">Edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+    <a href="{{ path('user_new') }}" class="btn btn-success">Create a new user</a>
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,18 +14,29 @@ class UserType extends AbstractType
     {
         $builder
             ->add('fullName', null, [
-                'attr' => ['autofocus' => true],
-                'label' => 'label.fullName',
-                'required' => false,
+                'attr' => [
+                    'autofocus' => true,
+                    'class' => 'form-control',
+                    ],
+                'label' => 'Full name',
             ])
             ->add('username', null, [
-                'label' => 'label.username',
+                'label' => 'Username',
+                'attr' => [
+                    'class' => 'form-control',
+                ]
             ])
             ->add('email', null, [
-                'label' => 'label.email',
+                'label' => 'Email adress',
+                'attr' => [
+                    'class' => 'form-control',
+                ]
             ])
-            ->add('password', null, [
-                'label' => 'label.password',
+            ->add('password', PasswordType::class, [
+                'label' => 'Password',
+                'attr' => [
+                    'class' => 'form-control',
+                ]
             ])
             /*->add('roles', null, [
                 'label' => 'label.roles',

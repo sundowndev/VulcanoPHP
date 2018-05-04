@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -24,6 +25,15 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(
+     *     message="Full name field is empty."
+     * )
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 50,
+     *      minMessage = "Full name must contain atleast {{ limit }} chars.",
+     *      maxMessage = "Full name is too long ({{ limit }} max chars)."
+     * )
      */
     private $fullName;
 
@@ -31,6 +41,15 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank(
+     *     message="User name field is empty."
+     * )
+     * @Assert\Length(
+     *      min = 4,
+     *      max = 25,
+     *      minMessage = "User name must contain atleast {{ limit }} chars.",
+     *      maxMessage = "User name is too long ({{ limit }} max chars)."
+     * )
      */
     private $username;
 
@@ -38,6 +57,13 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true)
+     * @Assert\NotBlank(
+     *     message="Email field is empty."
+     * )
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -45,6 +71,13 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(
+     *     message="Password field is empty."
+     * )
+     * @Assert\Length(
+     *      min = 6,
+     *      minMessage = "Password must contain atleast {{ limit }} chars.",
+     * )
      */
     private $password;
 
