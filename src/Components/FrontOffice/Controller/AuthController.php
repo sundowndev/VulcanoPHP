@@ -1,35 +1,55 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Components\FrontOffice\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
+ * Controller used to manage the application security.
+ * See https://symfony.com/doc/current/cookbook/security/form_login_setup.html.
+ *
+ * @author Ryan Weaver <weaverryan@gmail.com>
+ * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ *
  * @Route("/auth", name="auth_")
  */
-class AuthController extends Controller
+class AuthController extends AbstractController
 {
     /**
-     * Sign in form page
-     *
-     * @Route("/", name="signin")
-     * @Method("GET")
+     * @Route("/", name="login")
      */
-    public function signinAction ()
+    public function login(AuthenticationUtils $helper): Response
     {
-        return $this->render('auth/signin.html.twig');
+        return $this->render('@auth/signin.html.twig', [
+            // last username entered by the user (if any)
+            'last_username' => $helper->getLastUsername(),
+            // last authentication error (if any)
+            'error' => $helper->getLastAuthenticationError(),
+        ]);
     }
 
     /**
-     * Sign in form page validation
+     * This is the route the user can use to logout.
      *
-     * @Route("/", name="signinPost")
-     * @Method("POST")
+     * But, this will never be executed. Symfony will intercept this first
+     * and handle the logout automatically. See logout in config/packages/security.yaml
+     *
+     * @Route("/logout", name="logout")
      */
-    public function signinPostAction ()
+    public function logout(): void
     {
-        // code
+        throw new \Exception('This should never be reached!');
     }
 }
