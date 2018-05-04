@@ -1,7 +1,9 @@
 FrontOffice:
     resource: ../../src/Components/FrontOffice/Controller/
     type: annotation
+    prefix: /
 
 BackOffice:
     resource: ../../src/Components/BackOffice/Controller/
     type: annotation
+    prefix: /admin

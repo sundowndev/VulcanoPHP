@@ -1,3 +1,5 @@
+.PHONY: install start stop build watch build-prod
+
 install:
 	composer install;
 	npm install;

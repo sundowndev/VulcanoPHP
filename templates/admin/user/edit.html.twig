@@ -1,0 +1,17 @@
+{% extends '@admin/base.html.twig' %}
+
+{% block body %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Edit user</h1>
+    </div>
+
+    {{ include('@admin/user/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <hr>
+
+    {{ include('@admin/user/_delete_form.html.twig') }}
+
+    <hr>
+
+    <a href="{{ path('user_manage') }}" class="btn btn-primary">Back to list</a>
+{% endblock %}
